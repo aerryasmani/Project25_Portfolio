@@ -37,6 +37,11 @@ body {
     color: black;
     font-size: 16px;
     font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.6;
 }
 
 /* Hero Section */
@@ -52,6 +57,7 @@ body {
     letter-spacing: -2.04204px;
     font-weight: 400;
     max-width: 900px;
+    margin-bottom: 40px;
 }
 
 .hero-content {
@@ -67,10 +73,53 @@ body {
     max-width: 600px;
 }
 
+/* About Page Styles */
+.about-content {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    color: #333;
+    max-width: 700px;
+}
+
+.about-content p {
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.about-content h3 {
+    font-family: "Castoro", serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: #000;
+}
+
+.about-list {
+    list-style-position: inside;
+    margin-left: 0;
+    margin-bottom: 28px;
+}
+
+.about-list li {
+    margin-bottom: 10px;
+    line-height: 24px;
+}
+
+/* Footer */
 footer {
-    background-color: #abbaba;
+    background-color: #FFD700;
     color: black;
     padding: 25px 50px;
+    margin-top: auto;
+}
+
+.footer-container {
+    background-color: #abbaba;
+    padding: 25px 50px;
+    width: 100%;
+    position: relative;
     margin-top: auto;
 }
 
@@ -81,35 +130,46 @@ footer {
     gap: 60px;
 }
 
-.footer-intro {
-    flex: 1;
-    font-family: Arial, sans-serif;
+.footer-left, .footer-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.footer-credit {
+    color: black;
+    font-family: "Castoro", serif;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: black;
+    font-family: "Castoro", serif;
+}
+
+.footer-nav li {
+    display: flex;
+    align-items: flex-start;
     font-size: 14px;
     line-height: 24px;
 }
 
-.footer-intro p {
-    margin-bottom: 12px;
-}
-
-.footer-columns {
-    display: flex;
-    gap: 80px;
-    flex-direction: row;
-}
-
-.footer-column {
-    font-family: Arial, sans-serif;
-}
-
-.footer-column a {
-    text-decoration: none;
+.footer-nav a {
     color: black;
-    font-size: 14px;
+    text-decoration: none;
     transition: opacity 0.2s;
+    padding: 2px 4px;
 }
 
-.footer-column a:hover {
+.footer-nav a:hover {
     opacity: 0.6;
 }
 
@@ -130,9 +190,10 @@ footer {
     }
 
     .hero h1 {
-        font-size: 40px;     /* Scales down */
+        font-size: 40px;
         line-height: 52px;
         letter-spacing: -1px;
+        margin-bottom: 30px;
     }
 
     .hero-subtext {
@@ -141,31 +202,50 @@ footer {
         max-width: 100%;
     }
 
-    footer {
-        padding: 30px 20px;
+    .about-content {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .about-content h3 {
+        font-size: 18px;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    .about-content p {
+        margin-bottom: 20px;
+    }
+
+    .footer-container {
+        padding: 20px;
     }
 
     .footer-content {
-        flex-direction: column;
-        gap: 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        align-items: start;
     }
 
-    .footer-intro {
+    .footer-left {
+        justify-content: flex-start;
+    }
+
+    .footer-right {
+        justify-content: flex-end;
+    }
+
+    .footer-credit {
         font-size: 12px;
         line-height: 20px;
     }
 
-    .footer-intro p {
-        margin-bottom: 8px;
+    .footer-nav {
+        gap: 8px;
     }
 
-    .footer-columns {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .footer-column a {
+    .footer-nav li {
         font-size: 12px;
     }
 }
@@ -175,5 +255,33 @@ footer {
         font-size: 32px;
         line-height: 42px;
         letter-spacing: -0.5px;
+        margin-bottom: 24px;
+    }
+
+    .about-content {
+        font-size: 13px;
+        line-height: 22px;
+    }
+
+    .about-content h3 {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    .footer-container {
+        padding: 15px;
+    }
+
+    .footer-content {
+        gap: 0.75rem;
+    }
+
+    .footer-credit {
+        font-size: 11px;
+        line-height: 18px;
+    }
+
+    .footer-nav li {
+        font-size: 11px;
     }
 }
