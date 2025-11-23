@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQA Case Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Castoro:wght@400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "Castoro", serif;
+            color: #333;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-links a {
+            margin-left: 40px;
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            gap: 5px;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .burger-line {
+            width: 22px;
+            height: 2px;
+            background-color: #000;
+            border-radius: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        .burger-menu.active .burger-line-1 {
+            transform: translateY(7.5px) rotate(45deg);
+            background-color: #fff;
+        }
+
+        .burger-menu.active .burger-line-2 {
+            opacity: 0;
+            transform: translateX(-10px);
+            background-color: #fff;
+        }
+
+        .burger-menu.active .burger-line-3 {
+            transform: translateY(-7.5px) rotate(-45deg);
+            background-color: #fff;
+        }
+
+        .nav-links.mobile-open {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            background: #1A25C5;
+            padding: 0;
+            gap: 0;
+            animation: slideDownIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            z-index: 1000;
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-links.mobile-closing {
+            animation: slideUpOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .nav-links.mobile-open::before {
+            content: 'heiyojun.';
+            position: absolute;
+            top: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        @keyframes slideDownIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 50px;
+            flex: 1;
+        }
+
+        /* Hero Section for Case Study */
+        .case-study-hero {
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: "Castoro", serif;
+            font-size: 58px;
+            line-height: 72px;
+            letter-spacing: -2px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #1A25C5;
+        }
+
+        .tagline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 30px;
+        }
+
+        /* Meta Section */
+        .meta-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            border: 1px solid rgba(26, 37, 197, 0.1);
+        }
+
+        .meta-item {
+            font-size: 14px;
+        }
+
+        .meta-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #1A25C5;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Headings */
+        h2 {
+            font-family: "Castoro", serif;
+            font-size: 42px;
+            margin-top: 60px;
+            margin-bottom: 24px;
+            color: #1A25C5;
+            line-height: 52px;
+        }
+
+        h3 {
+            font-family: "Castoro", serif;
+            font-size: 28px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #000;
+            line-height: 36px;
+        }
+
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Lists */
+        ul {
+            margin-left: 24px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: #555;
+            line-height: 1.8;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+        }
+
+        strong {
+            color: #1A25C5;
+            font-weight: 600;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            border-left: 4px solid #1A25C5;
+            padding: 28px;
+            margin: 32px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(26, 37, 197, 0.2);
+        }
+
+        .highlight-box strong {
+            color: #1A25C5;
+            font-size: 16px;
+        }
+
+        /* Pros & Cons Grid */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .pros, .cons {
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .pros h4 {
+            color: #047857;
+        }
+
+        .cons h4 {
+            color: #b91c1c;
+        }
+
+        .pros ul, .cons ul {
+            margin-left: 20px;
+        }
+
+        .pros li, .cons li {
+            font-size: 15px;
+            color: #555;
+        }
+
+        /* Placeholder */
+        .placeholder {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            padding: 80px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 32px 0;
+            color: #999;
+            font-size: 16px;
+            border: 2px dashed #ddd;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Footer */
+        .footer-container {
+            background-color: #fff;
+            padding: 40px 50px;
+            width: 100%;
+            margin-top: auto;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .footer-thanks {
+            font-family: "Castoro", serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1A25C5;
+            margin: 0;
+        }
+
+        .footer-credit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            color: #1A25C5;
+            margin: 0;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1.5px solid #333;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 24px 20px;
+                justify-content: center;
+            }
+
+            .logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .burger-menu {
+                display: flex;
+                position: absolute;
+                right: 20px;
+            }
+
+            .nav-links {
+                display: none !important;
+            }
+
+            .nav-links.mobile-open {
+                display: flex !important;
+            }
+
+            .nav-links.mobile-open a {
+                margin-left: 0;
+                padding: 20px 20px;
+                padding-left: 40px;
+                border: none;
+                color: #fff;
+                font-family: 'Poppins', sans-serif;
+                font-size: 33px;
+                font-weight: 700;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                display: block;
+                animation: fadeInSlide 0.3s ease backwards;
+                background: transparent;
+                text-align: left;
+                line-height: 1.2;
+            }
+
+            .nav-links.mobile-open a:nth-child(1) { animation-delay: 0.1s; }
+            .nav-links.mobile-open a:nth-child(2) { animation-delay: 0.15s; }
+            .nav-links.mobile-open a:nth-child(3) { animation-delay: 0.2s; }
+
+            .nav-links.mobile-open a:hover {
+                opacity: 0.6;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 40px;
+                line-height: 52px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+                margin-top: 40px;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                font-size: 22px;
+                margin-top: 32px;
+            }
+
+            .tagline {
+                font-size: 18px;
+                line-height: 28px;
+            }
+
+            .meta-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 24px;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .placeholder {
+                padding: 60px 20px;
+            }
+
+            .footer-container {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            h1 {
+                font-size: 32px;
+                line-height: 42px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            h3 {
+                font-size: 20px;
+            }
+
+            .meta-section {
+                gap: 16px;
+                padding: 20px;
+            }
+
+            .meta-label {
+                font-size: 11px;
+            }
+
+            .meta-value {
+                font-size: 14px;
+            }
+
+            .highlight-box {
+                padding: 20px;
+                margin: 24px 0;
+            }
+
+            .placeholder {
+                padding: 40px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="index.html" class="logo">heiyojun.</a>
+
+        <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
+            <span class="burger-line burger-line-1"></span>
+            <span class="burger-line burger-line-2"></span>
+            <span class="burger-line burger-line-3"></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="about.html">About</a>
+            <a href="https://medium.com/@aerryasmani">Blog</a>
+            <a href="#">Contact Me</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="case-study-hero">
+            <h1>[App/Product Name] - SQA Case Study</h1>
+            <p class="tagline">PLACEHOLDER TITLE: What was the main QA challenge or achievement?</p>
+        </section>
+
+        <!-- Meta Information -->
+        <div class="meta-section">
+            <div class="meta-item">
+                <div class="meta-label">Project Type</div>
+                <div class="meta-value">E.g., Web Application, Mobile App, API Testing</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Role</div>
+                <div class="meta-value">QA Engineer / QA Lead / Test Automation Engineer</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Tools & Technologies</div>
+                <div class="meta-value">E.g., Selenium, Jira, TestNG, Postman, etc.</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Duration</div>
+                <div class="meta-value">E.g., 3 months, Q3 2024</div>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <h2>Introduction</h2>
+        
+        <h3>The Product</h3>
+        <p>PLACEHOLDER: What is the product/application? What does it do? Who uses it?</p>
+        <ul>
+            <li>Key features or functionality</li>
+            <li>Target users/audience</li>
+            <li>Business context</li>
+        </ul>
+
+        <h3>The Challenge</h3>
+        <p>PLACEHOLDER: What was the main QA/testing challenge? What problem were you trying to solve?</p>
+        <div class="highlight-box">
+            <strong>Key Question:</strong> How might we ensure X quality metric/outcome through better testing?
+        </div>
+
+        <h3>The Business Goal</h3>
+        <p>PLACEHOLDER: What did the business/team want to achieve? (e.g., reduce bugs by 40%, improve user experience, faster release cycles)</p>
+
+        <!-- Research & Discovery -->
+        <h2>Research & Discovery</h2>
+        
+        <h3>Testing Strategy</h3>
+        <p>PLACEHOLDER: What was your initial approach? What testing methods did you consider?</p>
+        <ul>
+            <li>Manual testing approach</li>
+            <li>Automation testing approach</li>
+            <li>Risk-based testing priorities</li>
+            <li>Testing scope and coverage</li>
+        </ul>
+
+        <h3>Initial Findings</h3>
+        <p>PLACEHOLDER: What issues or patterns did you discover in your initial testing?</p>
+
+        <!-- Solution & Implementation -->
+        <h2>The Solution</h2>
+
+        <h3>Testing Approach & Implementation</h3>
+        <p>PLACEHOLDER: What changes did you make? How did you structure your QA efforts?</p>
+
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>✓ What Worked</h4>
+                <ul>
+                    <li>PLACEHOLDER: Success 1</li>
+                    <li>PLACEHOLDER: Success 2</li>
+                    <li>PLACEHOLDER: Success 3</li>
+                </ul>
+            </div>
+            <div class="cons">
+                <h4>✗ What Didn't Work</h4>
+                <ul>
+                    <li>PLACEHOLDER: Challenge 1</li>
+                    <li>PLACEHOLDER: Challenge 2</li>
+                    <li>PLACEHOLDER: Challenge 3</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Iterations & Improvements -->
+        <h2>Iterations & Improvements</h2>
+
+        <h3>Solution Option 1: [Name of Approach]</h3>
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>Pro</h4>
+                <p>PLACEHOLDER: Why this works</p>
+            </div>
+            <div class="cons">
+                <h4>Con</h4>
+                <p>PLACEHOLDER: Why this might not be ideal</p>
+            </div>
+        </div>
+
+        <h3>Solution Option 2: [Name of Approach]</h3>
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>Pro</h4>
+                <p>PLACEHOLDER: Why this works</p>
+            </div>
+            <div class="cons">
+                <h4>Con</h4>
+                <p>PLACEHOLDER: Why this might not be ideal</p>
+            </div>
+        </div>
+
+        <h3>Solution Option 3: [Name of Approach]</h3>
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>Pro</h4>
+                <p>PLACEHOLDER: Why this works</p>
+            </div>
+            <div class="cons">
+                <h4>Con</h4>
+                <p>PLACEHOLDER: Why this might not be ideal</p>
+            </div>
+        </div>
+
+        <!-- Final Solution -->
+        <h2>Final Testing Strategy</h2>
+        <p>PLACEHOLDER: Summarize your final approach and decision</p>
+        <ul>
+            <li><strong>Plan:</strong> [Main objective]</li>
+            <li><strong>Research:</strong> [Key findings]</li>
+            <li><strong>Solution:</strong> [Final strategy]</li>
+        </ul>
+
+        <div class="placeholder">
+            [Screenshot/Diagram of final test setup or results would go here]
+        </div>
+
+        <!-- Results & Outcomes -->
+        <h2>Results & Outcomes</h2>
+        <p>PLACEHOLDER: What were the measurable results?</p>
+        <ul>
+            <li>Bugs caught: X</li>
+            <li>Test coverage: X%</li>
+            <li>Time saved: X%</li>
+            <li>User satisfaction/impact: [Details]</li>
+        </ul>
+
+        <!-- Future Recommendations -->
+        <h2>Where Do We Go From Here?</h2>
+        
+        <h3>Next Steps</h3>
+        <p>PLACEHOLDER: What additional testing or improvements would you recommend?</p>
+
+        <h3>Metrics to Track</h3>
+        <ul>
+            <li>PLACEHOLDER: Metric 1</li>
+            <li>PLACEHOLDER: Metric 2</li>
+            <li>PLACEHOLDER: Metric 3</li>
+        </ul>
+
+        <h3>Possible Future Improvements</h3>
+        <p>PLACEHOLDER: Long-term QA strategy improvements</p>
+        <ul>
+            <li>Continuous integration/continuous deployment optimizations</li>
+            <li>Test automation expansion</li>
+            <li>Performance testing enhancements</li>
+            <li>Security testing additions</li>
+        </ul>
+
+        <!-- Key Learnings -->
+        <h2>Key Learnings</h2>
+        <ul>
+            <li>PLACEHOLDER: What did you learn about testing strategy?</li>
+            <li>PLACEHOLDER: What did you learn about team collaboration?</li>
+            <li>PLACEHOLDER: What would you do differently next time?</li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-container">
+        <div class="footer-content">
+            <p class="footer-thanks">Thank you for your interest in my work!</p>
+            <p class="footer-credit">Made with Coffee + overthinking. © 2025 HeiyoJun</p>
+            <div class="footer-socials">
+                <a href="#" class="social-icon" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="Twitter/X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerBtn = document.getElementById('burgerBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            if (!burgerBtn || !navLinks) return;
+
+            const BREAKPOINT = 768;
+            let isMobileMenuOpen = false;
+
+            const closeMenu = (animate = true) => {
+                if (!isMobileMenuOpen) return;
+                
+                burgerBtn.classList.remove('active');
+                navLinks.classList.remove('mobile-open');
+                
+                if (animate) {
+                    navLinks.classList.add('mobile-closing');
+                    setTimeout(() => {
+                        navLinks.classList.remove('mobile-closing');
+                    }, 300);
+                }
+                
+                isMobileMenuOpen = false;
+            };
+
+            const openMenu = () => {
+                if (isMobileMenuOpen) return;
+                
+                burgerBtn.classList.add('active');
+                navLinks.classList.add('mobile-open');
+                navLinks.classList.remove('mobile-closing');
+                isMobileMenuOpen = true;
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                isMobileMenuOpen ? closeMenu() : openMenu();
+            };
+
+            const isMobileDevice = () => window.innerWidth <= BREAKPOINT;
+
+            burgerBtn.addEventListener('click', toggleMenu);
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMenu(true);
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (isMobileMenuOpen && !e.target.closest('.navbar')) {
+                    closeMenu(false);
+                }
+            });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (!isMobileDevice() && isMobileMenuOpen) {
+                        closeMenu(false);
+                    }
+                }, 250);
+            });
+        });
+    </script>
+</body>
+</html>

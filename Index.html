@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HeiyoJun</title>
     <link rel="stylesheet" href="styles.css" />
+   
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Castoro:wght@400&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">ProjectTwo5.</div>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
+        <a href="index.html" class="logo">heiyojun.</a>
+
+    <!-- ADD THIS: Burger Menu Button -->
+        <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
+            <span class="burger-line burger-line-1"></span>
+            <span class="burger-line burger-line-2"></span>
+            <span class="burger-line burger-line-3"></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
             <a href="about.html">About</a>
-            <a href="#">Work</a>
+            <a href="https://medium.com/@aerryasmani">Blog</a>
+            <a href="project.html">work</a>
             <a href="#">Contact Me</a>
         </nav>
     </header>
+
 
     <section class="hero home-hero">
         <h1>
@@ -30,7 +42,9 @@
             I enjoy improving products through quality, user experience, and practical problem-solving. 
             I've worked across testing, UI/UX, and small team delivery. Still learning. Still improving.
         </p>
+
     </section>
+    <footer class="footer-container">
 
     <footer class="footer-container">
         <div class="footer-content">
@@ -55,5 +69,7 @@
             </div>
         </div>
     </footer>
+
+         <script src="script.js"></script>
 </body>
 </html>

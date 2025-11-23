@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About - HeiyoJun</title>
+    <title>HeiyoJun</title>
     <link rel="stylesheet" href="styles.css" />
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Castoro:wght@400&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">ProjectTwo5.</div>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
+        <a href="index.html" class="logo">heiyojun.</a>
+
+    <!-- ADD THIS: Burger Menu Button -->
+        <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
+            <span class="burger-line burger-line-1"></span>
+            <span class="burger-line burger-line-2"></span>
+            <span class="burger-line burger-line-3"></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
             <a href="about.html">About</a>
-            <a href="#">Work</a>
+            <a href="https://medium.com/@aerryasmani">Blog</a>
             <a href="#">Contact Me</a>
         </nav>
     </header>
@@ -51,19 +60,40 @@
                 I aim to make technology more accessible and human-centered.
             </p>
 
-            <h3>Beyond Work</h3>
-            <p>
-                When I'm not designing or testing, you can find me:
-            </p>
-            <ul class="about-list">
-                <li>Exploring new coffee shops in Kuala Lumpur</li>
-                <li>Experimenting with UI/UX design projects</li>
-                <li>Writing about design and technology on Medium</li>
-                <li>Contributing to open-source projects</li>
-                <li>Learning new tools and frameworks</li>
-            </ul>
         </div>
     </section>
+ 
+    <section class="about-photo-row-section">
+        <h3 class="photo-row-title">Beyond work, you’ll find me</h3>
+
+        <div class="about-photo-row">
+                <div class="photo-item">
+                    <div class="photo-box"></div>
+                    <p>Exploring new coffee shops in Kuala Lumpur</p>
+                </div>
+
+            <div class="photo-item">
+                <div class="photo-box"></div>
+                <p>Experimenting with UI/UX design projects</p>
+            </div>
+
+            <div class="photo-item">
+                <div class="photo-box"></div>
+                <p>Writing about design and technology on Medium</p>
+            </div>
+
+            <div class="photo-item">
+                <div class="photo-box"></div>
+                <p>Contributing to open-source projects</p>
+            </div>
+
+            <div class="photo-item">
+                <div class="photo-box"></div>
+                <p>Contributing to open-source projects</p>
+            </div>
+        </div>
+    </section>
+
 
     <footer class="footer-container">
         <div class="footer-content">
@@ -88,6 +118,8 @@
             </div>
         </div>
     </footer>
+        
+         <script src="script.js"></script>
 </body>
 
 </html>

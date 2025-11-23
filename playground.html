@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aerry - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: #ffffff;
+            padding: 60px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Status Line */
+        .status-line {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 32px;
+            font-weight: 400;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        .status-line span {
+            font-weight: 700;
+        }
+
+        /* Error Details Section */
+        .error-details {
+            margin-bottom: 40px;
+            animation: slideInUp 0.6s ease-out 0.1s both;
+        }
+
+        .detail-item {
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 600;
+            min-width: 50px;
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            word-break: break-all;
+            font-size: 13px;
+            flex: 1;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #f0f8ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 18px 20px;
+            margin-bottom: 0;
+            animation: slideInUp 0.6s ease-out 0.2s both;
+            display: inline;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-box p {
+            color: #0066cc;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            display: inline;
+        }
+
+        .info-box a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #0066cc;
+            display: inline;
+        }
+
+        .info-box a:hover {
+            color: #0052a3;
+            border-bottom-color: #0052a3;
+        }
+
+        .arrow-next-to-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 2px;
+            display: inline;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .info-box a.arrow-next-to-link:hover {
+            border: none;
+            transform: translate(3px, -3px);
+            display: inline-block;
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-top: 40px;
+            display: flex;
+            gap: 24px;
+            animation: slideInUp 0.6s ease-out 0.3s both;
+        }
+
+        .social-links a {
+            color: #333;
+            text-decoration: underline;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-links a:hover {
+            color: #0066cc;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .detail-label {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 28px;
+            }
+
+            .status-line {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+
+            .detail-item {
+                margin-bottom: 16px;
+                font-size: 13px;
+            }
+
+            .detail-value {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .info-box {
+                padding: 16px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .info-box p {
+                font-size: 13px;
+            }
+
+            .arrow-icon {
+                font-size: 20px;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Status Line -->
+        <div class="status-line">
+            <span>200</span>: PORTFOLIO_FOUND
+        </div>
+
+        <!-- Error Details Section -->
+        <div class="error-details">
+            <div class="detail-item">
+                <div class="detail-label">Code:</div>
+                <div class="detail-value">CREATIVE_MIND_DETECTED</div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-label">ID:</div>
+                <div class="detail-value">7468697320697320617465727279732070</div>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <p>
+              For more information and general help. <a href="index.html">Go to portfolio<a href="index.html" class="arrow-next-to-link">↗</a></a>
+            </p>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="#" target="_blank">LinkedIn</a>
+            <a href="#" target="_blank">GitHub</a>
+            <a href="#" target="_blank">Medium</a>
+        </div>
+    </div>
+</body>
+</html>
