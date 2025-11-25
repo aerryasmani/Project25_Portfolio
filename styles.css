@@ -786,3 +786,26 @@ body {
         text-align: center;
     }
 }
+
+.role-underline {
+    text-decoration: underline;
+    text-decoration-color: #345102;
+    text-decoration-style: wavy;
+}
+
+.greeting {
+    font-size: 36px;
+    font-weight: 600;
+    white-space: nowrap;        /* Prevents wrapping on mobile */
+    color:#345102;
+}
+
+.greet {
+    display: inline-block;
+    min-width: 140px;           /* Keeps greeting width stable so “I'm Aerry” never moves */
+    text-align: left;
+}
+
+.name-text {
+    margin-left: 8px;
+}
