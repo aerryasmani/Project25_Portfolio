@@ -119,20 +119,23 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const languageText = document.getElementById('language-text');
 
-    const languages = ["English", "Malay", "Japanese"];
-    const translations = {
-        English: "Hello!",
-        Malay: "Hai!",
-        Japanese: "こんにちは！"
-    };
+    // ⭐ Only run if the element exists (on about page)
+    if (languageText) {
+        const languages = ["English", "Malay", "Japanese"];
+        const translations = {
+            English: "Hello!",
+            Malay: "Hai!",
+            Japanese: "こんにちは！"
+        };
 
-    let index = 0;
+        let index = 0;
 
-    function updateLanguage() {
-        languageText.textContent = translations[languages[index]];
-        index = (index + 1) % languages.length;
+        function updateLanguage() {
+            languageText.textContent = translations[languages[index]];
+            index = (index + 1) % languages.length;
+        }
+
+        updateLanguage();
+        setInterval(updateLanguage, 3000);
     }
-
-    updateLanguage();
-    setInterval(updateLanguage, 3000);
 });

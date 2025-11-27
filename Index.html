@@ -10,13 +10,96 @@
     <link href="https://fonts.googleapis.com/css2?family=Castoro:wght@400&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- ⭐ SPLASH SCREEN STYLES - ADD THIS -->
+    <style>
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        
+        .splash-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .splash-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+        
+        .split-panel {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: #0a0a0a;
+            top: 0;
+            clip-path: circle(150% at 50% 50%);
+        }
+        
+        .split-left {
+            left: 0;
+        }
+        
+        .split-right {
+            right: 0;
+        }
+        
+        body.loading {
+            overflow: hidden;
+        }
+        
+        body.loading .navbar,
+        body.loading .hero,
+        body.loading .footer-container {
+            opacity: 0;
+        }
+        
+        .navbar,
+        .hero,
+        .footer-container {
+            transition: opacity 0.6s ease 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .splash-text {
+                font-size: 14px;
+                letter-spacing: 1.5px;
+            }
+        }
+    </style>
 </head>
-<body>
+
+<body class="loading">
+    <!-- ⭐ SPLASH SCREEN HTML - ADD THIS -->
+    <div id="splash-screen">
+        <div class="split-panel split-left"></div>
+        <div class="split-panel split-right"></div>
+        <div class="splash-content">
+            <p class="splash-text">Design · Tester · Product</p>
+        </div>
+    </div>
+
     <header class="navbar">
         <a href="index.html" class="logo">heiyojun.</a>
 
-    <!-- ADD THIS: Burger Menu Button -->
         <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
             <span class="burger-line burger-line-1"></span>
             <span class="burger-line burger-line-2"></span>
@@ -31,20 +114,10 @@
         </nav>
     </header>
 
-
     <section class="hero home-hero">
-        <h1>
-            Hi. I'm Aerry — a Malaysian tech professional<br/>
-            who works across design, testing, and product delivery.
-        </h1>
-
-        <p class="hero-subtext">
-            I enjoy improving products through quality, user experience, and practical problem-solving. 
-            I've worked across testing, UI/UX, and small team delivery. Still learning. Still improving.
-        </p>
-
+        <h1>Hi. I'm Aerry — a Malaysian tech professional<br/>who works across design, testing, and product delivery.</h1>
+        <p class="hero-subtext">I enjoy improving products through quality, user experience, and practical problem-solving. I've worked across testing, UI/UX, and small team delivery. Still learning. Still improving.</p>
     </section>
-    <footer class="footer-container">
 
     <footer class="footer-container">
         <div class="footer-content">
@@ -70,6 +143,101 @@
         </div>
     </footer>
 
-         <script src="script.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- SPLASH SCREEN ANIMATION SCRIPT -->
+    <script>
+        console.log('Splash script loaded');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            
+            if (typeof anime === 'undefined') {
+                console.error('❌ Anime.js NOT loaded! Check CDN connection.');
+                document.body.classList.remove('loading');
+                const splashEl = document.getElementById('splash-screen');
+                if (splashEl) splashEl.remove();
+                return;
+            }
+            
+            console.log('✅ Anime.js loaded successfully');
+
+            const splash = document.getElementById('splash-screen');
+            const body = document.body;
+            
+            if (!splash) {
+                console.error('❌ Splash screen element not found!');
+                return;
+            }
+            
+            console.log('✅ Splash screen found, starting animation...');
+            
+            // 🎬 ANIMATION SEQUENCE
+            setTimeout(() => {
+                console.log('Starting animations...');
+                
+                // Step 1: Fade out text (500ms)
+                // ⚙️ SPEED: Change 500 to make text fade faster/slower
+                anime({
+                    targets: '.splash-text',
+                    opacity: 0,
+                    duration: 500,
+                    easing: 'easeInOutQuad',
+                    begin: () => console.log('Text fade started')
+                });
+
+                // Step 2: Circle contracts inward (1000ms)
+                // ⚙️ SPEED: Change 1000 to make circle close faster/slower
+                // ⚙️ DELAY: Change 500 to start circle sooner/later
+                anime({
+                    targets: ['.split-left', '.split-right'],
+                    duration: 1000,
+                    delay: 500,
+                    easing: 'easeInOutQuad',
+                    begin: () => console.log('Circle animation started'),
+                    update: function(anim) {
+                        const progress = anim.progress;
+                        const circleSize = 150 - (progress * 1.5);
+                        document.querySelectorAll('.split-panel').forEach(panel => {
+                            panel.style.clipPath = `circle(${circleSize}% at 50% 50%)`;
+                        });
+                    }
+                });
+
+                // Step 3: Curtains slide apart (800ms)
+                // ⚙️ SPEED: Change 800 to make curtains slide faster/slower
+                // ⚙️ DELAY: Change 1500 to start curtains sooner/later
+                setTimeout(() => {
+                    console.log('Curtain animation started');
+                    
+                    anime({
+                        targets: '.split-left',
+                        translateX: '-100%',
+                        duration: 800,
+                        easing: 'easeInOutCubic'
+                    });
+
+                    anime({
+                        targets: '.split-right',
+                        translateX: '100%',
+                        duration: 800,
+                        easing: 'easeInOutCubic',
+                        complete: () => {
+                            console.log('Animation complete, removing splash');
+                            splash.remove();
+                        }
+                    });
+                }, 1500);
+
+                // Show main content
+                // ⚙️ TIMING: Change 2300 to reveal content sooner/later
+                setTimeout(() => {
+                    console.log('Revealing main content');
+                    body.classList.remove('loading');
+                }, 2300);
+
+            }, 1500); // ⚙️ INITIAL DELAY: Change 1000 to show splash longer/shorter
+        });
+    </script>
 </body>
 </html>
