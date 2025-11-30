@@ -28,6 +28,20 @@ body {
     justify-content: space-between;
 }
 
+/* About Page Navbar Styles - THESE ARE THE NEW LINES */
+body:has(.about-hero) .navbar {
+    background-color: #1A25C5;
+}
+
+body:has(.about-hero) .logo {
+    color: #fff;
+}
+
+body:has(.about-hero) .nav-links a {
+    color: #fff;
+}
+/* End of About Page Navbar Styles */
+
 .logo {
     font-size: 26px;
     font-weight: 700;
@@ -539,6 +553,11 @@ body {
         display: flex;
     }
 
+    /* About Page - Make burger lines white on mobile */
+    body:has(.about-hero) .burger-line {
+        background-color: #fff;
+    }
+
     .nav-links.mobile-open {
         display: flex !important;
     }
@@ -797,13 +816,13 @@ body {
 .greeting {
     font-size: 36px;
     font-weight: 600;
-    white-space: nowrap;        /* Prevents wrapping on mobile */
+    white-space: nowrap;
     color:#345102;
 }
 
 .greet {
     display: inline-block;
-    min-width: 140px;           /* Keeps greeting width stable so “I'm Aerry” never moves */
+    min-width: 140px;
     text-align: left;
 }
 
