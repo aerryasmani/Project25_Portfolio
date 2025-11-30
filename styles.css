@@ -820,6 +820,11 @@ body:has(.about-hero) .nav-links a {
     color:#345102;
 }
 
+/* About Page - Blue greeting text */
+body:has(.about-hero) .greeting {
+    color: #FFD700;
+}
+
 .greet {
     display: inline-block;
     min-width: 140px;
