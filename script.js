@@ -139,3 +139,4 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateLanguage, 3000);
     }
 });
+
