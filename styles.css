@@ -964,6 +964,7 @@ body:has(.about-hero) .greeting {
     to { opacity: 0; visibility: hidden; }
 }
 
+/* Career Timeline Section */
 .career-timeline-section {
     background: #1A25C5;
     width: 100vw;
@@ -1073,6 +1074,15 @@ body:has(.about-hero) .greeting {
     box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
 }
 
+.current-logo {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
 .current-company {
     display: flex;
     align-items: center;
@@ -1119,24 +1129,6 @@ body:has(.about-hero) .greeting {
         padding-bottom: 50px;
     }
 }
-
-/* ================================
-   MOBILE VIEW — STACK VERTICALLY
-   ================================ */
-@media (max-width: 768px) {
-    .career-timeline {
-        flex-direction: column;
-        overflow: visible;
-        padding: 0 20px;
-        justify-content: flex-start;
-    }
-
-    .career-card {
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
 
 /* Force the badge to left-align no matter the parent flex alignment */
 .status-badge-wrapper {
