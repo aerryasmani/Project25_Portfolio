@@ -964,13 +964,10 @@ body:has(.about-hero) .greeting {
     to { opacity: 0; visibility: hidden; }
 }
 
-/* ================================
-   CAREER TIMELINE (HORIZONTAL - FIXED CENTER)
-   ================================ */
 .career-timeline-section {
     background: #1A25C5;
     width: 100vw;
-    margin-left: calc(50% - 50vw);  /* full bleed */
+    margin-left: calc(50% - 50vw);
     padding: 80px 0;
 }
 
@@ -982,22 +979,21 @@ body:has(.about-hero) .greeting {
     margin-bottom: 50px;
 }
 
-/* Center the cards horizontally */
 .career-timeline {
     display: flex;
     gap: 32px;
-    justify-content: center;           /* ← THIS centers the cards */
+    justify-content: center;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding: 0 60px;                    /* balanced side padding */
+    padding: 0 60px;
     scroll-snap-type: x mandatory;
 }
 
-/* Hide scrollbar (cleaner UI) */
 .career-timeline::-webkit-scrollbar {
     display: none;
 }
 
+/* Base Card Styling */
 .career-card {
     background: #fff;
     min-width: 300px;
@@ -1006,11 +1002,12 @@ body:has(.about-hero) .greeting {
     padding: 28px 32px;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    scroll-snap-align: center;          /* snaps to center */
+    scroll-snap-align: center;
     font-family: "Outfit", sans-serif;
+    position: relative;
 }
 
-/* Header layout */
+/* Regular Card Header */
 .career-header {
     display: flex;
     justify-content: space-between;
@@ -1024,33 +1021,103 @@ body:has(.about-hero) .greeting {
     color: #1A25C5;
 }
 
-/* Company block */
+/* Company Block */
 .career-company {
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 600;
+    font-size: 14px;
+    color: #555;
 }
 
-/* FIXED SVG SIZE */
 .career-company img {
-    width: 20px;           /* fixed */
-    height: 20px;          /* fixed */
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
-/* Position */
+/* Position Title */
 .career-position {
     font-family: "Castoro", serif;
     font-size: 20px;
     margin-bottom: 10px;
     color: #000;
+    font-weight: 600;
 }
 
 .career-card p {
     font-size: 15px;
     line-height: 1.6;
     color: #333;
+}
+
+/* === CURRENT ROLE SPECIAL STYLING === */
+.career-card.current-role {
+    border: 2px solid #FFD700;
+    box-shadow: 0 10px 22px rgba(255, 215, 0, 0.25);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.current-badge {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    background: #FFD700;
+    color: #000;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
+
+.current-company {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+}
+
+.current-period {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    font-size: 14px;
+    color: #1A25C5;
+    font-weight: 600;
+}
+
+/* === MOBILE RESPONSIVE === */
+@media (max-width: 768px) {
+    .career-timeline-section {
+        padding: 60px 0;
+    }
+
+    .career-title {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+    .career-timeline {
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
+        padding: 0 20px;
+    }
+
+    .career-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .career-card.current-role {
+        padding-bottom: 50px;
+    }
 }
 
 /* ================================
