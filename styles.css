@@ -968,7 +968,7 @@ body:has(.about-hero) .greeting {
 .career-timeline-section {
     background: #1A25C5;
     width: 100vw;
-    margin-left: calc(50% - 50vw);
+    /*margin-left: calc(50% - 50vw);*/
     padding: 80px 0;
 }
 
@@ -1033,9 +1033,14 @@ body:has(.about-hero) .greeting {
 }
 
 .career-company img {
-    width: 20px;
-    height: 20px;
+    width: 100px;
+    height: 40px;
     object-fit: contain;
+    object-position: center;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
 }
 
 /* Position Title */
@@ -1128,6 +1133,7 @@ body:has(.about-hero) .greeting {
     .career-card.current-role {
         padding-bottom: 50px;
     }
+    
 }
 
 /* Force the badge to left-align no matter the parent flex alignment */
