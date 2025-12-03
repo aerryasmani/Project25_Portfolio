@@ -1,4 +1,20 @@
+/**
+ * Portfolio Website JavaScript
+ * Handles mobile navigation and language cycling
+ */
+
+// ================================
+// MOBILE NAVIGATION
+// ================================
 document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+    initLanguageCycler();
+});
+
+/**
+ * Initialize mobile menu functionality
+ */
+function initMobileMenu() {
     const burgerBtn = document.getElementById('burgerBtn');
     const navLinks = document.getElementById('navLinks');
 
@@ -7,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const BREAKPOINT = 768;
     let isMobileMenuOpen = false;
 
-    // Close menu function
+    /**
+     * Close the mobile menu
+     * @param {boolean} animate - Whether to animate the close
+     */
     const closeMenu = (animate = true) => {
         if (!isMobileMenuOpen) return;
         
@@ -24,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
         isMobileMenuOpen = false;
     };
 
-    // Open menu function
+    /**
+     * Open the mobile menu
+     */
     const openMenu = () => {
         if (isMobileMenuOpen) return;
         
@@ -34,19 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
         isMobileMenuOpen = true;
     };
 
-    // Toggle menu
+    /**
+     * Toggle menu state
+     */
     const toggleMenu = (e) => {
         e.stopPropagation();
         isMobileMenuOpen ? closeMenu() : openMenu();
     };
 
-    // Check if device is mobile/tablet
+    /**
+     * Check if current viewport is mobile
+     */
     const isMobileDevice = () => window.innerWidth <= BREAKPOINT;
 
-    // Burger button click handler
+    // Event Listeners
     burgerBtn.addEventListener('click', toggleMenu);
 
-    // Nav links click handler
+    // Close menu when clicking nav links
     navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             closeMenu(true);
@@ -77,66 +102,46 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
         }
     }, { passive: false });
+}
 
-    
-});
-
-// Accordion functionality for projects - Hover to expand
-document.addEventListener('DOMContentLoaded', () => {
-    const accordionItems = document.querySelectorAll('.accordion-item');
-    let activeItem = null;
-
-    accordionItems.forEach(item => {
-        const header = item.querySelector('.accordion-header');
-        
-        // Expand on hover
-        header.addEventListener('mouseenter', () => {
-            // Close all other items
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Open current item
-            item.classList.add('active');
-            activeItem = item;
-        });
-    });
-
-    // Close all when mouse leaves the entire accordion container
-    const accordionContainer = document.querySelector('.accordion-container');
-    if (accordionContainer) {
-        accordionContainer.addEventListener('mouseleave', () => {
-            accordionItems.forEach(item => {
-                item.classList.remove('active');
-            });
-            activeItem = null;
-        });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+// ================================
+// LANGUAGE CYCLER (About Page)
+// ================================
+/**
+ * Initialize language text cycling on About page
+ */
+function initLanguageCycler() {
     const languageText = document.getElementById('language-text');
 
-    // ⭐ Only run if the element exists (on about page)
-    if (languageText) {
-        const languages = ["English", "Malay", "Japanese"];
-        const translations = {
-            English: "Hello!",
-            Malay: "Hai!",
-            Japanese: "こんにちは！"
-        };
+    if (!languageText) return; // Only run on About page
 
-        let index = 0;
+    const languages = ["English", "Malay", "Japanese"];
+    const translations = {
+        English: "Hello!",
+        Malay: "Hai!",
+        Japanese: "こんにちは!"
+    };
 
-        function updateLanguage() {
-            languageText.textContent = translations[languages[index]];
-            index = (index + 1) % languages.length;
-        }
+    let index = 0;
 
-        updateLanguage();
-        setInterval(updateLanguage, 3000);
+    function updateLanguage() {
+        const currentLang = languages[index];
+        languageText.textContent = translations[currentLang];
+        index = (index + 1) % languages.length;
     }
+
+    // Set initial language
+    updateLanguage();
+    
+    // Update every 3 seconds
+    setInterval(updateLanguage, 3000);
+}
+
+
+window.addEventListener("load", () => {
+    const splash = document.querySelector(".splash");
+        setTimeout(() => {
+            splash.style.display = "none";
+    }, 2400); // matches ripple + fade timing
 });
 
