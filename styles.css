@@ -487,12 +487,15 @@ body:has(.about-hero) .greeting {
 }
 
 /* Status Badge - Top Right */
+/* Status Badge - Top Right */
 .project-status-badge {
     position: absolute;
     top: 20px;
     right: 20px;
-    padding: 6px 14px;
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
@@ -500,14 +503,39 @@ body:has(.about-hero) .greeting {
     font-family: 'Outfit', sans-serif;
 }
 
+.project-status-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
 .project-status-badge.active {
-    background: #d4edda;
-    color: #155724;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.project-status-badge.active::before {
+    background: white;
+    animation: blink 1.5s infinite;
 }
 
 .project-status-badge.completed {
-    background: #e7f3ff;
-    color: #0066cc;
+    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.project-status-badge.completed::before {
+    background: white;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
 /* Project Name & Type */
@@ -529,6 +557,7 @@ body:has(.about-hero) .greeting {
 }
 
 /* Category/Type Badges - Below Title */
+/* Category/Type Badges - Below Title */
 .project-badges {
     display: flex;
     gap: 10px;
@@ -538,23 +567,38 @@ body:has(.about-hero) .greeting {
 }
 
 .badge {
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
 }
 
 .badge.category {
-    background: #e7f3ff;
-    color: #0066cc;
+    background: white;
+    color: #1A25C5;
+    border: 2px solid #1A25C5;
+}
+
+.badge.category:hover {
+    background: #1A25C5;
+    color: white;
+    transform: translateY(-2px);
 }
 
 .badge.type {
-    background: #fff3cd;
-    color: #856404;
+    background: white;
+    color: #8B5CF6;  /* Purple */
+    border: 2px solid #8B5CF6;
+}
+
+.badge.type:hover {
+    background: #F97316;
+    color: white;
+    transform: translateY(-2px);
 }
 
 /* Project Description */
@@ -570,6 +614,7 @@ body:has(.about-hero) .greeting {
 .project-details {
     border-top: 1px solid #eee;
     padding-top: 20px;
+    
 }
 
 .detail-section {
@@ -604,21 +649,41 @@ body:has(.about-hero) .greeting {
     gap: 8px;
 }
 
-.detail-badge {
-    background: #f5f5f5;
-    padding: 6px 12px;
+.detail-badge.tool {
+    background: rgba(243, 244, 246, 0.6);
+    backdrop-filter: blur(10px);
+    font-family: 'Outfit', sans-serif;
+    color: #374151;
+    padding: 8px 14px;
     border-radius: 6px;
     font-size: 13px;
-    color: #555;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     transition: all 0.2s ease;
+}
+
+.detail-badge.tool:hover {
+    background: rgba(243, 244, 246, 0.8);
+    transform: translateY(-1px);
+}
+
+.detail-badge.skill {
     font-family: 'Outfit', sans-serif;
+    background: rgba(20, 184, 166, 0.1);
+    color: #0f766e;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(20, 184, 166, 0.2);
+    transition: all 0.2s ease;
 }
 
-.detail-badge:hover {
-    background: #667eea;
-    color: white;
+.detail-badge.skill:hover {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: rgba(20, 184, 166, 0.3);
+    transform: translateY(-1px);
 }
-
 /* Project Footer */
 .project-footer {
     padding: 0 30px 30px 30px;
