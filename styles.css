@@ -388,6 +388,11 @@ body:has(.about-hero) .greeting {
     text-align: center;
 }
 
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 /* ================================
    WORK PAGE
    ================================ */
@@ -728,6 +733,27 @@ body:has(.about-hero) .greeting {
     box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
 }
 
+.cta-button-mute {
+    display: inline-block;
+    background: #E5E7EB;
+    color: #9CA3AF;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: 2px solid #E5E7EB;
+    cursor: not-allowed;
+    font-family: 'Outfit', sans-serif;
+    opacity: 0.6;
+}
+
+.cta-button-mute:hover {
+    background: #E5E7EB;
+    border-color: #E5E7EB;
+    transform: none;
+}
 /* ================================
    MOBILE RESPONSIVE (≤ 768px)
    ================================ */
