@@ -1374,7 +1374,7 @@ body:has(.about-hero) .greeting {
 #splash-screen {
   position: fixed;
   inset: 0;
-  background: #0d0f2e;
+  background: #1A25C5;
   display: flex;
   align-items: center;
   justify-content: center;
