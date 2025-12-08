@@ -138,11 +138,10 @@ function initLanguageCycler() {
 }
 
 
-window.addEventListener("load", () => {
-    const splash = document.querySelector(".splash");
-        setTimeout(() => {
-            splash.style.display = "none";
-    }, 2400); // matches ripple + fade timing
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash-screen')?.classList.add('loaded');
+  }, 1800); // feels luxurious but not slow
 });
 
 // Enhanced tooltip functionality for mobile

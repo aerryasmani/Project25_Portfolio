@@ -1370,66 +1370,121 @@ body:has(.about-hero) .greeting {
 /* ================================
    SPLASH SCREEN
    ================================ */
+/* ————— 6-CUBE GOLDEN SHUFFLE WAVE – 2025 Peak Edition ————— */
 #splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #0a0a0a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    overflow: hidden;
+  position: fixed;
+  inset: 0;
+  background: #0d0f2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.2s ease;
 }
 
-#splash-screen .ripple {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 5;
-    animation: rippleEffect 1.2s ease-out forwards;
+#splash-screen.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.split-panel {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    background: #0a0a0a;
-    top: 0;
-    clip-path: circle(150% at 50% 50%);
-    z-index: 1;
+.splash-inner {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: floatIn 1.3s 0.4s forwards cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes rippleEffect {
-    0% {
-        transform: translate(-50%, -50%) scale(0.1);
-        opacity: 1;
-    }
-    70% {
-        transform: translate(-50%, -50%) scale(6);
-        opacity: 0.3;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(10);
-        opacity: 0;
-    }
+.splash-logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 62px;
+  font-weight: 800;
+  letter-spacing: -2.4px;
+  margin: 0;
+  background: linear-gradient(90deg, #FFD700, #FFC700, #FFAA00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-#splash-screen {
-    animation: splashFadeOut 0.8s ease forwards;
-    animation-delay: 1.4s;
+.gold-dot {
+  color: #FFD700;
+  animation: pulseDot 2.4s ease-in-out infinite;
 }
 
-@keyframes splashFadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; visibility: hidden; }
+.splash-role {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin: 18px 0 56px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+
+/* 6-Cube Loader */
+.splash-shuffle-loader {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.shuffle-cube {
+  width: 18px;
+  height: 18px;
+  background: #FFD700;
+  border-radius: 5px;
+  box-shadow:
+    0 0 16px rgba(255,215,0,0.5),
+    inset 0 0 6px rgba(255,255,255,0.3);
+  animation: cubeWave 2.6s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center bottom;
+}
+
+/* Staggered delays create the wave + shuffle */
+.c1 { animation-delay: 0s; }
+.c2 { animation-delay: 0.15s; }
+.c3 { animation-delay: 0.3s; }
+.c4 { animation-delay: 0.45s; }
+.c5 { animation-delay: 0.6s; }
+.c6 { animation-delay: 0.75s; }
+
+/* Wave + Shuffle Animation */
+@keyframes cubeWave {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  15% {
+    transform: translateY(-28px) scale(1.15);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-8px) translateX(6px) scale(1.05);
+  }
+  50% {
+    transform: translateY(0) translateX(-4px) scale(0.98);
+  }
+  70% {
+    transform: translateY(-6px) translateX(3px) scale(1.02);
+  }
+  85% {
+    transform: translateY(4px) scale(0.95);
+  }
+}
+
+/* Animations */
+@keyframes floatIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { text-shadow: 0 0 6px rgba(255,215,0,0.4); }
+  50% { text-shadow: 0 0 16px rgba(255,215,0,0.8); }
 }
 
 /* Career Timeline Section */
