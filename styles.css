@@ -722,7 +722,6 @@ body:has(.about-hero) .greeting {
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
-    border: 2px solid #FFD700;
     cursor: pointer;
     font-family: 'Outfit', sans-serif;
 }
@@ -737,22 +736,79 @@ body:has(.about-hero) .greeting {
     display: inline-block;
     background: #E5E7EB;
     color: #9CA3AF;
-    padding: 16px 40px;
+    padding: 16px 40px;                 /* ← exact same as .cta-button */
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
-    border: 2px solid #E5E7EB;
+    border: 2px solid #E5E7EB;           /* border is now inside thanks to border-box */
     cursor: not-allowed;
     font-family: 'Outfit', sans-serif;
     opacity: 0.6;
+    text-align: center;                 /* ← forces perfect centering if ever needed */
+    line-height: 1;
 }
 
 .cta-button-mute:hover {
     background: #E5E7EB;
     border-color: #E5E7EB;
     transform: none;
+}
+
+/* Mobile-friendly tooltip for muted buttons */
+[data-tooltip] {
+  position: relative;
+  cursor: not-allowed;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;                  /* appears above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Outfit', sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Show tooltip on tap (mobile) or hover (desktop) */
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after,
+[data-tooltip]:active::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Optional small arrow */
+[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a1a1a;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:focus::before,
+[data-tooltip]:active::before {
+  opacity: 1;
+  visibility: visible;
 }
 /* ================================
    MOBILE RESPONSIVE (≤ 768px)
