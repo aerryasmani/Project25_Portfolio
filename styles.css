@@ -736,18 +736,23 @@ body:has(.about-hero) .greeting {
     display: inline-block;
     background: #E5E7EB;
     color: #9CA3AF;
-    padding: 16px 40px;                 /* ← exact same as .cta-button */
+    padding: 16px 40px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
-    transition: all 0.3s ease;
-    border: 2px solid #E5E7EB;           /* border is now inside thanks to border-box */
-    cursor: not-allowed;
     font-family: 'Outfit', sans-serif;
-    opacity: 0.6;
-    text-align: center;                 /* ← forces perfect centering if ever needed */
     line-height: 1;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid #E5E7EB;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    /* This is the key line — forces identical width */
+    min-width: 184px;           /* matches active button width */
+    width: fit-content;         /* prevents stretching in flex/grid */
+    box-sizing: border-box;     /* already global, but safe to keep */
 }
 
 .cta-button-mute:hover {
@@ -756,59 +761,123 @@ body:has(.about-hero) .greeting {
     transform: none;
 }
 
-/* Mobile-friendly tooltip for muted buttons */
-[data-tooltip] {
+/* ================================
+   ENHANCED TOOLTIP SYSTEM
+   ================================ */
+
+/* Mobile + Desktop friendly tooltip for muted buttons */
+.tooltip-wrapper {
   position: relative;
-  cursor: not-allowed;
+  display: inline-block;
 }
 
-[data-tooltip]::after {
-  content: attr(data-tooltip);
+.tooltip-wrapper .custom-tooltip {
   position: absolute;
-  bottom: 120%;                  /* appears above the button */
+  bottom: 120%;                    /* appears above the button */
   left: 50%;
   transform: translateX(-50%);
   background: #1a1a1a;
   color: #fff;
   padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 8px;
   font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
+  transition: opacity 0.25s, visibility 0.25s;
   pointer-events: none;
   z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Show tooltip on tap (mobile) or hover (desktop) */
-[data-tooltip]:hover::after,
-[data-tooltip]:focus::after,
-[data-tooltip]:active::after {
+/* Show on hover (desktop) OR tap/focus (mobile) */
+.tooltip-wrapper:hover .custom-tooltip,
+.tooltip-wrapper .cta-button-mute:focus + .custom-tooltip,
+.tooltip-wrapper .cta-button-mute:active + .custom-tooltip {
   opacity: 1;
   visibility: visible;
 }
 
-/* Optional small arrow */
-[data-tooltip]::before {
+/* Little arrow */
+.tooltip-wrapper .custom-tooltip::after {
   content: '';
   position: absolute;
-  bottom: 115%;
+  top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: -6px;
   border: 6px solid transparent;
   border-top-color: #1a1a1a;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
 }
 
-[data-tooltip]:hover::before,
-[data-tooltip]:focus::before,
-[data-tooltip]:active::before {
-  opacity: 1;
-  visibility: visible;
+.project-footer .tooltip-wrapper {
+    margin-left: auto;
+    width: fit-content;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .custom-tooltip {
+        bottom: calc(100% + 10px);
+        font-size: 13px;
+        padding: 10px 14px;
+        max-width: 240px;
+    }
+    
+    .custom-tooltip::after {
+        border-width: 5px;
+    }
+    
+    /* Remove hover on mobile, rely only on click */
+    .tooltip-wrapper:hover .custom-tooltip {
+        opacity: 0;
+        visibility: hidden;
+    }
+        .custom-tooltip {
+        bottom: calc(100% + 10px);
+        font-size: 13px;
+        padding: 10px 14px;
+        max-width: 240px;
+    }
+    
+    .custom-tooltip::after {
+        border-width: 5px;
+    }
+    
+    /* Remove hover on mobile, rely only on click */
+    .tooltip-wrapper:hover .custom-tooltip {
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    /* Make tooltip wrapper full width on mobile ONLY */
+    .tooltip-wrapper {
+        width: 100%;
+    }
+    .project-footer .tooltip-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .project-footer .tooltip-wrapper {
+        width: 100%;           /* makes the wrapper full-width */
+        margin: 0 auto;        /* centers it */
+    }
+    
+    .cta-button-mute {
+        width: 100%;           /* forces the button itself to fill the wrapper */
+        min-width: unset;      /* removes the 184px restriction on mobile */
+    }
+}
+
+/* Enhanced mute button with better visual feedback */
+.cta-button-mute {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.cta-button-mute:active {
+    transform: scale(0.98);
 }
 /* ================================
    MOBILE RESPONSIVE (≤ 768px)

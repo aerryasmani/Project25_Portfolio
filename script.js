@@ -145,3 +145,59 @@ window.addEventListener("load", () => {
     }, 2400); // matches ripple + fade timing
 });
 
+// Enhanced tooltip functionality for mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const tooltipWrappers = document.querySelectorAll('.tooltip-wrapper');
+    
+    tooltipWrappers.forEach(wrapper => {
+        const button = wrapper.querySelector('.cta-button-mute');
+        
+        if (button) {
+            // Mobile: Toggle tooltip on click
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if we're on mobile
+                if (window.innerWidth <= 768) {
+                    // Close all other tooltips first
+                    tooltipWrappers.forEach(w => {
+                        if (w !== wrapper) {
+                            w.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current tooltip
+                    wrapper.classList.toggle('active');
+                }
+                
+                return false;
+            });
+        }
+    });
+    
+    // Close tooltip when clicking outside (mobile)
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            const clickedWrapper = e.target.closest('.tooltip-wrapper');
+            
+            if (!clickedWrapper) {
+                tooltipWrappers.forEach(wrapper => {
+                    wrapper.classList.remove('active');
+                });
+            }
+        }
+    });
+    
+    // Close tooltips when scrolling (mobile)
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                tooltipWrappers.forEach(wrapper => {
+                    wrapper.classList.remove('active');
+                });
+            }, 100);
+        }
+    });
+});
