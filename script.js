@@ -200,3 +200,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function toggleCard(cardNumber) {
+    const card = document.querySelector(`[data-card="${cardNumber}"]`);
+    card.classList.toggle('flipped');
+}
