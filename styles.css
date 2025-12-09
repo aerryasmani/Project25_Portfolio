@@ -1488,177 +1488,202 @@ body:has(.about-hero) .greeting {
 }
 
 /* Career Timeline Section */
+/* ================================
+   CAREER TIMELINE – VERTICAL DARK CARDS (2025 Style)
+   ================================ */
 .career-timeline-section {
     background: #1A25C5;
-    width: 100vw;
-    /*margin-left: calc(50% - 50vw);*/
-    padding: 80px 0;
+    padding: 120px 50px;
+    width: 100%;
 }
 
 .career-title {
     font-family: "Castoro", serif;
-    font-size: 28px;
+    font-size: 48px;
     text-align: center;
     color: #fff;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
+    letter-spacing: -1.5px;
 }
 
 .career-timeline {
     display: flex;
+    flex-direction: column;
     gap: 32px;
-    justify-content: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 0 60px;
-    scroll-snap-type: x mandatory;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.career-timeline::-webkit-scrollbar {
-    display: none;
-}
-
-/* Base Card Styling */
+/* Long Rectangular Card */
 .career-card {
     background: #fff;
-    min-width: 300px;
-    max-width: 320px;
-    flex-shrink: 0;
-    padding: 28px 32px;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    scroll-snap-align: center;
-    font-family: "Outfit", sans-serif;
+    color: #e2e8f0;
+    width: 100%;
+    max-width: 720px;
+    padding: 40px;
     position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    outline: solid 2px transparent;
 }
 
-/* Regular Card Header */
-.career-header {
+
+.career-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.career-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
+    align-items: flex-start;
+    margin-bottom: 24px;
 }
 
 .career-period {
     font-size: 15px;
-    font-weight: 600;
-    color: #1A25C5;
+    color: #94a3b8;
+    font-weight: 500;
 }
 
-/* Company Block */
-.career-company {
+/* ACTIVE Badge */
+.career-badge-active {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #555;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
 }
 
-.career-company img {
-    width: 100px;
-    height: 40px;
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* Company Logo - Top Right */
+.career-logo {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
     object-fit: contain;
-    object-position: center;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    margin: 0 auto;
+    opacity: 0.9;
 }
 
-/* Position Title */
+/* Titles */
+.career-company-name {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
 .career-position {
     font-family: "Castoro", serif;
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #000;
-    font-weight: 600;
-}
-
-.career-card p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #333;
-}
-
-/* === CURRENT ROLE SPECIAL STYLING === */
-.career-card.current-role {
-    border: 3px solid #FFD700;
-    box-shadow: 0 10px 22px rgba(255, 215, 0, 0.25);
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.current-badge {
-    position: absolute;
-    top: 12px;
-    left: 20px;
-    background: #FFD700;
-    color: #000;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 5px 12px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-}
-
-.current-logo {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-}
-
-.current-company {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #555;
-}
-
-.current-period {
-    position: absolute;
-    bottom: 16px;
-    right: 20px;
-    font-size: 14px;
+    font-size: 22px;
     color: #1A25C5;
+    margin: 10px 0 12px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.career-description {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Expandable List */
+.career-expandable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    padding-top: 0;
+}
+
+.career-expandable.open {
+    max-height: 300px;
+    padding-top: 20px;
+}
+
+.expand-list {
+    list-style: none;
+    padding-left: 4px;
+}
+
+.expand-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #94a3b8;
+}
+
+.expand-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* Expand Trigger */
+.career-expand-trigger {
+    color: #1A25C5;
+    font-size: 15px;
     font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    user-select: none;
+    font-family: 'Outfit', sans-serif;
 }
 
-/* === MOBILE RESPONSIVE === */
+.career-expand-trigger:hover {
+    color: #34d399;
+    gap: 10px;
+}
+
+.career-expand-trigger::after {
+    content: "↓";
+    transition: transform 0.3s ease;
+    font-size: 14px;
+}
+
+.career-expand-trigger.open::after {
+    transform: rotate(180deg);
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .career-timeline-section {
-        padding: 60px 0;
-    }
-
-    .career-title {
-        font-size: 24px;
-        margin-bottom: 40px;
-    }
-
-    .career-timeline {
-        flex-direction: column;
-        align-items: center;
-        overflow: visible;
-        padding: 0 20px;
-    }
-
-    .career-card {
-        width: 100%;
-        max-width: 400px;
-    }
-
-    .career-card.current-role {
-        padding-bottom: 50px;
-    }
-    
+    .career-timeline-section { padding: 80px 20px; }
+    .career-title { font-size: 36px; margin-bottom: 60px; }
+    .career-card { padding: 32px; border-radius: 16px; }
+    .career-logo { width: 48px; height: 48px; top: 32px; right: 32px; }
+    .career-position { font-size: 24px; }
 }
-
 /* Force the badge to left-align no matter the parent flex alignment */
 .status-badge-wrapper {
     width: 100%;
