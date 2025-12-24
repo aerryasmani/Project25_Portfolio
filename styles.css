@@ -510,6 +510,27 @@ body:has(.about-hero) .greeting {
     margin: 0 auto;
 }
 
+.home-projects-view-more {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.view-more-link {
+    display: inline-block;
+    color: #1A25C5;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.view-more-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
 /* Projects Grid */
 .projects-grid {
     display: grid;
@@ -739,6 +760,56 @@ body:has(.about-hero) .greeting {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+}
+
+/* Project Buttons */
+.project-btn-outline {
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #1A25C5;
+    color: #1A25C5;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 150px;
+}
+
+.project-btn-outline:hover {
+    background: #1A25C5;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 37, 197, 0.2);
+}
+
+.project-btn-filled {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #1A25C5;
+    color: #fff;
+    border: 2px solid #1A25C5;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex: 1;
+    max-width: 150px;
+    text-align: center;
+}
+
+.project-btn-filled:hover {
+    background: #FFC700;
+    border-color: #FFC700;
+    color: #1A25C5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
 }
 
 .external-link {
@@ -1007,19 +1078,16 @@ body:has(.about-hero) .greeting {
 
     .project-footer {
         padding: 0 24px 24px 24px;
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row;
+        gap: 12px;
         align-items: stretch;
     }
 
-    .cta-button {
-        text-align: center;
-        width: 100%;
-        padding: 14px 28px;
-    }
-
-    .external-link {
-        text-align: center;
+    .project-btn-outline,
+    .project-btn-filled {
+        flex: 1;
+        max-width: none;
+        padding: 12px 20px;
         font-size: 13px;
     }
 }
@@ -1339,6 +1407,14 @@ body:has(.about-hero) .greeting {
     .home-projects-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+    }
+
+    .home-projects-view-more {
+        margin-top: 40px;
+    }
+
+    .view-more-link {
+        font-size: 14px;
     }
 }
 
