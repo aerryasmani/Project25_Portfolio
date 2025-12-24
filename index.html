@@ -71,7 +71,7 @@
 
     <!-- CAREER SECTION -->
     <section class="career-timeline-section">
-        <h3 class="career-title">My Career Timeline</h3>
+        <h3 class="career-title">Experiences</h3>
 
         <div class="career-timeline">
             
@@ -79,45 +79,108 @@
             <div class="career-card">
                 <div class="career-card-header">
                     <div class="career-card-left">
-                        <img class="career-logo" src="img/iscistech.svg" alt="Iscistech Logo">
                         <div class="career-info">
                             <h4 class="career-position">Automation Tester</h4>
                             <div class="career-company-name">Iscistech Business Solution Sdn Bhd</div>
                         </div>
                     </div>
-                    <div class="career-period">Oct 2022 — Oct 2025</div>
+                    <div class="career-card-right">
+                        <div class="career-period">Oct 2022 — Oct 2025</div>
+                        <img class="career-logo" src="img/iscistech.svg" alt="Iscistech Logo">
+                    </div>
                 </div>
                 <p class="career-description">Developed 200+ automated test scripts that reduced testing time by 75% and served as acting Scrum Master for a <strong>Petronas Digital</strong> project.</p>
+                <button class="career-read-more" onclick="toggleCareerCard(this)">
+                    <span>Expand</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="career-expanded-content">
+                    <div class="career-achievements">
+                        <h5 class="achievements-title">Key Achievements</h5>
+                        <ul class="achievements-list">
+                            <li>Developed 200+ automated test scripts using Playwright and Selenium, reducing manual testing time by 75%</li>
+                            <li>Served as acting Scrum Master for Petronas Digital project, facilitating daily standups and sprint planning</li>
+                            <li>Implemented CI/CD pipeline integration for automated testing, improving release quality and speed</li>
+                            <li>Mentored junior testers on automation best practices and test framework design</li>
+                        </ul>
+                    </div>
+                    <button class="career-collapse" onclick="toggleCareerCard(this)">
+                        <span>Collapse</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Job 2 -->
             <div class="career-card">
                 <div class="career-card-header">
                     <div class="career-card-left">
-                        <img class="career-logo" src="img/ESPL.svg" alt="ESPL Logo">
                         <div class="career-info">
                             <h4 class="career-position">Technical Executive</h4>
                             <div class="career-company-name">Espl Esports Sdn Bhd</div>
                         </div>
                     </div>
-                    <div class="career-period">March 2022 — Oct 2022</div>
+                    <div class="career-card-right">
+                        <div class="career-period">March 2022 — Oct 2022</div>
+                        <img class="career-logo" src="img/ESPL.svg" alt="ESPL Logo">
+                    </div>
                 </div>
                 <p class="career-description">Implemented automation testing, led Scrum ceremonies, collaborated with UI/UX teams, and managed support ticketing systems.</p>
+                <button class="career-read-more" onclick="toggleCareerCard(this)">
+                    <span>Expand</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="career-expanded-content">
+                    <div class="career-achievements">
+                        <h5 class="achievements-title">Key Achievements</h5>
+                        <ul class="achievements-list">
+                            <li>Established automation testing framework using Katalon Studio, reducing regression testing time by 60%</li>
+                            <li>Led Scrum ceremonies including daily standups, sprint planning, and retrospectives for cross-functional team</li>
+                            <li>Collaborated with UI/UX team to improve user experience and accessibility of gaming platform</li>
+                            <li>Designed and implemented structured support ticketing system, improving response time by 40%</li>
+                        </ul>
+                    </div>
+                    <button class="career-collapse" onclick="toggleCareerCard(this)">
+                        <span>Collapse</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Job 3 -->
             <div class="career-card">
                 <div class="career-card-header">
                     <div class="career-card-left">
-                        <img class="career-logo" src="img/vs_logo.svg" alt="VireServe Logo">
                         <div class="career-info">
                             <h4 class="career-position">System Analyst</h4>
                             <div class="career-company-name">VireServe Sdn Bhd</div>
                         </div>
                     </div>
-                    <div class="career-period">March 2021 — Feb 2022</div>
+                    <div class="career-card-right">
+                        <div class="career-period">March 2021 — Feb 2022</div>
+                        <img class="career-logo" src="img/vs_logo.svg" alt="VireServe Logo">
+                    </div>
                 </div>
                 <p class="career-description">Conducted requirements analysis, created FAT/UAT testing procedures for government projects, and maintained client systems.</p>
+                <button class="career-read-more" onclick="toggleCareerCard(this)">
+                    <span>Expand</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="career-expanded-content">
+                    <div class="career-achievements">
+                        <h5 class="achievements-title">Key Achievements</h5>
+                        <ul class="achievements-list">
+                            <li>Conducted comprehensive requirements analysis for government projects, ensuring compliance with security standards</li>
+                            <li>Created detailed FAT/UAT testing procedures and documentation, reducing deployment issues by 50%</li>
+                            <li>Maintained and updated client systems, ensuring 99.5% uptime for critical government applications</li>
+                            <li>Bridged communication between stakeholders and development team, improving project delivery timelines</li>
+                        </ul>
+                    </div>
+                    <button class="career-collapse" onclick="toggleCareerCard(this)">
+                        <span>Collapse</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="career-chevron" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+                    </button>
+                </div>
             </div>
 
         </div>
