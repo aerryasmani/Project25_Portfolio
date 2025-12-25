@@ -916,8 +916,11 @@ body:has(.about-hero) .greeting {
     cursor: pointer;
     flex: 1;
     max-width: 150px;
+    min-width: 0; /* Allow flexbox to shrink if needed */
+    width: 100%; /* Fill the tooltip-wrapper */
     text-align: center;
     pointer-events: auto;
+    box-sizing: border-box;
 }
 
 .project-btn-filled-mute:hover {
@@ -1019,9 +1022,10 @@ body:has(.about-hero) .greeting {
     line-height: 1.4;
     /* Allow text wrapping but with better control */
     white-space: normal;
-    min-width: 180px; /* Minimum width to prevent too narrow */
-    max-width: 280px; /* Maximum width to prevent too wide */
-    width: max-content; /* Prefer content width */
+    /* Responsive sizing for desktop */
+    min-width: 160px;
+    max-width: min(300px, calc(100vw - 40px)); /* Responsive: don't exceed viewport */
+    width: max-content;
     text-align: center;
     word-wrap: break-word;
     opacity: 0;
@@ -1057,18 +1061,23 @@ body:has(.about-hero) .greeting {
 
 .project-footer .tooltip-wrapper {
     margin-left: auto;
-    width: fit-content;
+    flex: 1;
+    max-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
     .custom-tooltip {
         bottom: calc(100% + 10px);
-        font-size: 13px;
-        padding: 10px 14px;
+        font-size: 12px;
+        padding: 8px 12px;
         line-height: 1.4;
-        min-width: 200px; /* Wider minimum on mobile */
-        max-width: 260px;
+        /* Responsive sizing for mobile */
+        min-width: 140px;
+        max-width: min(240px, calc(100vw - 32px)); /* Responsive: account for padding */
         width: max-content;
         /* Center relative to button */
         left: 50%;
@@ -1094,7 +1103,15 @@ body:has(.about-hero) .greeting {
     
     .project-footer .tooltip-wrapper {
         width: 100%;
-        margin: 0 auto;
+        margin: 0;
+        max-width: none;
+        flex: 1;
+    }
+    
+    .project-btn-filled-mute {
+        width: 100%;
+        min-width: unset;
+        max-width: none;
     }
     
     .cta-button-mute {
@@ -1269,6 +1286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         max-width: none;
         padding: 12px 20px;
         font-size: 13px;
+        width: 100%;
     }
 
     .project-btn-filled-mute {
@@ -1276,6 +1294,14 @@ document.addEventListener('DOMContentLoaded', function() {
         max-width: none;
         padding: 12px 20px;
         font-size: 13px;
+        width: 100%;
+    }
+    
+    /* Ensure tooltip wrapper matches button sizing on mobile */
+    .project-footer .tooltip-wrapper {
+        flex: 1;
+        max-width: none;
+        width: 100%;
     }
 
     .btn-back-filled-mute {
@@ -1292,6 +1318,14 @@ document.addEventListener('DOMContentLoaded', function() {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 28px;
+    }
+    
+    /* Tablet tooltip sizing */
+    .custom-tooltip {
+        min-width: 170px;
+        max-width: min(250px, calc(100vw - 40px));
+        font-size: 12px;
+        padding: 9px 13px;
     }
 }
 
