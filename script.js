@@ -61,4 +61,33 @@ document.addEventListener('DOMContentLoaded', function() {
             card.classList.toggle('flipped');
         });
     });
+
+    // Tooltip click handling for mobile
+    const mutedButtons = document.querySelectorAll('.project-btn-filled-mute, .btn-back-filled-mute');
+    
+    mutedButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tooltip = this.nextElementSibling;
+            if (tooltip && tooltip.classList.contains('custom-tooltip')) {
+                // Toggle tooltip visibility
+                const isVisible = tooltip.style.visibility === 'visible' || 
+                                 window.getComputedStyle(tooltip).visibility === 'visible';
+                
+                if (isVisible) {
+                    tooltip.style.opacity = '0';
+                    tooltip.style.visibility = 'hidden';
+                } else {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.visibility = 'visible';
+                    
+                    // Hide tooltip after 3 seconds
+                    setTimeout(() => {
+                        tooltip.style.opacity = '0';
+                        tooltip.style.visibility = 'hidden';
+                    }, 3000);
+                }
+            }
+        });
+    });
 });

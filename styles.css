@@ -883,6 +883,34 @@ body:has(.about-hero) .greeting {
     box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
 }
 
+/* Muted version of project-btn-filled */
+.project-btn-filled-mute {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #E5E7EB;
+    color: #9CA3AF;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex: 1;
+    max-width: 150px;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.project-btn-filled-mute:hover {
+    background: #E5E7EB;
+    border-color: #E5E7EB;
+    color: #9CA3AF;
+    transform: none;
+    box-shadow: none;
+}
+
 .external-link {
     color: #667eea;
     text-decoration: none;
@@ -981,7 +1009,11 @@ body:has(.about-hero) .greeting {
 /* Show on hover (desktop) OR tap/focus (mobile) */
 .tooltip-wrapper:hover .custom-tooltip,
 .tooltip-wrapper .cta-button-mute:focus + .custom-tooltip,
-.tooltip-wrapper .cta-button-mute:active + .custom-tooltip {
+.tooltip-wrapper .cta-button-mute:active + .custom-tooltip,
+.tooltip-wrapper .project-btn-filled-mute:focus + .custom-tooltip,
+.tooltip-wrapper .project-btn-filled-mute:active + .custom-tooltip,
+.tooltip-wrapper .btn-back-filled-mute:focus + .custom-tooltip,
+.tooltip-wrapper .btn-back-filled-mute:active + .custom-tooltip {
   opacity: 1;
   visibility: visible;
 }
@@ -1173,6 +1205,19 @@ body:has(.about-hero) .greeting {
     .project-btn-filled {
         flex: 1;
         max-width: none;
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+
+    .project-btn-filled-mute {
+        flex: 1;
+        max-width: none;
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+
+    .btn-back-filled-mute {
+        width: 100%;
         padding: 12px 20px;
         font-size: 13px;
     }
@@ -2066,6 +2111,33 @@ body:has(.about-hero) .greeting {
     box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
+/* Muted version of btn-back-filled */
+.btn-back-filled-mute {
+    flex: 1;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    pointer-events: auto;
+}
+
+.btn-back-filled-mute:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    transform: none;
+    box-shadow: none;
+}
+
 /* Mobile Responsive for Flip Cards */
 @media (max-width: 768px) {
     .project-card:has(.project-card-inner) {
@@ -2113,7 +2185,8 @@ body:has(.about-hero) .greeting {
     }
 
     .btn-back-outline,
-    .btn-back-filled {
+    .btn-back-filled,
+    .btn-back-filled-mute {
         width: 100%;
     }
 }
