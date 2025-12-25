@@ -22,7 +22,6 @@ body {
 /* ================================
    NAVBAR
    ================================ */
-/* Ensure consistent navbar across pages */
 /* ================================
    FIX 1: STICKY NAVBAR ON MOBILE
    ================================ */
@@ -46,7 +45,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* About Page Navbar Override - Only color changes, size remains consistent */
 /* Ensure about page navbar also sticks */
 body:has(.about-hero) .navbar {
     background-color: #1A25C5;
@@ -71,8 +69,6 @@ body:has(.about-hero) .nav-links a {
     font-size: 16px; /* Ensure nav links match index.html */
     line-height: 1.5;
 }
-
-
 
 .logo {
     font-size: 26px;
@@ -100,7 +96,6 @@ body:has(.about-hero) .nav-links a {
     white-space: nowrap;
 }
 
-/* Projects page navbar - ensure consistent sizing with index.html */
 /* Ensure projects page navbar also sticks */
 body:has(.projects-hero) .navbar {
     background-color: #fff;
@@ -1021,12 +1016,14 @@ body:has(.about-hero) .greeting {
     font-family: 'Outfit', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    /* REMOVED: white-space: nowrap; */
-    /* ADDED: Allow text wrapping */
+    line-height: 1.4;
+    /* Allow text wrapping but with better control */
     white-space: normal;
-    max-width: 220px; /* Limit width so it doesn't get too wide */
-    text-align: center; /* Center the text */
-    word-wrap: break-word; /* Break long words if needed */
+    min-width: 180px; /* Minimum width to prevent too narrow */
+    max-width: 280px; /* Maximum width to prevent too wide */
+    width: max-content; /* Prefer content width */
+    text-align: center;
+    word-wrap: break-word;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.25s, visibility 0.25s;
@@ -1067,12 +1064,16 @@ body:has(.about-hero) .greeting {
 @media (max-width: 768px) {
     .custom-tooltip {
         bottom: calc(100% + 10px);
-        font-size: 12px;
-        padding: 10px 12px;
-        max-width: 200px; /* Slightly narrower on mobile */
-        /* Ensure it stays within viewport */
+        font-size: 13px;
+        padding: 10px 14px;
+        line-height: 1.4;
+        min-width: 200px; /* Wider minimum on mobile */
+        max-width: 260px;
+        width: max-content;
+        /* Center relative to button */
         left: 50%;
         right: auto;
+        transform: translateX(-50%);
     }
     
     .custom-tooltip::after {
@@ -1123,6 +1124,31 @@ body:has(.about-hero) .greeting {
         z-index: 101; /* Above navbar background */
     }
 }
+
+/* ================================
+   OPTIONAL: SCROLL DETECTION
+   ================================ */
+
+/* You can add this JavaScript to add 'scrolled' class for enhanced effects:
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        
+        lastScroll = currentScroll;
+    });
+});
+
+*/
 
 /* Enhanced mute button with better visual feedback */
 .cta-button-mute {
