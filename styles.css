@@ -8,6 +8,7 @@
 }
 html, body {
     height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 body {
     font-family: "Castoro", serif;
@@ -15,26 +16,45 @@ body {
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100vw; /* Prevent overflow */
 }
 /* ================================
    NAVBAR
    ================================ */
+/* Ensure consistent navbar across pages */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 50px;
+    padding: 32px 50px; /* Base padding */
     font-family: 'Outfit', sans-serif;
-    font-size: 22px;
 }
-/* About Page Navbar Override */
+
+/* About Page Navbar Override - Only color changes, size remains consistent */
 body:has(.about-hero) .navbar {
     background-color: #1A25C5;
+    /* Ensure same padding and sizing as index */
+    padding: 32px 50px;
 }
 body:has(.about-hero) .logo,
 body:has(.about-hero) .nav-links a {
     color: #fff;
 }
+
+/* Ensure logo size is consistent across all pages */
+body:has(.about-hero) .logo {
+    font-size: 26px;
+    line-height: 1.2;
+}
+
+body:has(.about-hero) .nav-links a {
+    font-size: 16px; /* Ensure nav links match index.html */
+    line-height: 1.5;
+}
+
+
+
 .logo {
     font-size: 26px;
     font-weight: 800;
@@ -42,6 +62,10 @@ body:has(.about-hero) .nav-links a {
     text-decoration: none;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    display: inline-block;
+    letter-spacing: normal;
+    white-space: nowrap;
 }
 .nav-links a {
     margin-left: 40px;
@@ -50,10 +74,40 @@ body:has(.about-hero) .nav-links a {
     font-size: 16px;
     font-weight: 500;
     transition: opacity 0.3s ease;
+    line-height: 1.5;
+    display: inline-block;
+    letter-spacing: normal;
+    white-space: nowrap;
 }
+
+/* Projects page navbar - ensure consistent sizing with index.html */
+body:has(.projects-hero) .navbar {
+    padding: 32px 50px; /* Explicitly match index.html */
+    background-color: transparent; /* No override needed, but ensure no background compression */
+}
+
+body:has(.projects-hero) .logo {
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+body:has(.projects-hero) .nav-links a {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 40px; /* Ensure spacing isn't compressed */
+    line-height: 1.5;
+}
+
 .nav-links a:hover {
     opacity: 0.6;
 }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
 /* ================================
    BURGER MENU
    ================================ */
@@ -124,7 +178,6 @@ body:has(.about-hero) .nav-links a {
    HERO SECTIONS
    ================================ */
 .hero {
-    flex: 1;
     padding: 100px 50px;
 }
 /* Home Hero with Enhanced Gradient */
@@ -135,7 +188,8 @@ body:has(.about-hero) .nav-links a {
     align-items: center;
     min-height: calc(100vh - 100px);
     padding: 120px 50px;
-    background: linear-gradient(135deg, rgba(26,37,197,0.95), rgba(35,50,220,0.9), rgba(26,37,197,0.95)),
+    flex: 0 0 auto;
+    background: linear-gradient(135deg, rgba(26,37,197,0.95), rgba(35,50,220,0.9), rgba(26,37,197,0.95)), 
         radial-gradient(circle at 20% 50%, rgba(80,100,255,0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 50%, rgba(20,30,180,0.3) 0%, transparent 50%),
         #1a25c5;
@@ -143,6 +197,8 @@ body:has(.about-hero) .nav-links a {
     position: relative;
     overflow: hidden;
 }
+
+
 .hero.home-hero::before {
     content: '';
     position: absolute;
@@ -189,6 +245,44 @@ body:has(.about-hero) .nav-links a {
     margin-right: 0;
     text-align: left;
 }
+
+.hero-inner {
+    width: 100%;
+    max-width: 900px;
+}
+
+    .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease-out 0.1s backwards;
+}
+
+@media (max-width: 768px) {
+    .status-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+        margin-bottom: 20px;
+    }
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
 /* CTA Buttons */
 .hero-buttons {
     display: flex;
@@ -235,6 +329,7 @@ body:has(.about-hero) .nav-links a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1;
 }
 .hero.about-hero h1 {
     text-align: center;
@@ -346,33 +441,7 @@ body:has(.about-hero) .greeting {
     height: 100%;
     object-fit: cover;
 }
-/* ================================
-   WORK PAGE
-   ================================ */
-.work-hero {
-    background: #fff;
-    padding: 140px 80px 100px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-.work-hero-content {
-    max-width: 800px;
-}
-.work-hero-title {
-    font-family: "Castoro", serif;
-    font-size: 64px;
-    font-weight: 400;
-    color: #000;
-    margin-bottom: 24px;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-}
-.work-hero-description {
-    font-family: 'Outfit', sans-serif;
-    font-size: 20px;
-    line-height: 1.7;
-    color: #666;
-}
+
 /* ===========================
    ENHANCED PROJECT CARD STYLES
    =========================== */
@@ -403,10 +472,57 @@ body:has(.about-hero) .greeting {
     background: #f8f9fa;
     padding: 80px 50px 100px;
 }
+
+/* Home Projects Section */
+.home-projects-section {
+    background: #f8f9fa;
+    padding: 80px 50px;
+    width: 100%;
+}
+
+.home-projects-title {
+    font-family: "Castoro", serif;
+    font-size: 48px;
+    text-align: center;
+    color: #1A25C5;
+    margin-bottom: 50px;
+    letter-spacing: -1.5px;
+    font-weight: 600;
+}
+
+.home-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.home-projects-view-more {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.view-more-link {
+    display: inline-block;
+    color: #1A25C5;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.view-more-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
@@ -427,54 +543,96 @@ body:has(.about-hero) .greeting {
 }
 /* Project Content */
 .project-content {
-    padding: 30px;
+    padding: 40px 40px 40px 40px;
     position: relative;
     flex: 1;
 }
-/* Status Badge - Top Right */
-/* Status Badge - Top Right */
+
+/* Status Badge - Inline with badge type: blinker dot + text, right-aligned */
 .project-status-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 16px;
+    padding: 4px 10px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: 500;
     font-family: 'Outfit', sans-serif;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-left: auto; /* Push to the right side of the row */
+    flex-shrink: 0; /* Prevent shrinking */
+    white-space: nowrap; /* Prevent text wrapping */
 }
-.project-status-badge::before {
-    content: '';
-    width: 6px;
-    height: 6px;
+
+.project-status-badge .status-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    display: inline-block;
 }
 .project-status-badge.active {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    color: #10b981;
 }
-.project-status-badge.active::before {
+
+.project-status-badge.active .status-dot {
+    background: #10b981;
+    animation: blink 1.5s infinite;
+}
+
+.project-status-badge.completed {
+    color: #0066cc;
+}
+
+.project-status-badge.completed .status-dot {
+    background: #0066cc;
+    animation: none; /* No blink for completed */
+}
+
+/* For back side (dark background), adjust colors for visibility */
+.project-card-back .project-status-badge {
+    position: relative; /* Keep inline with badge type */
+}
+
+.project-card-back .project-status-badge.active {
+    color: white;
+}
+
+.project-card-back .project-status-badge.active .status-dot {
     background: white;
     animation: blink 1.5s infinite;
 }
-.project-status-badge.completed {
-    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
+
+.project-card-back .project-status-badge.completed {
     color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
 }
-.project-status-badge.completed::before {
+
+.project-card-back .project-status-badge.completed .status-dot {
     background: white;
+    animation: none;
 }
+
+/* Align badge type with back-detail-label on back side */
+.project-card-back .project-badges {
+    margin-bottom: 24px; /* Match back-detail-section spacing */
+    margin-top: 0;
+    width: 100%; /* Ensure full width for proper spacing */
+}
+
+/* Style badge type on back side to match visibility */
+.project-card-back .badge.type {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 @keyframes blink {
-    0%, 100% { opacity: 1; }
+    0% { opacity: 1; }
     50% { opacity: 0.4; }
+    100% { opacity: 1; }
 }
 /* Project Name & Type */
 .project-name {
@@ -485,21 +643,18 @@ body:has(.about-hero) .greeting {
     padding-right: 100px;
     font-family: "Castoro", serif;
 }
-.project-type {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-family: 'Outfit', sans-serif;
-}
-/* Category/Type Badges - Below Title */
-/* Category/Type Badges - Below Title */
+
+
+/* Badge type: smaller text, left-aligned with status badge on same row */
 .project-badges {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between; /* Badge type on left, status badge on right */
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px; /* Slight reduction for tighter layout */
+    flex-wrap: nowrap; /* Prevent wrapping to keep on same row */
     margin-top: 8px;
+    width: 100%; /* Ensure full width for proper spacing */
 }
 .badge {
     padding: 8px 16px;
@@ -522,23 +677,30 @@ body:has(.about-hero) .greeting {
     transform: translateY(-2px);
 }
 .badge.type {
-    background: white;
-    color: #8B5CF6; /* Purple */
-    border: 2px solid #8B5CF6;
-}
-.badge.type:hover {
-    background: #F97316;
-    color: white;
-    transform: translateY(-2px);
-}
-/* Project Description */
-.project-description {
     color: #555;
-    line-height: 1.7;
-    margin-bottom: 24px;
-    font-size: 14px;
+    padding: 4px 4px; /* Smaller padding */
+    border-radius: 4px; /* Smaller radius */
+    font-size: 12px; /* Smaller text */
+    font-weight: 500;
     font-family: 'Outfit', sans-serif;
 }
+.badge.type:hover {
+    background: rgba(0,0,0,0.08);
+    color: #555;
+    transform: none;
+}
+
+/* Reduce white space between description and footer */
+.project-description {
+    font-size: 15px;
+    line-height: 2.0;
+    color: #555;
+    margin: 0 0 8px 0; 
+    font-family: 'Outfit', sans-serif;
+    padding-top: 10px;
+    
+}
+
 /* Project Details (Tools & Skills) */
 .project-details {
     border-top: 1px solid #eee;
@@ -606,11 +768,64 @@ body:has(.about-hero) .greeting {
 }
 /* Project Footer */
 .project-footer {
-    padding: 0 30px 30px 30px;
+    margin-top: auto;
     display: flex;
+    gap: 12px;
+    padding: 16px 30px 30px 30px; /* Reduced top padding */
+    border-top: 1px solid #e5e7eb;
     justify-content: space-between;
     align-items: center;
 }
+
+/* Project Buttons */
+.project-btn-outline {
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #1A25C5;
+    color: #1A25C5;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 150px;
+}
+
+.project-btn-outline:hover {
+    background: #1A25C5;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 37, 197, 0.2);
+}
+
+.project-btn-filled {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #1A25C5;
+    color: #fff;
+    border: 2px solid #1A25C5;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex: 1;
+    max-width: 150px;
+    text-align: center;
+}
+
+.project-btn-filled:hover {
+    background: #FFC700;
+    border-color: #FFC700;
+    color: #1A25C5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
 .external-link {
     color: #667eea;
     text-decoration: none;
@@ -785,6 +1000,8 @@ body:has(.about-hero) .greeting {
     }
     .project-card {
         border-radius: 16px;
+        max-width: 100%;
+        overflow: hidden;
     }
     .project-content {
         padding: 24px;
@@ -793,28 +1010,31 @@ body:has(.about-hero) .greeting {
         font-size: 24px;
         padding-right: 80px;
     }
-    .project-type {
-        font-size: 13px;
-        margin-bottom: 6px;
-    }
+
+
     .project-status-badge {
-        top: 16px;
-        right: 16px;
         font-size: 11px;
-        padding: 5px 12px;
+        padding: 4px 8px;
     }
     .project-badges {
         margin-top: 6px;
         margin-bottom: 16px;
+        flex-wrap: nowrap; /* Keep on same row on mobile too */
+        width: 100%; /* Ensure full width */
     }
+    
+    .project-status-badge {
+        margin-left: auto; /* Push to right on mobile */
+    }
+
     .badge {
         font-size: 11px;
         padding: 5px 12px;
     }
     .project-description {
+        margin-bottom: 12px; /* Further reduce on mobile */
         font-size: 14px;
         line-height: 1.65;
-        margin-bottom: 20px;
     }
     .project-details {
         padding-top: 16px;
@@ -832,18 +1052,34 @@ body:has(.about-hero) .greeting {
         padding: 5px 10px;
     }
     .project-footer {
-        padding: 0 24px 24px 24px;
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
+        margin-top: auto;
+        display: flex;
+        gap: 12px;
+        padding-top: 8px;/* Reduced top padding */
+        border-top: 1px solid #e5e7eb;
     }
-    .cta-button {
-        text-align: center;
-        width: 100%;
-        padding: 14px 28px;
+
+    .badge.type {
+        font-size: 11px;
+        padding: 3px 8px;
     }
-    .external-link {
-        text-align: center;
+
+    .project-status-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+        margin-left: auto; /* Push to right on mobile */
+    }
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .project-btn-outline,
+    .project-btn-filled {
+        flex: 1;
+        max-width: none;
+        padding: 12px 20px;
         font-size: 13px;
     }
 }
@@ -855,7 +1091,60 @@ body:has(.about-hero) .greeting {
         grid-template-columns: repeat(2, 1fr);
         gap: 28px;
     }
+
+    .home-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+    }
+
+    /* Section padding adjustments for tablet */
+    .projects-grid-section {
+        padding: 60px 30px 80px;
+    }
+
+    .home-projects-section {
+        padding: 60px 30px;
+    }
+
+    .career-timeline-section {
+        padding: 60px 30px;
+    }
+
+    /* Project cards */
+    .project-content {
+        padding: 32px;
+    }
+
+    .project-name {
+        font-size: 26px;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: 80px 30px;
+    }
+
+    .hero.home-hero {
+        padding: 100px 30px 80px;
+    }
 }
+
+/* Adjust navbar for tablets to prevent compression */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 28px 40px; /* Slightly increase from potential default to match feel of index */
+    }
+
+    .logo {
+        font-size: 24px; /* Prevent too small */
+    }
+
+    .nav-links a {
+        margin-left: 35px;
+        font-size: 15px;
+    }
+}
+
 /* ================================
    LARGE SCREENS (> 1400px)
    ================================ */
@@ -963,10 +1252,16 @@ body:has(.about-hero) .greeting {
    MOBILE RESPONSIVE (≤ 768px)
    ================================ */
 @media (max-width: 768px) {
-   
-    /* NAVBAR */
+    
+    /* NAVBAR - Consistent across all pages */
     .navbar {
-        padding: 24px 20px;
+        padding: 24px 30px; /* Adjusted for better spacing */
+    }
+    
+    /* Ensure about and projects pages have same navbar padding on mobile */
+    body:has(.about-hero) .navbar,
+    body:has(.projects-hero) .navbar {
+        padding: 24px 30px; /* Adjusted for better spacing */
     }
    
     .nav-links {
@@ -976,7 +1271,15 @@ body:has(.about-hero) .greeting {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        font-size: 22px; /* Adjusted to prevent compression */
     }
+    
+    /* Ensure logo size is consistent on all pages in mobile */
+    body:has(.about-hero) .logo,
+    body:has(.projects-hero) .logo {
+        font-size: 22px; /* Adjusted to prevent compression */
+    }
+
     .burger-menu {
         display: flex;
     }
@@ -1012,7 +1315,11 @@ body:has(.about-hero) .greeting {
     }
     .hero.home-hero {
         min-height: calc(100vh - 80px);
-        padding: 80px 20px;
+        padding: 80px 20px 60px;
+    }
+
+    .hero-inner {
+        max-width: 100%;
     }
    
     .hero h1 {
@@ -1079,57 +1386,8 @@ body:has(.about-hero) .greeting {
         font-size: 15px;
         margin-top: 10px;
     }
-    /* WORK PAGE */
-    .work-hero {
-        padding: 80px 20px 60px;
-    }
-    .work-hero-title {
-        font-size: 40px;
-        letter-spacing: -1px;
-    }
-    .work-hero-description {
-        font-size: 16px;
-        line-height: 1.6;
-    }
-    .project-section {
-        padding: 60px 20px;
-    }
-    .project-wrapper {
-        grid-template-columns: 1fr !important;
-        gap: 30px;
-    }
-    .project-image-container {
-        height: 280px;
-        order: 1 !important;
-        border-radius: 12px;
-    }
-    .project-text-container {
-        padding: 20px 0 !important;
-        order: 2 !important;
-    }
-    .project-section-title {
-        font-size: 32px;
-        margin-bottom: 16px;
-    }
-    .project-section-description {
-        font-size: 17px;
-        line-height: 1.6;
-        margin-bottom: 24px;
-    }
-    .meta-item-detail {
-        flex-direction: column;
-        gap: 4px;
-        font-size: 15px;
-    }
-    .meta-label-detail {
-        min-width: auto;
-        font-size: 14px;
-        font-weight: 700;
-    }
-    .meta-value-detail {
-        font-size: 15px;
-        color: #444;
-    }
+
+
     /* FOOTER */
     .footer-container {
         padding: 30px 20px;
@@ -1152,7 +1410,31 @@ body:has(.about-hero) .greeting {
         width: 16px;
         height: 16px;
     }
+
+    /* HOME PROJECTS SECTION */
+    .home-projects-section {
+        padding: 60px 20px;
+    }
+
+    .home-projects-title {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .home-projects-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .home-projects-view-more {
+        margin-top: 40px;
+    }
+
+    .view-more-link {
+        font-size: 14px;
+    }
 }
+
 @media (max-width: 768px) {
     .about-photo-row {
         flex-direction: column;
@@ -1183,368 +1465,815 @@ body:has(.about-hero) .greeting {
         margin-top: 10px;
     }
 }
+
+
 /* ================================
-   SPLASH SCREEN
+   CAREER TIMELINE – Clean & Modern 2025 Style
    ================================ */
-/* ————— 6-CUBE GOLDEN SHUFFLE WAVE – 2025 Peak Edition ————— */
-#splash-screen {
-  position: fixed;
-  inset: 0;
-  background: #1A25C5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 1.2s ease;
-}
-#splash-screen.loaded {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.splash-inner {
-  text-align: center;
-  opacity: 0;
-  transform: translateY(24px);
-  animation: floatIn 1.3s 0.4s forwards cubic-bezier(0.22, 1, 0.36, 1);
-}
-.splash-logo {
-  font-family: 'Poppins', sans-serif;
-  font-size: 62px;
-  font-weight: 800;
-  letter-spacing: -2.4px;
-  margin: 0;
-  background: linear-gradient(90deg, #FFD700, #FFC700, #FFAA00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.gold-dot {
-  color: #FFD700;
-  animation: pulseDot 2.4s ease-in-out infinite;
-}
-.splash-role {
-  font-family: 'Outfit', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.7);
-  margin: 18px 0 56px;
-  letter-spacing: 2.4px;
-  text-transform: uppercase;
-}
-/* 6-Cube Loader */
-.splash-shuffle-loader {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-}
-.shuffle-cube {
-  width: 18px;
-  height: 18px;
-  background: #FFD700;
-  border-radius: 5px;
-  box-shadow:
-    0 0 16px rgba(255,215,0,0.5),
-    inset 0 0 6px rgba(255,255,255,0.3);
-  animation: cubeWave 2.6s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transform-origin: center bottom;
-}
-/* Staggered delays create the wave + shuffle */
-.c1 { animation-delay: 0s; }
-.c2 { animation-delay: 0.15s; }
-.c3 { animation-delay: 0.3s; }
-.c4 { animation-delay: 0.45s; }
-.c5 { animation-delay: 0.6s; }
-.c6 { animation-delay: 0.75s; }
-/* Wave + Shuffle Animation */
-@keyframes cubeWave {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.8;
-  }
-  15% {
-    transform: translateY(-28px) scale(1.15);
-    opacity: 1;
-  }
-  30% {
-    transform: translateY(-8px) translateX(6px) scale(1.05);
-  }
-  50% {
-    transform: translateY(0) translateX(-4px) scale(0.98);
-  }
-  70% {
-    transform: translateY(-6px) translateX(3px) scale(1.02);
-  }
-  85% {
-    transform: translateY(4px) scale(0.95);
-  }
-}
-/* Animations */
-@keyframes floatIn {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulseDot {
-  0%, 100% { text-shadow: 0 0 6px rgba(255,215,0,0.4); }
-  50% { text-shadow: 0 0 16px rgba(255,215,0,0.8); }
-}
-/* Career Timeline Section */
 .career-timeline-section {
-    background: #1A25C5;
-    width: 100vw;
-    /*margin-left: calc(50% - 50vw);*/
-    padding: 80px 0;
+    background: #FFFFFF;
+    padding: 80px 50px;
+    width: 100%;
 }
+
 .career-title {
     font-family: "Castoro", serif;
-    font-size: 28px;
+    font-size: 48px;
     text-align: center;
-    color: #fff;
+    color: #1A25C5;
     margin-bottom: 50px;
+    letter-spacing: -1.5px;
+    font-weight: 600;
 }
+
 .career-timeline {
     display: flex;
-    gap: 32px;
-    justify-content: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 0 60px;
-    scroll-snap-type: x mandatory;
-}
-.career-timeline::-webkit-scrollbar {
-    display: none;
-}
-/* Base Card Styling */
-.career-card {
-    background: #fff;
-    min-width: 300px;
-    max-width: 320px;
-    flex-shrink: 0;
-    padding: 28px 32px;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    scroll-snap-align: center;
-    font-family: "Outfit", sans-serif;
-    position: relative;
-}
-/* Regular Card Header */
-.career-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-}
-.career-period {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1A25C5;
-}
-/* Company Block */
-.career-company {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #555;
-}
-.career-company img {
-    width: 100px;
-    height: 40px;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+    max-width: 900px;
     margin: 0 auto;
 }
-/* Position Title */
+
+/* Card Styles */
+.career-card {
+    background: #FFFFFF;
+    color: #333;
+    width: 100%;
+    padding: 28px 32px;
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.career-card:hover {
+    border-color: #1A25C5;
+    box-shadow: 0 4px 12px rgba(26, 37, 197, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Card Header */
+.career-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 20px;
+}
+
+.career-card-left {
+    flex: 1;
+}
+
+.career-info {
+    flex: 1;
+}
+
+.career-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.career-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #f9fafb;
+    padding: 8px;
+}
+
 .career-position {
     font-family: "Castoro", serif;
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #000;
+    font-size: 22px;
+    color: #1A25C5;
+    line-height: 1.3;
     font-weight: 600;
+    margin: 0 0 6px 0;
 }
-.career-card p {
+
+.career-company-name {
     font-size: 15px;
-    line-height: 1.6;
-    color: #333;
+    color: #666;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
 }
-/* === CURRENT ROLE SPECIAL STYLING === */
-.career-card.current-role {
-    border: 3px solid #FFD700;
-    box-shadow: 0 10px 22px rgba(255, 215, 0, 0.25);
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-.current-badge {
-    position: absolute;
-    top: 12px;
-    left: 20px;
-    background: #FFD700;
-    color: #000;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 5px 12px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-}
-.current-logo {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-}
-.current-company {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-    font-weight: 600;
+
+.career-period {
     font-size: 14px;
+    color: #888;
+    font-weight: 400;
+    font-family: 'Outfit', sans-serif;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.career-description {
+    font-size: 15px;
+    line-height: 1.7;
     color: #555;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
 }
-.current-period {
-    position: absolute;
-    bottom: 16px;
-    right: 20px;
-    font-size: 14px;
+
+.career-card strong {
     color: #1A25C5;
     font-weight: 600;
 }
-/* === MOBILE RESPONSIVE === */
-@media (max-width: 768px) {
-    .career-timeline-section {
-        padding: 60px 0;
-    }
-    .career-title {
-        font-size: 24px;
-        margin-bottom: 40px;
-    }
-    .career-timeline {
-        flex-direction: column;
-        align-items: center;
-        overflow: visible;
-        padding: 0 20px;
-    }
-    .career-card {
-        width: 100%;
-        max-width: 400px;
-    }
-    .career-card.current-role {
-        padding-bottom: 50px;
-    }
-   
-}
-/* Force the badge to left-align no matter the parent flex alignment */
-.status-badge-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start !important; /* ← prevents centering */
-    align-items: flex-start !important;
-}
-/* Actual badge styling */
-.status-badge {
+
+/* Expand Button - Text Only */
+.career-read-more {
+    margin-top: 16px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #1A25C5;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px;
-    margin-bottom: 32px; /* Increased margin to prevent overlapping */
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #FFD700;
-    backdrop-filter: blur(8px);
-    box-shadow:
-        0 0 8px rgba(56, 189, 248, 0.25),
-        inset 0 0 8px rgba(56, 189, 248, 0.15);
-    user-select: none;
+    text-align: left;
 }
-/* Glowing dot */
-.status-dot {
+
+.career-read-more:hover {
+    opacity: 0.7;
+}
+
+.career-read-more .career-chevron {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.career-read-more.hidden {
+    display: none;
+}
+
+/* Expanded Content */
+.career-expanded-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+    padding: 0;
+    margin-top: 0;
+}
+
+.career-expanded-content.expanded {
+    max-height: 1000px;
+    opacity: 1;
+    padding-top: 24px;
+    margin-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Achievements Section */
+.career-achievements {
+    margin-bottom: 20px;
+}
+
+.achievements-title {
+    font-family: "Castoro", serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A25C5;
+    margin: 0 0 16px 0;
+}
+
+.achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.achievements-list li {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 12px;
+    padding-left: 0;
+}
+
+.achievements-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Collapse Button - Text Only */
+.career-collapse {
+    padding: 0;
+    background: none;
+    border: none;
+    color: #1A25C5;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    margin-top: 8px;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.career-collapse:hover {
+    opacity: 0.7;
+}
+
+.career-collapse .career-chevron {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+
+/* ================================
+   Mobile Responsive
+   ================================ */
+@media (max-width: 768px) {
+    .career-timeline-section {
+        padding: 60px 20px;
+    }
+
+    .career-title {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #1A25C5;
+    }
+
+    .career-timeline {
+        gap: 16px;
+    }
+
+    .career-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .career-card-header {
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 12px;
+    }
+
+    .career-card-right {
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .career-period {
+        text-align: left;
+    }
+
+    .career-logo {
+        width: 40px;
+        height: 40px;
+        padding: 6px;
+    }
+
+    .career-position {
+        font-size: 18px;
+        color: #1A25C5;
+        margin-bottom: 4px;
+    }
+
+    .career-company-name {
+        font-size: 14px;
+    }
+
+    .career-period {
+        font-size: 13px;
+        align-self: flex-start;
+    }
+
+    .career-description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .career-read-more {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .career-expanded-content.expanded {
+        padding-top: 20px;
+        margin-top: 16px;
+    }
+
+    .achievements-title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .achievements-list li {
+        font-size: 14px;
+        margin-bottom: 10px;
+        padding-left: 0;
+    }
+
+    .career-collapse {
+        font-size: 13px;
+        margin-top: 6px;
+    }
+}
+
+/* ================================
+   FLIP CARD FUNCTIONALITY
+   ================================ */
+
+/* Flip Card Container - Only apply when project-card-inner exists */
+.project-card:has(.project-card-inner) {
+    background: transparent !important;
+    perspective: 1000px;
+    height: 500px; /* Fixed height for flip effect */
+    overflow: visible !important; /* Override overflow: hidden from regular card */
+    display: block !important; /* Override display: flex from regular card */
+    flex-direction: unset !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.project-card-inner {
     position: relative;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #FFD700;
-    box-shadow:
-        0 0 6px rgba(255, 215, 0, 0.6),
-        0 0 12px rgba(255, 215, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
-/* Pulse animation */
-.status-dot::after {
-    content: "";
+
+.project-card.flipped .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and Back Face Styling */
+.project-card-front,
+.project-card-back {
     position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: #38bdf8;
-    opacity: 0.6;
-    animation: pulseDot 1.8s ease-out infinite;
-}
-@keyframes pulseDot {
-    0% {
-        transform: scale(1);
-        opacity: 0.6;
-    }
-    80% {
-        transform: scale(2.2);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(2.5);
-        opacity: 0;
-    }
-}
-.hero.home-hero {
-    display: flex;
-    justify-content: center;
-    padding: 120px 50px;
-}
-.hero-inner {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* ← LEFT ALIGNED */
-    width: 100%;
-    max-width: 900px; /* matches your typography width */
 }
-/* Space below the badge */
-.status-badge {
-    margin-bottom: 32px; /* Increased to prevent overlapping with heading */
+
+.project-card-front {
+    background: white;
+    overflow: hidden; /* Ensure content doesn't overflow */
 }
+
+.project-card-back {
+    background: #1A25C5;
+    transform: rotateY(180deg);
+    padding: 40px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Back Side Header - Badge type on left, Status badge on right */
+.project-card-back-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.project-card-back-header .badge.type {
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+}
+
+.project-card-back-header .project-status-badge {
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.project-card-back-header .project-status-badge.active {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.project-card-back-header .project-status-badge.active::before {
+    background: white;
+    animation: blink 1.5s infinite;
+}
+
+.project-card-back-header .project-status-badge.completed {
+    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.project-card-back-header .project-status-badge.completed::before {
+    background: white;
+}
+
+.back-detail-section {
+    margin-bottom: 24px;
+}
+
+.back-detail-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFD700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.back-detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.back-detail-badge {
+    font-family: 'Outfit', sans-serif;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Back Side Buttons */
+.project-card-back-footer {
+    margin-top: auto;
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.btn-back-outline {
+    flex: 1;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-back-filled {
+    flex: 1;
+    padding: 12px 24px;
+    background: #fff;
+    color: #1A25C5;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back-filled:hover {
+    background: #FFD700;
+    border-color: #FFD700;
+    color: #1A25C5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Mobile Responsive for Flip Cards */
 @media (max-width: 768px) {
-   
-    /* Center hero content on mobile */
+    .project-card:has(.project-card-inner) {
+        height: auto;
+        min-height: 480px;
+    }
+
+    .project-card-back {
+        padding: 30px 24px 24px;
+    }
+
+    .project-card-back-header {
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .project-card-back-header .badge.type {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .project-card-back-header .project-status-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+    }
+
+    .back-detail-section {
+        margin-bottom: 20px;
+    }
+
+    .back-detail-label {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .back-detail-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .project-card-back-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-back-outline,
+    .btn-back-filled {
+        width: 100%;
+    }
+}
+
+/* ================================
+   VERY SMALL DEVICES (320px - 480px)
+   ================================ */
+@media (max-width: 480px) {
+    /* Navbar adjustments for very small screens */
+    .navbar {
+        padding: 20px 16px;
+    }
+
+    body:has(.about-hero) .navbar,
+    body:has(.projects-hero) .navbar {
+        padding: 20px 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    body:has(.about-hero) .logo,
+    body:has(.projects-hero) .logo {
+        font-size: 20px;
+    }
+
+    /* Hero section */
+    .hero {
+        padding: 40px 16px;
+    }
+
     .hero.home-hero {
-        align-items: center; /* Centers the inner content horizontally */
-        text-align: center; /* Centers text */
+        padding: 60px 16px 40px;
+        min-height: calc(100vh - 60px);
     }
-    .hero-inner {
-        align-items: center; /* Centers all child elements */
-    }
-   
+
     .hero h1 {
-        text-align: center; /* Center the heading text */
+        font-size: 32px;
+        line-height: 1.2;
+        margin-bottom: 20px;
     }
-   
+
     .hero-subtext {
-        text-align: center; /* Center the subtext */
+        font-size: 15px;
+        margin-bottom: 28px;
     }
-    /* Center the status badge wrapper */
-    .status-badge-wrapper {
-        justify-content: center !important;
-    }
-    /* Center the button container */
+
     .hero-buttons {
-        align-items: center;
-        justify-content: center;
+        max-width: 100%;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    /* Projects Hero */
+    .projects-hero {
+        padding: 60px 16px 40px;
+    }
+
+    .projects-title {
+        font-size: 28px;
+    }
+
+    .projects-subtitle {
+        font-size: 14px;
+    }
+
+    /* Sections padding */
+    .projects-grid-section {
+        padding: 40px 16px 60px;
+    }
+
+    .home-projects-section {
+        padding: 40px 16px;
+    }
+
+    .career-timeline-section {
+        padding: 40px 16px;
+    }
+
+    /* Grid adjustments */
+    .home-projects-grid,
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Project cards */
+    .project-content {
+        padding: 20px;
+    }
+
+    .project-name {
+        font-size: 20px;
+        padding-right: 60px;
+    }
+
+    .project-description {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .project-footer {
+        padding: 12px 20px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .project-btn-outline,
+    .project-btn-filled {
+        width: 100%;
+        padding: 11px 18px;
+        font-size: 12px;
+    }
+
+    /* Badges */
+    .badge.type {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .project-status-badge {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .status-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Career cards */
+    .career-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .career-card {
+        padding: 16px;
+    }
+
+    .career-position {
+        font-size: 16px;
+    }
+
+    .career-company-name {
+        font-size: 13px;
+    }
+
+    .career-description {
+        font-size: 13px;
+    }
+
+    /* Flip cards */
+    .project-card:has(.project-card-inner) {
+        min-height: 420px;
+    }
+
+    .project-card-back {
+        padding: 24px 16px 16px;
+    }
+
+    .project-card-back .project-badges {
+        margin-bottom: 20px;
+    }
+
+    .back-detail-label {
+        font-size: 12px;
+    }
+
+    .back-detail-badge {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    /* Footer */
+    .footer-container {
+        padding: 30px 16px;
+    }
+
+    .footer-thanks {
+        font-size: 18px;
+    }
+
+    .footer-credit {
+        font-size: 12px;
+    }
+
+    .footer-socials {
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .social-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Mobile menu */
+    .nav-links.mobile-open a {
+        font-size: 28px;
+        padding: 18px 32px;
+    }
+}
+
+/* ================================
+   SMALL MOBILE DEVICES (320px - 375px)
+   ================================ */
+@media (max-width: 375px) {
+    .navbar {
+        padding: 18px 12px;
+    }
+
+    body:has(.about-hero) .navbar,
+    body:has(.projects-hero) .navbar {
+        padding: 18px 12px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .projects-title {
+        font-size: 24px;
+    }
+
+    .project-content {
+        padding: 16px;
+    }
+
+    .project-name {
+        font-size: 18px;
+        padding-right: 50px;
+    }
+
+    .career-title {
+        font-size: 24px;
+    }
+
+    .home-projects-title {
+        font-size: 28px;
     }
 }
 

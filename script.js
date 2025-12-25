@@ -1,202 +1,64 @@
-/**
- * Portfolio Website JavaScript
- * Handles mobile navigation and language cycling
- */
+// Career Card Expand/Collapse Functionality
+function toggleCareerCard(button) {
+    const careerCard = button.closest('.career-card');
+    const expandedContent = careerCard.querySelector('.career-expanded-content');
+    const readMoreBtn = careerCard.querySelector('.career-read-more');
+    
+    if (expandedContent.classList.contains('expanded')) {
+        // Collapse
+        expandedContent.classList.remove('expanded');
+        readMoreBtn.classList.remove('hidden');
+        // Smooth scroll to top of card
+        careerCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+        // Expand
+        expandedContent.classList.add('expanded');
+        readMoreBtn.classList.add('hidden');
+        // Smooth scroll to show expanded content
+        setTimeout(() => {
+            expandedContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+}
 
-// ================================
-// MOBILE NAVIGATION
-// ================================
-document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
-    initLanguageCycler();
-});
-
-/**
- * Initialize mobile menu functionality
- */
-function initMobileMenu() {
+// Mobile Navigation Toggle
+document.addEventListener('DOMContentLoaded', function() {
     const burgerBtn = document.getElementById('burgerBtn');
     const navLinks = document.getElementById('navLinks');
-
-    if (!burgerBtn || !navLinks) return;
-
-    const BREAKPOINT = 768;
-    let isMobileMenuOpen = false;
-
-    /**
-     * Close the mobile menu
-     * @param {boolean} animate - Whether to animate the close
-     */
-    const closeMenu = (animate = true) => {
-        if (!isMobileMenuOpen) return;
-        
-        burgerBtn.classList.remove('active');
-        navLinks.classList.remove('mobile-open');
-        
-        if (animate) {
-            navLinks.classList.add('mobile-closing');
-            setTimeout(() => {
-                navLinks.classList.remove('mobile-closing');
-            }, 300);
-        }
-        
-        isMobileMenuOpen = false;
-    };
-
-    /**
-     * Open the mobile menu
-     */
-    const openMenu = () => {
-        if (isMobileMenuOpen) return;
-        
-        burgerBtn.classList.add('active');
-        navLinks.classList.add('mobile-open');
-        navLinks.classList.remove('mobile-closing');
-        isMobileMenuOpen = true;
-    };
-
-    /**
-     * Toggle menu state
-     */
-    const toggleMenu = (e) => {
-        e.stopPropagation();
-        isMobileMenuOpen ? closeMenu() : openMenu();
-    };
-
-    /**
-     * Check if current viewport is mobile
-     */
-    const isMobileDevice = () => window.innerWidth <= BREAKPOINT;
-
-    // Event Listeners
-    burgerBtn.addEventListener('click', toggleMenu);
-
-    // Close menu when clicking nav links
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            closeMenu(true);
-        });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (isMobileMenuOpen && !e.target.closest('.navbar')) {
-            closeMenu(false);
-        }
-    });
-
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            if (!isMobileDevice() && isMobileMenuOpen) {
-                closeMenu(false);
-            }
-        }, 250);
-    });
-
-    // Prevent body scroll when menu is open
-    navLinks.addEventListener('wheel', (e) => {
-        if (isMobileMenuOpen) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-}
-
-// ================================
-// LANGUAGE CYCLER (About Page)
-// ================================
-/**
- * Initialize language text cycling on About page
- */
-function initLanguageCycler() {
-    const languageText = document.getElementById('language-text');
-
-    if (!languageText) return; // Only run on About page
-
-    const languages = ["English", "Malay", "Japanese"];
-    const translations = {
-        English: "Hello!",
-        Malay: "Hai!",
-        Japanese: "こんにちは!"
-    };
-
-    let index = 0;
-
-    function updateLanguage() {
-        const currentLang = languages[index];
-        languageText.textContent = translations[currentLang];
-        index = (index + 1) % languages.length;
-    }
-
-    // Set initial language
-    updateLanguage();
     
-    // Update every 3 seconds
-    setInterval(updateLanguage, 3000);
-}
-
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('splash-screen')?.classList.add('loaded');
-  }, 1800); // feels luxurious but not slow
+    if (burgerBtn && navLinks) {
+        burgerBtn.addEventListener('click', function() {
+            burgerBtn.classList.toggle('active');
+            navLinks.classList.toggle('mobile-open');
+            
+            if (!navLinks.classList.contains('mobile-open')) {
+                navLinks.classList.add('mobile-closing');
+                setTimeout(() => {
+                    navLinks.classList.remove('mobile-closing');
+                }, 300);
+            }
+        });
+        
+        // Close menu when clicking on a link
+        const navLinksItems = navLinks.querySelectorAll('a');
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', function() {
+                burgerBtn.classList.remove('active');
+                navLinks.classList.remove('mobile-open');
+            });
+        });
+    }
 });
 
-// Enhanced tooltip functionality for mobile
+// Flip Card Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const tooltipWrappers = document.querySelectorAll('.tooltip-wrapper');
+    const flipButtons = document.querySelectorAll('.flip-card-btn');
     
-    tooltipWrappers.forEach(wrapper => {
-        const button = wrapper.querySelector('.cta-button-mute');
-        
-        if (button) {
-            // Mobile: Toggle tooltip on click
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Check if we're on mobile
-                if (window.innerWidth <= 768) {
-                    // Close all other tooltips first
-                    tooltipWrappers.forEach(w => {
-                        if (w !== wrapper) {
-                            w.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current tooltip
-                    wrapper.classList.toggle('active');
-                }
-                
-                return false;
-            });
-        }
-    });
-    
-    // Close tooltip when clicking outside (mobile)
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            const clickedWrapper = e.target.closest('.tooltip-wrapper');
-            
-            if (!clickedWrapper) {
-                tooltipWrappers.forEach(wrapper => {
-                    wrapper.classList.remove('active');
-                });
-            }
-        }
-    });
-    
-    // Close tooltips when scrolling (mobile)
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768) {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function() {
-                tooltipWrappers.forEach(wrapper => {
-                    wrapper.classList.remove('active');
-                });
-            }, 100);
-        }
+    flipButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.project-card');
+            card.classList.toggle('flipped');
+        });
     });
 });
