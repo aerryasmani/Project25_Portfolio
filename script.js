@@ -91,3 +91,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+/* ================================
+   OPTIONAL: SCROLL DETECTION
+   ================================ */
+
+// Add 'scrolled' class to navbar for enhanced effects
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    let lastScroll = 0;
+    
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
+});

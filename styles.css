@@ -23,19 +23,37 @@ body {
    NAVBAR
    ================================ */
 /* Ensure consistent navbar across pages */
+/* ================================
+   FIX 1: STICKY NAVBAR ON MOBILE
+   ================================ */
+
+/* Make navbar sticky on all screen sizes */
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 50px; /* Base padding */
+    padding: 32px 50px;
     font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* Add subtle shadow when scrolled (optional enhancement) */
+.navbar.scrolled {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* About Page Navbar Override - Only color changes, size remains consistent */
+/* Ensure about page navbar also sticks */
 body:has(.about-hero) .navbar {
     background-color: #1A25C5;
-    /* Ensure same padding and sizing as index */
     padding: 32px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 body:has(.about-hero) .logo,
@@ -83,9 +101,13 @@ body:has(.about-hero) .nav-links a {
 }
 
 /* Projects page navbar - ensure consistent sizing with index.html */
+/* Ensure projects page navbar also sticks */
 body:has(.projects-hero) .navbar {
-    padding: 32px 50px; /* Explicitly match index.html */
-    background-color: transparent; /* No override needed, but ensure no background compression */
+    background-color: #fff;
+    padding: 32px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 body:has(.projects-hero) .logo {
@@ -978,32 +1000,39 @@ body:has(.about-hero) .greeting {
 /* ================================
    ENHANCED TOOLTIP SYSTEM
    ================================ */
+/* ================================
+   FIX 2: IMPROVED TOOLTIP SYSTEM
+   ================================ */
 
-/* Mobile + Desktop friendly tooltip for muted buttons */
 .tooltip-wrapper {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .tooltip-wrapper .custom-tooltip {
-  position: absolute;
-  bottom: 120%;                    /* appears above the button */
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1a1a1a;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.25s, visibility 0.25s;
-  pointer-events: none;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    /* REMOVED: white-space: nowrap; */
+    /* ADDED: Allow text wrapping */
+    white-space: normal;
+    max-width: 220px; /* Limit width so it doesn't get too wide */
+    text-align: center; /* Center the text */
+    word-wrap: break-word; /* Break long words if needed */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* Show on hover (desktop) OR tap/focus (mobile) */
@@ -1014,19 +1043,19 @@ body:has(.about-hero) .greeting {
 .tooltip-wrapper .project-btn-filled-mute:active + .custom-tooltip,
 .tooltip-wrapper .btn-back-filled-mute:focus + .custom-tooltip,
 .tooltip-wrapper .btn-back-filled-mute:active + .custom-tooltip {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Little arrow */
+/* Arrow */
 .tooltip-wrapper .custom-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -6px;
-  border: 6px solid transparent;
-  border-top-color: #1a1a1a;
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border: 6px solid transparent;
+    border-top-color: #1a1a1a;
 }
 
 .project-footer .tooltip-wrapper {
@@ -1038,29 +1067,17 @@ body:has(.about-hero) .greeting {
 @media (max-width: 768px) {
     .custom-tooltip {
         bottom: calc(100% + 10px);
-        font-size: 13px;
-        padding: 10px 14px;
-        max-width: 240px;
+        font-size: 12px;
+        padding: 10px 12px;
+        max-width: 200px; /* Slightly narrower on mobile */
+        /* Ensure it stays within viewport */
+        left: 50%;
+        right: auto;
     }
     
     .custom-tooltip::after {
         border-width: 5px;
-    }
-    
-    /* Remove hover on mobile, rely only on click */
-    .tooltip-wrapper:hover .custom-tooltip {
-        opacity: 0;
-        visibility: hidden;
-    }
-        .custom-tooltip {
-        bottom: calc(100% + 10px);
-        font-size: 13px;
-        padding: 10px 14px;
-        max-width: 240px;
-    }
-    
-    .custom-tooltip::after {
-        border-width: 5px;
+        margin-left: -5px;
     }
     
     /* Remove hover on mobile, rely only on click */
@@ -1069,22 +1086,41 @@ body:has(.about-hero) .greeting {
         visibility: hidden;
     }
     
-    /* Make tooltip wrapper full width on mobile ONLY */
+    /* Make tooltip wrapper full width on mobile */
     .tooltip-wrapper {
         width: 100%;
     }
+    
     .project-footer .tooltip-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .project-footer .tooltip-wrapper {
-        width: 100%;           /* makes the wrapper full-width */
-        margin: 0 auto;        /* centers it */
+        width: 100%;
+        margin: 0 auto;
     }
     
     .cta-button-mute {
-        width: 100%;           /* forces the button itself to fill the wrapper */
-        min-width: unset;      /* removes the 184px restriction on mobile */
+        width: 100%;
+        min-width: unset;
+    }
+    
+    /* Ensure navbar stays sticky on mobile */
+    .navbar {
+        padding: 24px 30px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: #fff;
+    }
+    
+    body:has(.about-hero) .navbar {
+        background-color: #1A25C5;
+    }
+    
+    /* Ensure logo stays centered and visible */
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+        z-index: 101; /* Above navbar background */
     }
 }
 
@@ -1370,25 +1406,15 @@ body:has(.about-hero) .greeting {
 @media (max-width: 768px) {
     
     /* NAVBAR - Consistent across all pages */
-    .navbar {
-        padding: 24px 30px; /* Adjusted for better spacing */
-    }
+    /* Navbar sticky styles are already defined above in the tooltip mobile section */
     
     /* Ensure about and projects pages have same navbar padding on mobile */
-    body:has(.about-hero) .navbar,
     body:has(.projects-hero) .navbar {
-        padding: 24px 30px; /* Adjusted for better spacing */
+        background-color: #fff;
     }
     
     .nav-links {
         display: none;
-    }
-
-    .logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 22px; /* Adjusted to prevent compression */
     }
     
     /* Ensure logo size is consistent on all pages in mobile */
