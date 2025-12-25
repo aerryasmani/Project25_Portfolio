@@ -50,3 +50,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Flip Card Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const flipButtons = document.querySelectorAll('.flip-card-btn');
+    
+    flipButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.project-card');
+            card.classList.toggle('flipped');
+        });
+    });
+});

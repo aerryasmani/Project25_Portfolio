@@ -9,6 +9,7 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 body {
@@ -17,18 +18,20 @@ body {
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100vw; /* Prevent overflow */
 }
 
 /* ================================
    NAVBAR
    ================================ */
+/* Ensure consistent navbar across pages */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 50px;
+    padding: 32px 50px; /* Base padding */
     font-family: 'Outfit', sans-serif;
-    font-size: 22px;
 }
 
 /* About Page Navbar Override - Only color changes, size remains consistent */
@@ -46,16 +49,15 @@ body:has(.about-hero) .nav-links a {
 /* Ensure logo size is consistent across all pages */
 body:has(.about-hero) .logo {
     font-size: 26px;
+    line-height: 1.2;
 }
 
-/* Projects page navbar - ensure consistent sizing */
-body:has(.projects-hero) .navbar {
-    padding: 32px 50px;
+body:has(.about-hero) .nav-links a {
+    font-size: 16px; /* Ensure nav links match index.html */
+    line-height: 1.5;
 }
 
-body:has(.projects-hero) .logo {
-    font-size: 26px;
-}
+
 
 .logo {
     font-size: 26px;
@@ -64,6 +66,10 @@ body:has(.projects-hero) .logo {
     text-decoration: none;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    display: inline-block;
+    letter-spacing: normal;
+    white-space: nowrap;
 }
 
 .nav-links a {
@@ -73,12 +79,39 @@ body:has(.projects-hero) .logo {
     font-size: 16px;
     font-weight: 500;
     transition: opacity 0.3s ease;
+    line-height: 1.5;
+    display: inline-block;
+    letter-spacing: normal;
+    white-space: nowrap;
+}
+
+/* Projects page navbar - ensure consistent sizing with index.html */
+body:has(.projects-hero) .navbar {
+    padding: 32px 50px; /* Explicitly match index.html */
+    background-color: transparent; /* No override needed, but ensure no background compression */
+}
+
+body:has(.projects-hero) .logo {
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+body:has(.projects-hero) .nav-links a {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 40px; /* Ensure spacing isn't compressed */
+    line-height: 1.5;
 }
 
 .nav-links a:hover {
     opacity: 0.6;
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+}
 
 /* ================================
    BURGER MENU
@@ -504,7 +537,7 @@ body:has(.about-hero) .greeting {
 
 .home-projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
@@ -534,7 +567,7 @@ body:has(.about-hero) .greeting {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
@@ -558,61 +591,97 @@ body:has(.about-hero) .greeting {
 
 /* Project Content */
 .project-content {
-    padding: 30px;
+    padding: 40px 40px 40px 40px;
     position: relative;
     flex: 1;
 }
 
-/* Status Badge - Top Right */
-/* Status Badge - Top Right */
+/* Status Badge - Inline with badge type: blinker dot + text, right-aligned */
 .project-status-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 16px;
+    padding: 4px 10px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: 500;
     font-family: 'Outfit', sans-serif;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-left: auto; /* Push to the right side of the row */
+    flex-shrink: 0; /* Prevent shrinking */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
-.project-status-badge::before {
-    content: '';
-    width: 6px;
-    height: 6px;
+.project-status-badge .status-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    display: inline-block;
 }
 
 .project-status-badge.active {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    color: #10b981;
 }
 
-.project-status-badge.active::before {
-    background: white;
+.project-status-badge.active .status-dot {
+    background: #10b981;
     animation: blink 1.5s infinite;
 }
 
 .project-status-badge.completed {
-    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    color: #0066cc;
 }
 
-.project-status-badge.completed::before {
+.project-status-badge.completed .status-dot {
+    background: #0066cc;
+    animation: none; /* No blink for completed */
+}
+
+/* For back side (dark background), adjust colors for visibility */
+.project-card-back .project-status-badge {
+    position: relative; /* Keep inline with badge type */
+}
+
+.project-card-back .project-status-badge.active {
+    color: white;
+}
+
+.project-card-back .project-status-badge.active .status-dot {
     background: white;
+    animation: blink 1.5s infinite;
+}
+
+.project-card-back .project-status-badge.completed {
+    color: white;
+}
+
+.project-card-back .project-status-badge.completed .status-dot {
+    background: white;
+    animation: none;
+}
+
+/* Align badge type with back-detail-label on back side */
+.project-card-back .project-badges {
+    margin-bottom: 24px; /* Match back-detail-section spacing */
+    margin-top: 0;
+    width: 100%; /* Ensure full width for proper spacing */
+}
+
+/* Style badge type on back side to match visibility */
+.project-card-back .badge.type {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
+    0% { opacity: 1; }
     50% { opacity: 0.4; }
+    100% { opacity: 1; }
 }
 
 /* Project Name & Type */
@@ -626,14 +695,16 @@ body:has(.about-hero) .greeting {
 }
 
 
-/* Category/Type Badges - Below Title */
-/* Category/Type Badges - Below Title */
+/* Badge type: smaller text, left-aligned with status badge on same row */
 .project-badges {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between; /* Badge type on left, status badge on right */
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px; /* Slight reduction for tighter layout */
+    flex-wrap: nowrap; /* Prevent wrapping to keep on same row */
     margin-top: 8px;
+    width: 100%; /* Ensure full width for proper spacing */
 }
 
 .badge {
@@ -660,24 +731,29 @@ body:has(.about-hero) .greeting {
 }
 
 .badge.type {
-    background: white;
-    color: #8B5CF6;  /* Purple */
-    border: 2px solid #8B5CF6;
+    color: #555;
+    padding: 4px 4px; /* Smaller padding */
+    border-radius: 4px; /* Smaller radius */
+    font-size: 12px; /* Smaller text */
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
 }
 
 .badge.type:hover {
-    background: #F97316;
-    color: white;
-    transform: translateY(-2px);
+    background: rgba(0,0,0,0.08);
+    color: #555;
+    transform: none;
 }
 
-/* Project Description */
+/* Reduce white space between description and footer */
 .project-description {
+    font-size: 15px;
+    line-height: 2.0;
     color: #555;
-    line-height: 1.7;
-    margin-bottom: 24px;
-    font-size: 14px;
+    margin: 0 0 8px 0; 
     font-family: 'Outfit', sans-serif;
+    padding-top: 10px;
+    
 }
 
 /* Project Details (Tools & Skills) */
@@ -756,11 +832,13 @@ body:has(.about-hero) .greeting {
 }
 /* Project Footer */
 .project-footer {
-    padding: 0 30px 30px 30px;
+    margin-top: auto;
     display: flex;
+    gap: 12px;
+    padding: 16px 30px 30px 30px; /* Reduced top padding */
+    border-top: 1px solid #e5e7eb;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
 }
 
 /* Project Buttons */
@@ -1022,6 +1100,8 @@ body:has(.about-hero) .greeting {
 
     .project-card {
         border-radius: 16px;
+        max-width: 100%;
+        overflow: hidden;
     }
 
     .project-content {
@@ -1035,15 +1115,19 @@ body:has(.about-hero) .greeting {
 
 
     .project-status-badge {
-        top: 16px;
-        right: 16px;
         font-size: 11px;
-        padding: 5px 12px;
+        padding: 4px 8px;
     }
 
     .project-badges {
         margin-top: 6px;
         margin-bottom: 16px;
+        flex-wrap: nowrap; /* Keep on same row on mobile too */
+        width: 100%; /* Ensure full width */
+    }
+    
+    .project-status-badge {
+        margin-left: auto; /* Push to right on mobile */
     }
 
     .badge {
@@ -1052,9 +1136,9 @@ body:has(.about-hero) .greeting {
     }
 
     .project-description {
+        margin-bottom: 12px; /* Further reduce on mobile */
         font-size: 14px;
         line-height: 1.65;
-        margin-bottom: 20px;
     }
 
     .project-details {
@@ -1077,10 +1161,27 @@ body:has(.about-hero) .greeting {
     }
 
     .project-footer {
-        padding: 0 24px 24px 24px;
-        flex-direction: row;
+        margin-top: auto;
+        display: flex;
         gap: 12px;
-        align-items: stretch;
+        padding-top: 8px;/* Reduced top padding */
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .badge.type {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+
+    .project-status-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+        margin-left: auto; /* Push to right on mobile */
+    }
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
     }
 
     .project-btn-outline,
@@ -1099,6 +1200,58 @@ body:has(.about-hero) .greeting {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 28px;
+    }
+
+    .home-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+    }
+
+    /* Section padding adjustments for tablet */
+    .projects-grid-section {
+        padding: 60px 30px 80px;
+    }
+
+    .home-projects-section {
+        padding: 60px 30px;
+    }
+
+    .career-timeline-section {
+        padding: 60px 30px;
+    }
+
+    /* Project cards */
+    .project-content {
+        padding: 32px;
+    }
+
+    .project-name {
+        font-size: 26px;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: 80px 30px;
+    }
+
+    .hero.home-hero {
+        padding: 100px 30px 80px;
+    }
+}
+
+/* Adjust navbar for tablets to prevent compression */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 28px 40px; /* Slightly increase from potential default to match feel of index */
+    }
+
+    .logo {
+        font-size: 24px; /* Prevent too small */
+    }
+
+    .nav-links a {
+        margin-left: 35px;
+        font-size: 15px;
     }
 }
 
@@ -1224,13 +1377,13 @@ body:has(.about-hero) .greeting {
     
     /* NAVBAR - Consistent across all pages */
     .navbar {
-        padding: 24px 20px;
+        padding: 24px 30px; /* Adjusted for better spacing */
     }
     
     /* Ensure about and projects pages have same navbar padding on mobile */
     body:has(.about-hero) .navbar,
     body:has(.projects-hero) .navbar {
-        padding: 24px 20px;
+        padding: 24px 30px; /* Adjusted for better spacing */
     }
     
     .nav-links {
@@ -1241,13 +1394,13 @@ body:has(.about-hero) .greeting {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 26px; /* Ensure consistent logo size on mobile */
+        font-size: 22px; /* Adjusted to prevent compression */
     }
     
     /* Ensure logo size is consistent on all pages in mobile */
     body:has(.about-hero) .logo,
     body:has(.projects-hero) .logo {
-        font-size: 26px;
+        font-size: 22px; /* Adjusted to prevent compression */
     }
 
     .burger-menu {
@@ -1773,5 +1926,493 @@ body:has(.about-hero) .greeting {
     .career-collapse {
         font-size: 13px;
         margin-top: 6px;
+    }
+}
+
+/* ================================
+   FLIP CARD FUNCTIONALITY
+   ================================ */
+
+/* Flip Card Container - Only apply when project-card-inner exists */
+.project-card:has(.project-card-inner) {
+    background: transparent !important;
+    perspective: 1000px;
+    height: 500px; /* Fixed height for flip effect */
+    overflow: visible !important; /* Override overflow: hidden from regular card */
+    display: block !important; /* Override display: flex from regular card */
+    flex-direction: unset !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.project-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.project-card.flipped .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and Back Face Styling */
+.project-card-front,
+.project-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-front {
+    background: white;
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.project-card-back {
+    background: #1A25C5;
+    transform: rotateY(180deg);
+    padding: 40px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Back Side Header - Badge type on left, Status badge on right */
+.project-card-back-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.project-card-back-header .badge.type {
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+}
+
+.project-card-back-header .project-status-badge {
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.project-card-back-header .project-status-badge.active {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.project-card-back-header .project-status-badge.active::before {
+    background: white;
+    animation: blink 1.5s infinite;
+}
+
+.project-card-back-header .project-status-badge.completed {
+    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.project-card-back-header .project-status-badge.completed::before {
+    background: white;
+}
+
+.back-detail-section {
+    margin-bottom: 24px;
+}
+
+.back-detail-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFD700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.back-detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.back-detail-badge {
+    font-family: 'Outfit', sans-serif;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Back Side Buttons */
+.project-card-back-footer {
+    margin-top: auto;
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.btn-back-outline {
+    flex: 1;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-back-filled {
+    flex: 1;
+    padding: 12px 24px;
+    background: #fff;
+    color: #1A25C5;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back-filled:hover {
+    background: #FFD700;
+    border-color: #FFD700;
+    color: #1A25C5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Mobile Responsive for Flip Cards */
+@media (max-width: 768px) {
+    .project-card:has(.project-card-inner) {
+        height: auto;
+        min-height: 480px;
+    }
+
+    .project-card-back {
+        padding: 30px 24px 24px;
+    }
+
+    .project-card-back-header {
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .project-card-back-header .badge.type {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .project-card-back-header .project-status-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+    }
+
+    .back-detail-section {
+        margin-bottom: 20px;
+    }
+
+    .back-detail-label {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .back-detail-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .project-card-back-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-back-outline,
+    .btn-back-filled {
+        width: 100%;
+    }
+}
+
+/* ================================
+   VERY SMALL DEVICES (320px - 480px)
+   ================================ */
+@media (max-width: 480px) {
+    /* Navbar adjustments for very small screens */
+    .navbar {
+        padding: 20px 16px;
+    }
+
+    body:has(.about-hero) .navbar,
+    body:has(.projects-hero) .navbar {
+        padding: 20px 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    body:has(.about-hero) .logo,
+    body:has(.projects-hero) .logo {
+        font-size: 20px;
+    }
+
+    /* Hero section */
+    .hero {
+        padding: 40px 16px;
+    }
+
+    .hero.home-hero {
+        padding: 60px 16px 40px;
+        min-height: calc(100vh - 60px);
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .hero-subtext {
+        font-size: 15px;
+        margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+        max-width: 100%;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    /* Projects Hero */
+    .projects-hero {
+        padding: 60px 16px 40px;
+    }
+
+    .projects-title {
+        font-size: 28px;
+    }
+
+    .projects-subtitle {
+        font-size: 14px;
+    }
+
+    /* Sections padding */
+    .projects-grid-section {
+        padding: 40px 16px 60px;
+    }
+
+    .home-projects-section {
+        padding: 40px 16px;
+    }
+
+    .career-timeline-section {
+        padding: 40px 16px;
+    }
+
+    /* Grid adjustments */
+    .home-projects-grid,
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Project cards */
+    .project-content {
+        padding: 20px;
+    }
+
+    .project-name {
+        font-size: 20px;
+        padding-right: 60px;
+    }
+
+    .project-description {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .project-footer {
+        padding: 12px 20px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .project-btn-outline,
+    .project-btn-filled {
+        width: 100%;
+        padding: 11px 18px;
+        font-size: 12px;
+    }
+
+    /* Badges */
+    .badge.type {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .project-status-badge {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .status-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Career cards */
+    .career-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .career-card {
+        padding: 16px;
+    }
+
+    .career-position {
+        font-size: 16px;
+    }
+
+    .career-company-name {
+        font-size: 13px;
+    }
+
+    .career-description {
+        font-size: 13px;
+    }
+
+    /* Flip cards */
+    .project-card:has(.project-card-inner) {
+        min-height: 420px;
+    }
+
+    .project-card-back {
+        padding: 24px 16px 16px;
+    }
+
+    .project-card-back .project-badges {
+        margin-bottom: 20px;
+    }
+
+    .back-detail-label {
+        font-size: 12px;
+    }
+
+    .back-detail-badge {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    /* Footer */
+    .footer-container {
+        padding: 30px 16px;
+    }
+
+    .footer-thanks {
+        font-size: 18px;
+    }
+
+    .footer-credit {
+        font-size: 12px;
+    }
+
+    .footer-socials {
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .social-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Mobile menu */
+    .nav-links.mobile-open a {
+        font-size: 28px;
+        padding: 18px 32px;
+    }
+}
+
+/* ================================
+   SMALL MOBILE DEVICES (320px - 375px)
+   ================================ */
+@media (max-width: 375px) {
+    .navbar {
+        padding: 18px 12px;
+    }
+
+    body:has(.about-hero) .navbar,
+    body:has(.projects-hero) .navbar {
+        padding: 18px 12px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .projects-title {
+        font-size: 24px;
+    }
+
+    .project-content {
+        padding: 16px;
+    }
+
+    .project-name {
+        font-size: 18px;
+        padding-right: 50px;
+    }
+
+    .career-title {
+        font-size: 24px;
+    }
+
+    .home-projects-title {
+        font-size: 28px;
     }
 }
