@@ -535,7 +535,7 @@ body:has(.about-hero) .greeting {
 /* Home Projects Section */
 .home-projects-section {
     background: #f8f9fa;
-    padding: 80px 50px;
+    padding: 80px 50px 40px 50px;
     width: 100%;
 }
 
@@ -559,7 +559,8 @@ body:has(.about-hero) .greeting {
 
 .home-projects-view-more {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .view-more-link {
@@ -590,12 +591,18 @@ body:has(.about-hero) .greeting {
 /* Project Card */
 .project-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.project-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
 .project-tools-text {
@@ -604,8 +611,9 @@ body:has(.about-hero) .greeting {
     padding-bottom: 10px;
     font-size: 11px;
     font-family: 'Outfit', sans-serif;
-    line-height: normal;
+    line-height: 1.4;
     color: blue;
+    min-height: 32px;
 }
 
 
@@ -616,9 +624,11 @@ body:has(.about-hero) .greeting {
 
 /* Project Content */
 .project-content {
-    padding: 40px 40px 40px 40px;
+    padding: 32px 32px 24px 32px;
     position: relative;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Status Badge - Inline with badge type: blinker dot + text, right-aligned */
@@ -707,9 +717,9 @@ body:has(.about-hero) .greeting {
 
 /* Project Name & Type */
 .project-name {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #111827;
     margin-bottom: 8px;
     padding-right: 100px;
     font-family: "Castoro", serif;
@@ -768,12 +778,13 @@ body:has(.about-hero) .greeting {
 
 /* Reduce white space between description and footer */
 .project-description {
-    font-size: 15px;
-    line-height: 2.0;
-    color: #555;
-    margin: 0 0 8px 0; 
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0 0 12px 0; 
     font-family: 'Outfit', sans-serif;
     padding-top: 10px;
+    min-height: 80px;
     
 }
 
@@ -864,13 +875,13 @@ body:has(.about-hero) .greeting {
 
 /* Project Buttons */
 .project-btn-outline {
-    padding: 12px 24px;
+    padding: 8px 16px;
     background: transparent;
-    border: 2px solid #1A25C5;
-    color: #1A25C5;
-    border-radius: 8px;
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    border-radius: 4px;
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -879,22 +890,22 @@ body:has(.about-hero) .greeting {
 }
 
 .project-btn-outline:hover {
-    background: #1A25C5;
+    background: #3b82f6dd;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 37, 197, 0.2);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
 .project-btn-filled {
     display: inline-block;
-    padding: 12px 24px;
-    background: #1A25C5;
+    padding: 8px 16px;
+    background: #3b82f6;
     color: #fff;
-    border: 2px solid #1A25C5;
-    border-radius: 8px;
+    border: 2px solid #3b82f6;
+    border-radius: 4px;
     text-decoration: none;
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -904,11 +915,11 @@ body:has(.about-hero) .greeting {
 }
 
 .project-btn-filled:hover {
-    background: #FFC700;
-    border-color: #FFC700;
-    color: #1A25C5;
+    background: #3b82f6dd;
+    border-color: #3b82f6dd;
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
 }
 
 /* Muted version of project-btn-filled */
@@ -1244,9 +1255,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .project-description {
-        margin-bottom: 12px; /* Further reduce on mobile */
+        margin-bottom: 12px;
         font-size: 14px;
         line-height: 1.65;
+        min-height: 70px;
     }
 
     .project-details {
@@ -1274,6 +1286,27 @@ document.addEventListener('DOMContentLoaded', function() {
         gap: 12px;
         padding-top: 8px;/* Reduced top padding */
         border-top: 1px solid #e5e7eb;
+    }
+
+    .project-tools-text {
+        font-size: 11px;
+        min-height: 28px; /* Slightly smaller for mobile */
+    }
+
+    .project-divider {
+        margin: 10px 0 0 0;
+    }
+
+    .project-actions {
+        padding-top: 10px;
+    }
+
+
+    .project-actions .project-btn-outline,
+    .project-actions .project-btn-filled {
+        flex: 1;
+        padding: 12px 20px;
+        font-size: 13px;
     }
 
     .badge.type {
@@ -1640,7 +1673,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* HOME PROJECTS SECTION */
     .home-projects-section {
-        padding: 60px 20px;
+        padding: 60px 20px 30px 20px;
     }
 
     .home-projects-title {
@@ -1654,7 +1687,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .home-projects-view-more {
-        margin-top: 40px;
+        margin-top: 30px;
+        margin-bottom: 15px;
     }
 
     .view-more-link {
@@ -2028,7 +2062,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .project-card:has(.project-card-inner) {
     background: transparent !important;
     perspective: 1000px;
-    height: 500px; /* Fixed height for flip effect */
+    height: auto; /* Changed from 500px to auto */
+    min-height: 420px; /* Maintain minimum height for consistency */
     overflow: visible !important; /* Override overflow: hidden from regular card */
     display: block !important; /* Override display: flex from regular card */
     flex-direction: unset !important;
@@ -2039,7 +2074,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .project-card-inner {
     position: relative;
     width: 100%;
-    height: 80%;
+    height: 100%;
+    min-height: 420px;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -2064,13 +2100,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .project-card-front {
     background: white;
-    overflow: hidden; /* Ensure content doesn't overflow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card-back {
     background: #1A25C5;
     transform: rotateY(180deg);
-    padding: 40px 30px 30px;
+    padding: 32px 32px 24px;
     display: flex;
     flex-direction: column;
 }
@@ -2293,14 +2331,15 @@ document.addEventListener('DOMContentLoaded', function() {
     height: 1px;
     width: 100%;
     background: #e5e7eb;
-    margin: 16px 0;
+    margin: 12px 0 0 0;
 }
 
 /* Project actions (buttons inside content) */
 .project-actions {
     display: flex;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: auto;
+    padding-top: 12px;
 }
 
 .project-actions .project-btn-outline,
