@@ -1,4 +1,6 @@
-// Career Card Expand/Collapse Functionality
+/* ================================
+   CAREER CARD FUNCTIONALITY
+   ================================ */
 function toggleCareerCard(button) {
     const careerCard = button.closest('.career-card');
     const expandedContent = careerCard.querySelector('.career-expanded-content');
@@ -8,20 +10,20 @@ function toggleCareerCard(button) {
         // Collapse
         expandedContent.classList.remove('expanded');
         readMoreBtn.classList.remove('hidden');
-        // Smooth scroll to top of card
         careerCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
         // Expand
         expandedContent.classList.add('expanded');
         readMoreBtn.classList.add('hidden');
-        // Smooth scroll to show expanded content
         setTimeout(() => {
             expandedContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 100);
     }
 }
 
-// Mobile Navigation Toggle
+/* ================================
+   MOBILE NAVIGATION
+   ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     const burgerBtn = document.getElementById('burgerBtn');
     const navLinks = document.getElementById('navLinks');
@@ -50,7 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Flip Card Functionality
+/* ================================
+   FLIP CARD FUNCTIONALITY
+   ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     const flipButtons = document.querySelectorAll('.flip-card-btn');
     
@@ -93,13 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ================================
-   OPTIONAL: SCROLL DETECTION
+   NAVBAR SCROLL DETECTION
    ================================ */
-
-// Add 'scrolled' class to navbar for enhanced effects
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
     
     if (navbar) {
         window.addEventListener('scroll', function() {
@@ -110,8 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 navbar.classList.remove('scrolled');
             }
-            
-            lastScroll = currentScroll;
         });
     }
 });
