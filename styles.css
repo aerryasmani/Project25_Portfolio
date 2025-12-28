@@ -766,6 +766,79 @@ body:has(.about-hero) .greeting {
     margin: 0 auto;
 }
 
+/* ================================
+   3D CARD EFFECT FOR FEATURED WORKS
+   From Uiverse.io by Smit-Prajapati - Adapted for existing structure
+   ================================ */
+.home-projects-grid .project-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.home-projects-grid .project-card-front {
+    transform-style: preserve-3d;
+    background: white;
+    box-shadow: rgba(142, 142, 142, 0.3) 0px 30px 30px -10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.home-projects-grid .project-card:hover .project-card-front {
+    transform: rotate3d(0.5, 1, 0, 30deg);
+}
+
+.home-projects-grid .project-content {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+}
+
+.home-projects-grid .project-name {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 50px);
+    display: inline-block;
+}
+
+.home-projects-grid .project-card:hover .project-name {
+    transform: translate3d(0px, 0px, 60px);
+}
+
+.home-projects-grid .project-description {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 30px);
+}
+
+.home-projects-grid .project-card:hover .project-description {
+    transform: translate3d(0px, 0px, 60px);
+}
+
+.home-projects-grid .project-tools-text {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 25px);
+}
+
+.home-projects-grid .project-card:hover .project-tools-text {
+    transform: translate3d(0px, 0px, 50px);
+}
+
+.home-projects-grid .project-actions {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 20px);
+}
+
+.home-projects-grid .project-card:hover .project-actions {
+    transform: translate3d(0px, 0px, 50px);
+}
+
+.home-projects-grid .project-actions .project-btn-outline,
+.home-projects-grid .project-actions .project-btn-filled {
+    transition: all 0.5s ease-in-out;
+}
+
+.home-projects-grid .project-card:hover .project-actions .project-btn-outline,
+.home-projects-grid .project-card:hover .project-actions .project-btn-filled {
+    transform: translate3d(0px, 0px, 10px);
+}
+
 .home-projects-view-more {
     text-align: center;
     margin-top: 30px;
