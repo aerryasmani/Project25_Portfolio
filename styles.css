@@ -1076,8 +1076,8 @@ body:has(.about-hero) .greeting {
 
 .project-card-back .badge.type {
     color: #fff;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    /*background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);*/
 }
 
 .project-description {
@@ -1221,6 +1221,7 @@ body:has(.about-hero) .greeting {
     transition: all 0.3s ease;
     flex: 1;
     max-width: 150px;
+    border-radius: 8px;
 }
 
 .project-btn-outline:hover {
@@ -1228,6 +1229,7 @@ body:has(.about-hero) .greeting {
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(26, 37, 197, 0.2);
+    border-radius: 8px;
 }
 
 .project-btn-filled {
@@ -1246,6 +1248,7 @@ body:has(.about-hero) .greeting {
     flex: 1;
     max-width: 150px;
     text-align: center;
+    border-radius: 8px;
 }
 
 .project-btn-filled:hover {
@@ -1254,6 +1257,7 @@ body:has(.about-hero) .greeting {
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(26, 37, 197, 0.3);
+    border-radius: 8px;
 }
 
 .project-btn-filled-mute {
@@ -1276,6 +1280,7 @@ body:has(.about-hero) .greeting {
     text-align: center;
     pointer-events: auto;
     box-sizing: border-box;
+    border-radius: 8px;
 }
 
 .project-btn-filled-mute:hover {
@@ -1284,6 +1289,7 @@ body:has(.about-hero) .greeting {
     color: #9CA3AF;
     transform: none;
     box-shadow: none;
+    border-radius: 8px;
 }
 
 .cta-button {
@@ -1762,6 +1768,8 @@ body:has(.about-hero) .greeting {
 
     .hero-inner {
         max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero h1 {
@@ -1769,6 +1777,7 @@ body:has(.about-hero) .greeting {
         line-height: 1.25;
         letter-spacing: -1.5px;
         margin-bottom: 24px;
+        text-align: left;
     }
 
     .hero-subtext {
@@ -1776,6 +1785,7 @@ body:has(.about-hero) .greeting {
         line-height: 1.6;
         max-width: 100%;
         margin-bottom: 36px;
+        text-align: left;
     }
 
     .hero-buttons {
@@ -1783,6 +1793,9 @@ body:has(.about-hero) .greeting {
         width: 100%;
         max-width: 300px;
         gap: 12px;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
     }
 
     .btn {
