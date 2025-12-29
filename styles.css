@@ -743,7 +743,8 @@ body:has(.about-hero) .greeting {
 }
 
 .home-projects-section {
-    background: #f8f9fa;
+    background: #1A25C5;
+    background: linear-gradient(150deg,rgba(26, 37, 197, 0.06) 0%, rgba(83, 92, 212, 0.11) 48%, rgba(255, 255, 255, 1) 97%);
     padding: 80px 50px 40px 50px;
     width: 100%;
 }
@@ -768,7 +769,6 @@ body:has(.about-hero) .greeting {
 
 /* ================================
    3D CARD EFFECT FOR FEATURED WORKS
-   From Uiverse.io by Smit-Prajapati - Adapted for existing structure
    ================================ */
 .home-projects-grid .project-card {
     perspective: 1000px;
@@ -1015,7 +1015,7 @@ body:has(.about-hero) .greeting {
     background: transparent;
     border: none;
     box-shadow: none;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     font-family: 'Outfit', sans-serif;
     text-transform: none;
@@ -1094,10 +1094,11 @@ body:has(.about-hero) .greeting {
     margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 11px;
+    font-size: 14px;
     font-family: 'Outfit', sans-serif;
-    line-height: 1.4;
-    color: blue;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #1A25C5;
     min-height: 32px;
 }
 
@@ -1210,8 +1211,8 @@ body:has(.about-hero) .greeting {
 .project-btn-outline {
     padding: 8px 16px;
     background: transparent;
-    border: 2px solid #3b82f6;
-    color: #3b82f6;
+    border: 2px solid #1A25C5;
+    color: #1A25C5;
     border-radius: 4px;
     font-family: 'Outfit', sans-serif;
     font-size: 16px;
@@ -1223,18 +1224,18 @@ body:has(.about-hero) .greeting {
 }
 
 .project-btn-outline:hover {
-    background: #3b82f6dd;
+    background: #1A25C5dd;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(26, 37, 197, 0.2);
 }
 
 .project-btn-filled {
     display: inline-block;
     padding: 8px 16px;
-    background: #3b82f6;
+    background: #1A25C5;
     color: #fff;
-    border: 2px solid #3b82f6;
+    border: 2px solid #1A25C5;
     border-radius: 4px;
     text-decoration: none;
     font-family: 'Outfit', sans-serif;
@@ -1248,11 +1249,11 @@ body:has(.about-hero) .greeting {
 }
 
 .project-btn-filled:hover {
-    background: #3b82f6dd;
-    border-color: #3b82f6dd;
+    background: #1A25C5dd;
+    border-color: #1A25C5dd;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 20px rgba(26, 37, 197, 0.3);
 }
 
 .project-btn-filled-mute {
@@ -1428,8 +1429,8 @@ body:has(.about-hero) .greeting {
     flex: 1;
     padding: 12px 24px;
     background: transparent;
-    border: 2px solid #fff;
-    color: #fff;
+    border: 2px solid #FFF;
+    color: #FFF;
     border-radius: 8px;
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
@@ -1449,9 +1450,9 @@ body:has(.about-hero) .greeting {
 .btn-back-filled {
     flex: 1;
     padding: 12px 24px;
-    background: #fff;
+    background: #FFF;
     color: #1A25C5;
-    border: 2px solid #fff;
+    border: 2px solid #FFF;
     border-radius: 8px;
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
@@ -2005,7 +2006,7 @@ body:has(.about-hero) .greeting {
     }
 
     .project-status-badge {
-        font-size: 11px;
+        font-size: 14px;
         padding: 4px 8px;
     }
 
@@ -2202,5 +2203,109 @@ body:has(.about-hero) .greeting {
     .social-icon svg {
         width: 16px;
         height: 16px;
+    }
+}
+
+/* ================================
+   ANIMATED GREETING (Adapted from Uiverse.io by kennyotsu)
+   ================================ */
+   .greeting {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Space between animated greet and name-text */
+}
+
+.greet {
+    display: inline-block;
+    position: relative;
+}
+
+.greet, .name-text {
+    margin: 0;
+    padding: 0;
+}
+
+.loader {
+    color: rgb(124, 124, 124);
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 36px; /* Matches your original greeting size */
+    height: 1.2em; /* Adjusted for line-height */
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden; /* Prevent overflow issues */
+    padding: 0; /* Ensure this is set */
+    box-sizing: border-box;
+    display: inline-flex; /* Change to inline-flex to better fit inline context */
+    width: auto; /* Prevent unnecessary width expansion */
+    justify-content: flex-start; /* Hug content to the left */
+}
+
+.words {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    padding-left: 0;
+    width: auto;
+}
+
+.words::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        var(--bg-color) 10%,
+        transparent 30%,
+        transparent 70%,
+        var(--bg-color) 90%
+    );
+    z-index: 20;
+}
+
+.word {
+    display: block;
+    height: 100%;
+    padding-left: 0px;
+    color: #FFD700; /* Gold to match your theme */
+    animation: spin_4991 4s infinite;
+    width: auto;
+}
+
+@keyframes spin_4991 {
+    10% {
+        transform: translateY(-102%);
+    }
+    25% {
+        transform: translateY(-100%);
+    }
+    35% {
+        transform: translateY(-202%);
+    }
+    50% {
+        transform: translateY(-200%);
+    }
+    60% {
+        transform: translateY(-302%);
+    }
+    75% {
+        transform: translateY(-300%);
+    }
+    85% {
+        transform: translateY(-402%);
+    }
+    100% {
+        transform: translateY(-400%);
+    }
+}
+
+/* Ensure --bg-color is set (white background) */
+.hero.about-hero {
+    --bg-color: #fff;
+}
+
+/* Media query adjustments (to match your existing responsive design) */
+@media (max-width: 768px) {
+    .loader {
+        font-size: 22px; /* Scale down for mobile */
     }
 }
