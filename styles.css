@@ -2507,19 +2507,61 @@ body:has(.about-hero) .burger-line {
     }
 }
 
-/* Smooth page transitions */
-body > section,
-body > .hero,
-body > .career-timeline-section,
-body > .capabilities-section,
-body > .home-projects-section,
-body > .projects-grid-section,
-body > .projects-hero,
-body > .about-photo-row-section {
+/* Add this to the TOP of your styles.css file */
+
+/* ================================
+   PRELOAD OPTIMIZATION - Prevent Flash
+   Prevents content from showing before SPA router initializes
+   ================================ */
+
+/* Hide content initially, show after router loads */
+body:not(.spa-ready) > section,
+body:not(.spa-ready) > .hero,
+body:not(.spa-ready) > .career-timeline-section,
+body:not(.spa-ready) > .capabilities-section,
+body:not(.spa-ready) > .home-projects-section,
+body:not(.spa-ready) > .projects-grid-section,
+body:not(.spa-ready) > .projects-hero,
+body:not(.spa-ready) > .about-photo-row-section {
+    opacity: 0;
+    transition: none;
+}
+
+/* Show content after router initializes */
+body.spa-ready > section,
+body.spa-ready > .hero,
+body.spa-ready > .career-timeline-section,
+body.spa-ready > .capabilities-section,
+body.spa-ready > .home-projects-section,
+body.spa-ready > .projects-grid-section,
+body.spa-ready > .projects-hero,
+body.spa-ready > .about-photo-row-section {
+    opacity: 1;
     transition: opacity 0.3s ease;
 }
 
-.nav-links a.active {
-    opacity: 1;
-    font-weight: 700;
+/* Keep navbar and footer always visible */
+.navbar,
+.footer-container {
+    opacity: 1 !important;
+}
+
+/* Loading indicator (optional) */
+body:not(.spa-ready)::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #1A25C5;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
