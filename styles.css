@@ -860,7 +860,7 @@ body:has(.about-hero) .greeting {
 
 .home-projects-view-more {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 
@@ -2012,9 +2012,9 @@ body:has(.about-hero) .greeting {
     }
 
     .hero-buttons {
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
         gap: 12px;
         margin-left: auto;
         margin-right: auto;
@@ -2022,7 +2022,7 @@ body:has(.about-hero) .greeting {
     }
 
     .btn {
-        width: 100%;
+        flex: 1;
         text-align: center;
         padding: 14px 32px;
     }
@@ -2211,8 +2211,8 @@ body:has(.about-hero) .greeting {
     }
 
     .home-projects-view-more {
-        margin-top: 30px;
-        margin-bottom: 15px;
+        margin-top: 40px;
+        margin-bottom: 20px;
     }
 
     .view-more-link {
