@@ -863,19 +863,69 @@ body:has(.about-hero) .greeting {
 }
 
 .view-more-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     color: #1A25C5;
     text-decoration: none;
     font-family: 'Outfit', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    transition: opacity 0.3s ease;
     cursor: pointer;
+    border: none;
+    background: none;
 }
 
-.view-more-link:hover {
-    opacity: 0.7;
-    text-decoration: underline;
+.view-more-link.cta span {
+    padding-bottom: 7px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    padding-right: 15px;
+    text-transform: none;
+}
+
+.view-more-link.cta svg {
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+    fill: #1A25C5;
+}
+
+.view-more-link.cta:hover svg {
+    transform: translateX(0);
+}
+
+.view-more-link.cta:active svg {
+    transform: scale(0.9);
+}
+
+.view-more-link .hover-underline-animation {
+    position: relative;
+    color: #1A25C5;
+    padding-bottom: 20px;
+}
+
+.view-more-link .hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #1A25C5;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    opacity: 0;
+}
+
+.view-more-link:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    opacity: 1;
+}
+
+.view-more-link:not(:hover) .hover-underline-animation:after {
+    transform: scaleX(0);
+    opacity: 0;
 }
 
 .projects-grid {
@@ -2214,6 +2264,10 @@ body:has(.about-hero) .greeting {
     }
 
     .view-more-link {
+        font-size: 14px;
+    }
+
+    .view-more-link.cta span {
         font-size: 14px;
     }
 
