@@ -731,7 +731,173 @@ body:has(.about-hero) .burger-line {
 }
 
 /* ================================
-   7. PROJECTS HERO
+   7. CAPABILITIES SECTION
+   Used on: index.html
+   Function: Displays scrolling capability items in categories
+   ================================ */
+.capabilities-section {
+    background: #FFFFFF;
+    padding: 80px 50px;
+    width: 100%;
+}
+
+.capabilities-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.capabilities-title {
+    font-family: "Castoro", serif;
+    font-size: 48px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #1A25C5;
+    letter-spacing: -1.5px;
+}
+
+/* ===== LAYERS ===== */
+.capability-layer {
+    margin-bottom: 26px;
+    overflow: hidden;
+    padding-left: 12px;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 6%,
+        black 94%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 6%,
+        black 94%,
+        transparent
+    );
+}
+
+/* Row indicators with border */
+.capability-layer.automation {
+    border-left: 3px solid #2bb673;
+}
+
+.capability-layer.testing-methodologies {
+    border-left: 3px solid #ff6c37;
+}
+
+.capability-layer.data-analytics {
+    border-left: 3px solid #0078d4;
+}
+
+.capability-layer.collaboration {
+    border-left: 3px solid #1A25C5;
+}
+
+.capability-track {
+    display: flex;
+    width: max-content;
+    animation: capability-scroll linear infinite;
+}
+
+.capability-layer:hover .capability-track {
+    animation-play-state: paused;
+}
+
+/* Animation speeds - all set to same speed */
+.capability-layer .capability-track {
+    animation-duration: 40s;
+}
+
+/* ===== ITEMS ===== */
+.capability-item {
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    white-space: nowrap;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.25s ease;
+}
+
+/* Row-colored items (subtle) */
+.capability-layer.automation .capability-item {
+    color: color-mix(in srgb, #2bb673 65%, #9ca3af);
+}
+
+.capability-layer.testing-methodologies .capability-item {
+    color: color-mix(in srgb, #ff6c37 65%, #9ca3af);
+}
+
+.capability-layer.data-analytics .capability-item {
+    color: color-mix(in srgb, #0078d4 65%, #9ca3af);
+}
+
+.capability-layer.collaboration .capability-item {
+    color: color-mix(in srgb, #1A25C5 65%, #9ca3af);
+}
+
+/* Hover emphasis */
+.capability-item:hover {
+    color: #1f2937;
+}
+
+/* ===== LEGEND ===== */
+.capability-legend {
+    margin-top: 42px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-dot.automation-dot {
+    background: #2bb673;
+}
+
+.legend-dot.testing-methodologies-dot {
+    background: #ff6c37;
+}
+
+.legend-dot.data-analytics-dot {
+    background: #0078d4;
+}
+
+.legend-dot.collaboration-dot {
+    background: #1A25C5;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes capability-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ================================
+   8. PROJECTS HERO
    Used on: project.html
    ================================ */
 .projects-hero {
@@ -2076,6 +2242,40 @@ body:has(.about-hero) .burger-line {
     .career-collapse {
         font-size: 13px;
         margin-top: 6px;
+    }
+
+    /* Capabilities Section */
+    .capabilities-section {
+        padding: 60px 20px;
+    }
+
+    .capabilities-title {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .capability-layer {
+        margin-bottom: 20px;
+        padding-left: 8px;
+    }
+
+    .capability-item {
+        font-size: 0.75rem;
+        padding: 0 18px;
+    }
+
+    .capability-legend {
+        margin-top: 32px;
+        gap: 20px;
+    }
+
+    .legend-item {
+        font-size: 0.75rem;
+    }
+
+    .legend-dot {
+        width: 10px;
+        height: 10px;
     }
 
     /* Projects Hero */
