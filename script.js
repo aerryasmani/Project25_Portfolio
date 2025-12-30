@@ -1,5 +1,26 @@
+/* ===================================================================
+   PORTFOLIO JAVASCRIPT
+   ===================================================================
+   
+   TABLE OF CONTENTS:
+   1. CAREER CARD FUNCTIONALITY (Expand/Collapse)
+   2. MOBILE NAVIGATION (Burger Menu)
+   3. FLIP CARD FUNCTIONALITY (Project Cards)
+   4. NAVBAR SCROLL DETECTION
+   5. DYNAMIC COPYRIGHT YEAR
+   
+   TROUBLESHOOTING:
+   - Career cards not expanding: Check section 1
+   - Mobile menu not working: Check section 2
+   - Cards not flipping: Check section 3
+   - Navbar not changing on scroll: Check section 4
+   - Copyright year not updating: Check section 5
+   =================================================================== */
+
 /* ================================
-   CAREER CARD FUNCTIONALITY
+   1. CAREER CARD FUNCTIONALITY
+   Used on: index.html
+   Function: Toggles expand/collapse of career card details
    ================================ */
 function toggleCareerCard(button) {
     const careerCard = button.closest('.career-card');
@@ -22,7 +43,10 @@ function toggleCareerCard(button) {
 }
 
 /* ================================
-   MOBILE NAVIGATION
+   2. MOBILE NAVIGATION (Burger Menu)
+   Used on: All pages (mobile view only)
+   Function: Toggles mobile navigation menu
+   CSS: styles.css - BURGER MENU section
    ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     const burgerBtn = document.getElementById('burgerBtn');
@@ -53,7 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ================================
-   FLIP CARD FUNCTIONALITY
+   3. FLIP CARD FUNCTIONALITY (Project Cards)
+   Used on: index.html and project.html
+   Functions:
+   - Flip cards on button click
+   - Auto-flip back after delay (configurable via localStorage)
+   - Click-to-tilt effect on card front
+   - ESC key to close all flipped cards
+   - Click on card back to flip back
+   CSS: styles.css - 3D CARD EFFECTS and PROJECT CARD sections
    ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     // Store timeouts for each card to manage auto-flip-back
@@ -382,7 +414,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ================================
-   NAVBAR SCROLL DETECTION
+   4. NAVBAR SCROLL DETECTION
+   Used on: All pages
+   Function: Adds 'scrolled' class to navbar when page is scrolled
+   CSS: styles.css - NAVBAR section (.navbar.scrolled)
    ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
@@ -401,7 +436,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ================================
-   DYNAMIC COPYRIGHT YEAR
+   5. DYNAMIC COPYRIGHT YEAR
+   Used on: All pages
+   Function: Updates copyright year automatically
+   Target: .footer-credit element
    ================================ */
 document.addEventListener('DOMContentLoaded', function() {
     const footerCredit = document.querySelector('.footer-credit');

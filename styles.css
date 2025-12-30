@@ -1,5 +1,36 @@
+/* ===================================================================
+   PORTFOLIO STYLESHEET
+   ===================================================================
+   
+   TABLE OF CONTENTS:
+   1. RESET & BASE STYLES
+   2. NAVBAR (Navigation Bar)
+   3. BURGER MENU (Mobile Navigation)
+   4. HERO SECTIONS (Home, About, Projects)
+   5. ABOUT PAGE CONTENT
+   6. CAREER TIMELINE
+   7. PROJECTS HERO
+   8. PROJECTS GRID SECTION
+   9. 3D CARD EFFECTS (Project Cards)
+   10. PROJECT CARD (Front & Back)
+   11. PROJECT ACTIONS (Buttons Container)
+   12. PROJECT BUTTONS
+   13. PROJECT CARD BACK (Flipped Card Content)
+   14. TOOLTIP SYSTEM
+   15. FOOTER
+   16. ANIMATIONS
+   17. RESPONSIVE DESIGN (Mobile, Tablet, Large Screens)
+   
+   TROUBLESHOOTING:
+   - Navbar issues: Check section 2 (NAVBAR)
+   - Mobile menu issues: Check section 3 (BURGER MENU)
+   - Card flip issues: Check section 9 (3D CARD EFFECTS) and section 10 (PROJECT CARD)
+   - Button styling: Check section 12 (PROJECT BUTTONS)
+   - Responsive issues: Check section 17 (RESPONSIVE DESIGN)
+   =================================================================== */
+
 /* ================================
-   RESET & BASE STYLES
+   1. RESET & BASE STYLES
    ================================ */
 * {
     margin: 0;
@@ -24,7 +55,8 @@ body {
 }
 
 /* ================================
-   NAVBAR
+   2. NAVBAR (Navigation Bar)
+   Used on: All pages (index.html, about.html, project.html)
    ================================ */
 .navbar {
     position: sticky;
@@ -116,7 +148,9 @@ body:has(.projects-hero) .nav-links a {
 }
 
 /* ================================
-   BURGER MENU
+   3. BURGER MENU (Mobile Navigation)
+   Used on: All pages (mobile view only)
+   JavaScript: script.js - Mobile Navigation section
    ================================ */
 .burger-menu {
     display: none;
@@ -218,7 +252,10 @@ body:has(.about-hero) .burger-line {
 }
 
 /* ================================
-   HERO SECTIONS
+   4. HERO SECTIONS (Home, About, Projects)
+   - .hero.home-hero: Home page hero (index.html)
+   - .hero.about-hero: About page hero (about.html)
+   - .projects-hero: Projects page hero (project.html)
    ================================ */
 .hero {
     padding: 100px 50px;
@@ -379,29 +416,10 @@ body:has(.about-hero) .burger-line {
     text-align: center;
 }
 
-.greeting {
-    font-size: 36px;
-    font-weight: 600;
-    white-space: nowrap;
-    color: #345102;
-}
-
-body:has(.about-hero) .greeting {
-    color: #FFD700;
-}
-
-.greet {
-    display: inline-block;
-    min-width: 140px;
-    text-align: left;
-}
-
-.name-text {
-    margin-left: 8px;
-}
 
 /* ================================
-   ABOUT PAGE CONTENT
+   5. ABOUT PAGE CONTENT
+   Used on: about.html
    ================================ */
 .about-content {
     font-family: Arial, sans-serif;
@@ -498,7 +516,9 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   CAREER TIMELINE
+   6. CAREER TIMELINE
+   Used on: index.html
+   JavaScript: script.js - Career Card Functionality section
    ================================ */
 .career-timeline-section {
     background: #FFFFFF;
@@ -711,7 +731,8 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   PROJECTS HERO
+   7. PROJECTS HERO
+   Used on: project.html
    ================================ */
 .projects-hero {
     background: #1A25C5;
@@ -738,7 +759,8 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   PROJECTS GRID SECTION
+   8. PROJECTS GRID SECTION
+   Used on: project.html (full grid) and index.html (featured works)
    ================================ */
 .projects-grid-section {
     background: #f8f9fa;
@@ -772,7 +794,9 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   3D CARD EFFECT FOR FEATURED WORKS
+   9. 3D CARD EFFECT FOR FEATURED WORKS
+   Used on: index.html (.home-projects-grid)
+   JavaScript: script.js - Flip Card Functionality section
    ================================ */
 .home-projects-grid .project-card {
     perspective: 1000px;
@@ -937,7 +961,9 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   3D CARD EFFECT FOR PROJECTS GRID
+   9. 3D CARD EFFECT FOR PROJECTS GRID
+   Used on: project.html (.projects-grid)
+   JavaScript: script.js - Flip Card Functionality section
    ================================ */
 .projects-grid .project-card {
     perspective: 1000px;
@@ -1024,7 +1050,9 @@ body:has(.about-hero) .greeting {
 /* Removed hover-based transform - buttons are protected from card animations */
 
 /* ================================
-   PROJECT CARD
+   10. PROJECT CARD (Front & Back)
+   Used on: index.html and project.html
+   JavaScript: script.js - Flip Card Functionality section
    ================================ */
 .project-card {
     background: white;
@@ -1361,79 +1389,10 @@ body:has(.about-hero) .greeting {
     margin: 0 0 0 0;
 }
 
-.project-details {
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-}
-
-.detail-section {
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-}
-
-.detail-section:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-.detail-section:not(:last-child) {
-    border-bottom: 1px solid #eee;
-}
-
-.detail-label {
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 8px;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: block;
-    font-family: 'Outfit', sans-serif;
-}
-
-.detail-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.detail-badge.tool {
-    background: rgba(243, 244, 246, 0.6);
-    backdrop-filter: blur(10px);
-    font-family: 'Outfit', sans-serif;
-    color: #374151;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transition: all 0.2s ease;
-}
-
-.detail-badge.tool:hover {
-    background: rgba(243, 244, 246, 0.8);
-    transform: translateY(-1px);
-}
-
-.detail-badge.skill {
-    font-family: 'Outfit', sans-serif;
-    background: rgba(20, 184, 166, 0.1);
-    color: #0f766e;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid rgba(20, 184, 166, 0.2);
-    transition: all 0.2s ease;
-}
-
-.detail-badge.skill:hover {
-    background: rgba(20, 184, 166, 0.15);
-    border-color: rgba(20, 184, 166, 0.3);
-    transform: translateY(-1px);
-}
-
+/* ================================
+   11. PROJECT ACTIONS (Buttons Container)
+   Container for project card buttons
+   ================================ */
 .project-actions {
     display: flex;
     gap: 12px;
@@ -1448,18 +1407,11 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   PROJECT BUTTONS
+   12. PROJECT BUTTONS
+   - .project-btn-outline: Outline button
+   - .project-btn-filled: Primary filled button
+   - .project-btn-filled-mute: Disabled/muted button (with tooltip)
    ================================ */
-.project-footer {
-    margin-top: auto;
-    display: flex;
-    gap: 12px;
-    padding: 16px 30px 30px 30px;
-    border-top: 1px solid #e5e7eb;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .project-btn-outline {
     padding: 12px 24px;
     background: transparent;
@@ -1544,105 +1496,10 @@ body:has(.about-hero) .greeting {
     border-radius: 8px;
 }
 
-.cta-button {
-    display: inline-block;
-    background: #1A25C5;
-    color: #fff;
-    padding: 16px 40px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-family: 'Outfit', sans-serif;
-}
-
-.cta-button:hover {
-    background: #FFC700;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
-}
-
-.cta-button-mute {
-    display: inline-block;
-    background: #E5E7EB;
-    color: #9CA3AF;
-    padding: 16px 40px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    font-family: 'Outfit', sans-serif;
-    line-height: 1;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 2px solid #E5E7EB;
-    cursor: not-allowed;
-    opacity: 0.6;
-    min-width: 184px;
-    width: fit-content;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.cta-button-mute:hover {
-    background: #E5E7EB;
-    border-color: #E5E7EB;
-    transform: none;
-}
-
-.cta-button-mute:active {
-    transform: scale(0.98);
-}
-
 /* ================================
-   PROJECT CARD BACK
+   13. PROJECT CARD BACK (Flipped Card Content)
+   Styles for the back side of project cards when flipped
    ================================ */
-.project-card-back-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-}
-
-.project-card-back-header .badge.type {
-    color: #fff;
-    padding: 8px 14px;
-    font-size: 10px;
-    font-weight: 500;
-    font-family: 'Outfit', sans-serif;
-}
-
-.project-card-back-header .project-status-badge {
-    position: relative;
-    top: 0;
-    right: 0;
-}
-
-.project-card-back-header .project-status-badge.active {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.project-card-back-header .project-status-badge.active::before {
-    background: white;
-    animation: blink 1.5s infinite;
-}
-
-.project-card-back-header .project-status-badge.completed {
-    background: linear-gradient(135deg, #0066cc 0%, #00478f 100%);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
-}
-
-.project-card-back-header .project-status-badge.completed::before {
-    background: white;
-}
-
 .back-detail-section {
     margin-bottom: 24px;
 }
@@ -1757,7 +1614,9 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   TOOLTIP SYSTEM
+   14. TOOLTIP SYSTEM
+   Used for: Muted buttons that show tooltips on hover/click
+   JavaScript: script.js - Tooltip handling section
    ================================ */
 .tooltip-wrapper {
     position: relative;
@@ -1831,17 +1690,10 @@ body:has(.about-hero) .greeting {
     border-bottom-color: #1a1a1a;
 }
 
-.project-footer .tooltip-wrapper {
-    margin-left: auto;
-    flex: 1;
-    max-width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* ================================
-   FOOTER
+   15. FOOTER
+   Used on: All pages
+   JavaScript: script.js - Dynamic Copyright Year section
    ================================ */
 .footer-container {
     background-color: #fff;
@@ -1904,7 +1756,8 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   ANIMATIONS
+   16. ANIMATIONS
+   Keyframe animations used throughout the site
    ================================ */
 @keyframes blink {
     0% { opacity: 1; }
@@ -1953,7 +1806,8 @@ body:has(.about-hero) .greeting {
 }
 
 /* ================================
-   RESPONSIVE DESIGN
+   17. RESPONSIVE DESIGN
+   Mobile (≤ 768px), Tablet (769px - 1024px), Large Screens (> 1400px)
    ================================ */
 
 /* Tablet (769px - 1024px) */
@@ -1995,7 +1849,7 @@ body:has(.about-hero) .greeting {
 @media (max-width: 768px) {
     /* Navbar */
     .navbar {
-        padding: 24px 30px;
+        padding: 32px 50px /*24px 30px*/;
     }
 
     body:has(.about-hero) .navbar {
@@ -2029,7 +1883,7 @@ body:has(.about-hero) .greeting {
 
     /* Hero */
     .hero {
-        padding: 60px 20px;
+        padding: 60px 36px;
     }
 
     .hero.home-hero {
@@ -2330,25 +2184,6 @@ body:has(.about-hero) .greeting {
         margin: 10px 0 0 0;
     }
 
-    .project-details {
-        padding-top: 16px;
-    }
-
-    .detail-section {
-        margin-bottom: 14px;
-        padding-bottom: 14px;
-    }
-
-    .detail-label {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-
-    .detail-badge {
-        font-size: 12px;
-        padding: 5px 10px;
-    }
-
     .project-actions {
         flex-direction: column;
         padding-top: 10px;
@@ -2363,14 +2198,6 @@ body:has(.about-hero) .greeting {
         width: 100%;
     }
 
-    .project-footer {
-        margin-top: auto;
-        display: flex;
-        gap: 12px;
-        padding-top: 8px;
-        border-top: 1px solid #e5e7eb;
-    }
-
     .project-btn-outline,
     .project-btn-filled,
     .project-btn-filled-mute {
@@ -2379,13 +2206,6 @@ body:has(.about-hero) .greeting {
         padding: 12px 20px;
         font-size: 13px;
         width: 100%;
-    }
-
-    .project-footer .tooltip-wrapper {
-        flex: 1;
-        max-width: none;
-        width: 100%;
-        margin: 0;
     }
 
     /* Project Card Back */
@@ -2458,11 +2278,6 @@ body:has(.about-hero) .greeting {
         width: 100%;
     }
 
-    .cta-button-mute {
-        width: 100%;
-        min-width: unset;
-    }
-
     .status-dot {
         width: 6px;
         height: 6px;
@@ -2489,109 +2304,5 @@ body:has(.about-hero) .greeting {
     .social-icon svg {
         width: 16px;
         height: 16px;
-    }
-}
-
-/* ================================
-   ANIMATED GREETING (Adapted from Uiverse.io by kennyotsu)
-   ================================ */
-   .greeting {
-    display: flex;
-    align-items: center;
-    gap: 0; /* Space between animated greet and name-text */
-}
-
-.greet {
-    display: inline-block;
-    position: relative;
-}
-
-.greet, .name-text {
-    margin: 0;
-    padding: 0;
-}
-
-.loader {
-    color: rgb(124, 124, 124);
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 36px; /* Matches your original greeting size */
-    height: 1.2em; /* Adjusted for line-height */
-    align-items: center;
-    border-radius: 8px;
-    overflow: hidden; /* Prevent overflow issues */
-    padding: 0; /* Ensure this is set */
-    box-sizing: border-box;
-    display: inline-flex; /* Change to inline-flex to better fit inline context */
-    width: auto; /* Prevent unnecessary width expansion */
-    justify-content: flex-start; /* Hug content to the left */
-}
-
-.words {
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-    padding-left: 0;
-    width: auto;
-}
-
-.words::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        var(--bg-color) 10%,
-        transparent 30%,
-        transparent 70%,
-        var(--bg-color) 90%
-    );
-    z-index: 20;
-}
-
-.word {
-    display: block;
-    height: 100%;
-    padding-left: 0px;
-    color: #FFD700; /* Gold to match your theme */
-    animation: spin_4991 4s infinite;
-    width: auto;
-}
-
-@keyframes spin_4991 {
-    10% {
-        transform: translateY(-102%);
-    }
-    25% {
-        transform: translateY(-100%);
-    }
-    35% {
-        transform: translateY(-202%);
-    }
-    50% {
-        transform: translateY(-200%);
-    }
-    60% {
-        transform: translateY(-302%);
-    }
-    75% {
-        transform: translateY(-300%);
-    }
-    85% {
-        transform: translateY(-402%);
-    }
-    100% {
-        transform: translateY(-400%);
-    }
-}
-
-/* Ensure --bg-color is set (white background) */
-.hero.about-hero {
-    --bg-color: #fff;
-}
-
-/* Media query adjustments (to match your existing responsive design) */
-@media (max-width: 768px) {
-    .loader {
-        font-size: 22px; /* Scale down for mobile */
     }
 }
