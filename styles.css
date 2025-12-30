@@ -95,8 +95,6 @@ body:has(.about-hero) .logo {
 }
 
 body:has(.about-hero) .nav-links a {
-
-    margin-left: 40px;
     line-height: 1.5;
 }
 
@@ -114,7 +112,6 @@ body:has(.projects-hero) .logo {
 body:has(.projects-hero) .nav-links a {
    
     font-weight: 500;
-    margin-left: 40px;
     line-height: 1.5;
 }
 
@@ -204,6 +201,7 @@ body:has(.projects-hero) .nav-links a {
     animation: fadeInSlide 0.3s ease backwards;
     text-align: left;
     line-height: 1.2;
+    
 }
 
 .nav-links.mobile-open a:nth-child(1) { animation-delay: 0.1s; }
