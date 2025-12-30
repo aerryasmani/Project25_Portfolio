@@ -2506,3 +2506,20 @@ body:has(.about-hero) .burger-line {
         height: 16px;
     }
 }
+
+/* Smooth page transitions */
+body > section,
+body > .hero,
+body > .career-timeline-section,
+body > .capabilities-section,
+body > .home-projects-section,
+body > .projects-grid-section,
+body > .projects-hero,
+body > .about-photo-row-section {
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a.active {
+    opacity: 1;
+    font-weight: 700;
+}
