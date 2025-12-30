@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     height: 100%;
 }
@@ -108,7 +112,7 @@ body:has(.projects-hero) .logo {
 
 body:has(.projects-hero) .nav-links a {
     font-weight: 500;
-    margin-left: 40px;
+    margin-left: 0px;
     line-height: 1.5;
 }
 
@@ -782,11 +786,9 @@ body:has(.about-hero) .greeting {
     transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Hover preview: rotation hint on desktop */
-@media (hover: hover) and (pointer: fine) {
-    .home-projects-grid .project-card:hover:not(.flipped) .project-card-front {
-        transform: rotate3d(0.5, 1, 0, 30deg);
-    }
+/* Click-based tilt: rotation on click */
+.home-projects-grid .project-card.tilted:not(.flipped) .project-card-front {
+    transform: rotate3d(0.5, 1, 0, 30deg);
 }
 
 .home-projects-grid .project-content {
@@ -814,9 +816,7 @@ body:has(.about-hero) .greeting {
         transform: translate3d(0px, 0px, 50px);
     }
     
-    .home-projects-grid .project-card:hover:not(.flipped) .project-actions {
-        transform: translate3d(0px, 0px, 50px);
-    }
+/* Removed hover-based transform - using click-based tilt instead */
 }
 
 .home-projects-grid .project-description {
@@ -834,25 +834,26 @@ body:has(.about-hero) .greeting {
     transform: translate3d(0px, 0px, 20px);
 }
 
-/* Ensure buttons are not affected by 3D transforms */
+/* Ensure ALL buttons are not affected by 3D transforms */
 .home-projects-grid .project-actions .project-btn-outline,
-.home-projects-grid .project-actions .project-btn-filled {
+.home-projects-grid .project-actions .project-btn-filled,
+.home-projects-grid .project-actions .project-btn-filled-mute,
+.home-projects-grid .project-actions .tooltip-wrapper,
+.home-projects-grid .project-card-back button,
+.home-projects-grid .project-card-back a,
+.home-projects-grid .project-card-back .btn-back-filled-mute,
+.home-projects-grid .project-card-back .tooltip-wrapper {
     transition: all 0.3s ease;
     transform: none !important;
-    transform-style: flat;
-}
-
-/* Ensure buttons on card back maintain their own transforms and aren't affected by parent 3D */
-.home-projects-grid .project-card-back button,
-.home-projects-grid .project-card-back a {
     transform-style: flat;
     position: relative;
     z-index: 1;
 }
 
-.home-projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-outline,
-.home-projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-filled {
-    transform: translate3d(0px, 0px, 10px);
+/* Ensure tooltip wrapper has high z-index to appear above cards */
+.home-projects-grid .tooltip-wrapper {
+    z-index: 1001;
+    position: relative;
 }
 
 .home-projects-view-more {
@@ -900,11 +901,9 @@ body:has(.about-hero) .greeting {
     transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Hover preview: rotation hint on desktop */
-@media (hover: hover) and (pointer: fine) {
-    .projects-grid .project-card:hover:not(.flipped) .project-card-front {
-        transform: rotate3d(0.5, 1, 0, 30deg);
-    }
+/* Click-based tilt: rotation on click */
+.projects-grid .project-card.tilted:not(.flipped) .project-card-front {
+    transform: rotate3d(0.5, 1, 0, 30deg);
 }
 
 .projects-grid .project-content {
@@ -932,9 +931,7 @@ body:has(.about-hero) .greeting {
         transform: translate3d(0px, 0px, 50px);
     }
     
-    .projects-grid .project-card:hover:not(.flipped) .project-actions {
-        transform: translate3d(0px, 0px, 50px);
-    }
+/* Removed hover-based transform - using click-based tilt instead */
 }
 
 .projects-grid .project-description {
@@ -952,26 +949,29 @@ body:has(.about-hero) .greeting {
     transform: translate3d(0px, 0px, 20px);
 }
 
-/* Ensure buttons are not affected by 3D transforms */
+/* Ensure ALL buttons are not affected by 3D transforms */
 .projects-grid .project-actions .project-btn-outline,
-.projects-grid .project-actions .project-btn-filled {
+.projects-grid .project-actions .project-btn-filled,
+.projects-grid .project-actions .project-btn-filled-mute,
+.projects-grid .project-actions .tooltip-wrapper,
+.projects-grid .project-card-back button,
+.projects-grid .project-card-back a,
+.projects-grid .project-card-back .btn-back-filled-mute,
+.projects-grid .project-card-back .tooltip-wrapper {
     transition: all 0.3s ease;
     transform: none !important;
-    transform-style: flat;
-}
-
-/* Ensure buttons on card back maintain their own transforms and aren't affected by parent 3D */
-.projects-grid .project-card-back button,
-.projects-grid .project-card-back a {
     transform-style: flat;
     position: relative;
     z-index: 1;
 }
 
-.projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-outline,
-.projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-filled {
-    transform: translate3d(0px, 0px, 10px);
+/* Ensure tooltip wrapper has high z-index to appear above cards */
+.projects-grid .tooltip-wrapper {
+    z-index: 1001;
+    position: relative;
 }
+
+/* Removed hover-based transform - buttons are protected from card animations */
 
 /* ================================
    PROJECT CARD
@@ -1122,6 +1122,11 @@ body:has(.about-hero) .greeting {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+/* Show cursor pointer only when card is not flipped */
+.project-card:not(.flipped) .project-card-front {
+    cursor: pointer;
 }
 
 .project-card-back {
@@ -1707,13 +1712,18 @@ body:has(.about-hero) .greeting {
 .tooltip-wrapper {
     position: relative;
     display: inline-block;
+    z-index: 1001;
+}
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 1001;
+    overflow: visible;
 }
 
 .tooltip-wrapper .custom-tooltip {
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed;
     background: #1a1a1a;
     color: #fff;
     padding: 10px 14px;
@@ -1732,17 +1742,22 @@ body:has(.about-hero) .greeting {
     visibility: hidden;
     transition: opacity 0.25s, visibility 0.25s;
     pointer-events: none;
-    z-index: 10;
+    z-index: 10000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateX(-50%);
 }
 
+/* Show tooltip on hover of wrapper or button */
 .tooltip-wrapper:hover .custom-tooltip,
-.tooltip-wrapper .cta-button-mute:focus + .custom-tooltip,
-.tooltip-wrapper .cta-button-mute:active + .custom-tooltip,
+.tooltip-wrapper:hover .project-btn-filled-mute + .custom-tooltip,
+.tooltip-wrapper:hover .btn-back-filled-mute + .custom-tooltip,
+.tooltip-wrapper:hover .cta-button-mute + .custom-tooltip,
+.project-btn-filled-mute:hover + .custom-tooltip,
+.btn-back-filled-mute:hover + .custom-tooltip,
+.cta-button-mute:hover + .custom-tooltip,
 .tooltip-wrapper .project-btn-filled-mute:focus + .custom-tooltip,
-.tooltip-wrapper .project-btn-filled-mute:active + .custom-tooltip,
 .tooltip-wrapper .btn-back-filled-mute:focus + .custom-tooltip,
-.tooltip-wrapper .btn-back-filled-mute:active + .custom-tooltip {
+.tooltip-wrapper .cta-button-mute:focus + .custom-tooltip {
     opacity: 1;
     visibility: visible;
 }
@@ -1755,6 +1770,15 @@ body:has(.about-hero) .greeting {
     margin-left: -6px;
     border: 6px solid transparent;
     border-top-color: #1a1a1a;
+    pointer-events: none;
+}
+
+/* Adjust arrow position when tooltip is shown below button */
+.tooltip-wrapper .custom-tooltip[data-position="below"]::after {
+    top: auto;
+    bottom: 100%;
+    border-top-color: transparent;
+    border-bottom-color: #1a1a1a;
 }
 
 .project-footer .tooltip-wrapper {

@@ -115,12 +115,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // ESC key to close flipped cards
+    // ESC key to close flipped cards and remove tilt
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' || e.keyCode === 27) {
             const flippedCards = document.querySelectorAll('.project-card.flipped');
             flippedCards.forEach(card => {
+                card.classList.remove('tilted');
                 flipCard(card, 'front');
+            });
+            
+            // Also remove tilt from any tilted cards
+            const tiltedCards = document.querySelectorAll('.project-card.tilted');
+            tiltedCards.forEach(card => {
+                card.classList.remove('tilted');
+            });
+            currentlyTiltedCard = null;
+        }
+    });
+    
+    // Click-to-tilt functionality for card front (only one card at a time)
+    const projectCards = document.querySelectorAll('.project-card');
+    let currentlyTiltedCard = null;
+    
+    projectCards.forEach(card => {
+        const cardFront = card.querySelector('.project-card-front');
+        
+        if (cardFront) {
+            // Click to tilt
+            cardFront.addEventListener('click', function(e) {
+                // Don't tilt if clicking on buttons, links, or interactive elements
+                const isInteractiveElement = e.target.closest('button, a, .tooltip-wrapper, .project-actions');
+                
+                if (!isInteractiveElement && !card.classList.contains('flipped')) {
+                    // Remove tilt from previously tilted card
+                    if (currentlyTiltedCard && currentlyTiltedCard !== card) {
+                        currentlyTiltedCard.classList.remove('tilted');
+                    }
+                    
+                    // Tilt the clicked card
+                    card.classList.add('tilted');
+                    currentlyTiltedCard = card;
+                }
+            });
+            
+            // Remove tilt when mouse leaves the card
+            card.addEventListener('mouseleave', function() {
+                if (card.classList.contains('tilted')) {
+                    card.classList.remove('tilted');
+                    if (currentlyTiltedCard === card) {
+                        currentlyTiltedCard = null;
+                    }
+                }
             });
         }
     });
@@ -132,6 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
             const card = this.closest('.project-card');
+            
+            // Remove tilt when flipping
+            card.classList.remove('tilted');
+            if (currentlyTiltedCard === card) {
+                currentlyTiltedCard = null;
+            }
             
             if (card.classList.contains('flipped')) {
                 // If already flipped, flip back immediately
@@ -154,6 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isInteractiveElement) {
                 const card = this.closest('.project-card');
                 if (card && card.classList.contains('flipped')) {
+                    // Remove tilt when flipping back
+                    card.classList.remove('tilted');
+                    if (currentlyTiltedCard === card) {
+                        currentlyTiltedCard = null;
+                    }
                     flipCard(card, 'front');
                 }
             }
@@ -203,53 +259,125 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     */
 
-    // Tooltip click handling for mobile/touch devices
-    // Desktop hover tooltips work via CSS, this only handles touch interactions
+    // Tooltip handling for muted buttons
     const mutedButtons = document.querySelectorAll('.project-btn-filled-mute, .btn-back-filled-mute');
     
-    mutedButtons.forEach(button => {
-        // Only handle touch events, not mouse clicks (to preserve hover tooltips on desktop)
-        button.addEventListener('touchstart', function(e) {
-            const tooltip = this.nextElementSibling;
-            if (tooltip && tooltip.classList.contains('custom-tooltip')) {
-                // Show tooltip on touch
-                tooltip.style.opacity = '1';
-                tooltip.style.visibility = 'visible';
-                
-                // Hide tooltip after 3 seconds
-                setTimeout(() => {
-                    tooltip.style.opacity = '0';
-                    tooltip.style.visibility = 'hidden';
-                }, 3000);
-            }
-        });
+    function positionTooltip(button, tooltip) {
+        const rect = button.getBoundingClientRect();
         
-        // Also handle click for devices that don't support hover well
-        button.addEventListener('click', function(e) {
-            // Only handle if it's a touch device (no hover support)
-            if (window.matchMedia('(hover: none)').matches) {
+        // Temporarily show tooltip to measure it
+        const wasVisible = tooltip.style.visibility === 'visible';
+        tooltip.style.visibility = 'hidden';
+        tooltip.style.opacity = '0';
+        tooltip.style.display = 'block';
+        
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const tooltipHeight = tooltipRect.height;
+        const tooltipWidth = tooltipRect.width;
+        
+        // Position above the button by default
+        let top = rect.top - tooltipHeight - 8;
+        let left = rect.left + (rect.width / 2);
+        let position = 'above';
+        
+        // Adjust if tooltip would go off screen
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const margin = 10;
+        
+        // Check left boundary
+        if (left - (tooltipWidth / 2) < margin) {
+            left = margin + (tooltipWidth / 2);
+        }
+        
+        // Check right boundary
+        if (left + (tooltipWidth / 2) > viewportWidth - margin) {
+            left = viewportWidth - margin - (tooltipWidth / 2);
+        }
+        
+        // Check top boundary - if tooltip would go off top, show below instead
+        if (top < margin) {
+            top = rect.bottom + 8;
+            position = 'below';
+            tooltip.setAttribute('data-position', 'below');
+        } else {
+            tooltip.removeAttribute('data-position');
+        }
+        
+        tooltip.style.top = top + 'px';
+        tooltip.style.left = left + 'px';
+        tooltip.style.transform = 'translateX(-50%)';
+        
+        if (!wasVisible) {
+            tooltip.style.display = '';
+        }
+    }
+    
+    function showTooltip(button) {
+        const tooltip = button.nextElementSibling;
+        if (tooltip && tooltip.classList.contains('custom-tooltip')) {
+            // Position tooltip before showing
+            positionTooltip(button, tooltip);
+            tooltip.style.opacity = '1';
+            tooltip.style.visibility = 'visible';
+        }
+    }
+    
+    function hideTooltip(button) {
+        const tooltip = button.nextElementSibling;
+        if (tooltip && tooltip.classList.contains('custom-tooltip')) {
+            tooltip.style.opacity = '0';
+            tooltip.style.visibility = 'hidden';
+        }
+    }
+    
+    mutedButtons.forEach(button => {
+        // Desktop: Show tooltip on hover, hide on mouseleave (no auto-dismiss)
+        if (window.matchMedia('(hover: hover)').matches) {
+            button.addEventListener('mouseenter', function() {
+                showTooltip(this);
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                hideTooltip(this);
+            });
+            
+            // Reposition tooltip on scroll/resize
+            window.addEventListener('scroll', function() {
+                const tooltip = button.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('custom-tooltip') && 
+                    tooltip.style.visibility === 'visible') {
+                    positionTooltip(button, tooltip);
+                }
+            }, true);
+            
+            window.addEventListener('resize', function() {
+                const tooltip = button.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('custom-tooltip') && 
+                    tooltip.style.visibility === 'visible') {
+                    positionTooltip(button, tooltip);
+                }
+            });
+        }
+        
+        // Mobile: Show/hide tooltip only on click (toggle behavior)
+        if (window.matchMedia('(hover: none)').matches) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 const tooltip = this.nextElementSibling;
                 if (tooltip && tooltip.classList.contains('custom-tooltip')) {
-                    // Toggle tooltip visibility on touch devices
                     const isVisible = tooltip.style.visibility === 'visible' || 
                                      window.getComputedStyle(tooltip).visibility === 'visible';
                     
                     if (isVisible) {
-                        tooltip.style.opacity = '0';
-                        tooltip.style.visibility = 'hidden';
+                        hideTooltip(this);
                     } else {
-                        tooltip.style.opacity = '1';
-                        tooltip.style.visibility = 'visible';
-                        
-                        // Hide tooltip after 3 seconds
-                        setTimeout(() => {
-                            tooltip.style.opacity = '0';
-                            tooltip.style.visibility = 'hidden';
-                        }, 3000);
+                        showTooltip(this);
                     }
                 }
-            }
-        });
+            });
+        }
     });
 });
 
@@ -269,5 +397,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.classList.remove('scrolled');
             }
         });
+    }
+});
+
+/* ================================
+   DYNAMIC COPYRIGHT YEAR
+   ================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    const footerCredit = document.querySelector('.footer-credit');
+    if (footerCredit) {
+        footerCredit.textContent = `Made with Coffee + overthinking. © ${new Date().getFullYear()} HeiyoJun`;
     }
 });
