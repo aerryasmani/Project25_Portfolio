@@ -107,7 +107,7 @@ body:has(.projects-hero) .logo {
 }
 
 body:has(.projects-hero) .nav-links a {
-    font-size: 28px;
+    font-size: 16px;
     font-weight: 500;
     margin-left: 40px;
     line-height: 1.5;
