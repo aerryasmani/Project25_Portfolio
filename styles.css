@@ -1984,7 +1984,7 @@ body:has(.about-hero) .greeting {
 
     .hero.home-hero {
         min-height: calc(100vh - 80px);
-        padding: 80px 20px 60px;
+        padding: 40px 36px 60px;
     }
 
     .hero-inner {
