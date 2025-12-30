@@ -95,7 +95,8 @@ body:has(.about-hero) .logo {
 }
 
 body:has(.about-hero) .nav-links a {
-    font-size: 28px;
+
+    margin-left: 40px;
     line-height: 1.5;
 }
 
@@ -111,8 +112,9 @@ body:has(.projects-hero) .logo {
 }
 
 body:has(.projects-hero) .nav-links a {
+   
     font-weight: 500;
-    margin-left: 0px;
+    margin-left: 40px;
     line-height: 1.5;
 }
 
