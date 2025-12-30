@@ -187,7 +187,7 @@ body:has(.projects-hero) .nav-links a {
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Poppins', sans-serif;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     color: #fff;
 }
