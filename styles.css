@@ -740,6 +740,7 @@ body:has(.about-hero) .greeting {
 .projects-grid-section {
     background: #f8f9fa;
     padding: 80px 50px 100px;
+    background: linear-gradient(150deg, rgba(26, 37, 197, 0.06) 0%, rgba(83, 92, 212, 0.11) 48%, rgba(255, 255, 255, 1) 97%);
 }
 
 .home-projects-section {
