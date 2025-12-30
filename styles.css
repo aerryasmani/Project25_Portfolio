@@ -783,7 +783,7 @@ body:has(.about-hero) .greeting {
     transition: all 0.5s ease-in-out;
 }
 
-.home-projects-grid .project-card:hover .project-card-front {
+.home-projects-grid .project-card:hover:not(.flipped) .project-card-front {
     transform: rotate3d(0.5, 1, 0, 30deg);
 }
 
@@ -799,7 +799,7 @@ body:has(.about-hero) .greeting {
     display: inline-block;
 }
 
-.home-projects-grid .project-card:hover .project-name {
+.home-projects-grid .project-card:hover:not(.flipped) .project-name {
     transform: translate3d(0px, 0px, 60px);
 }
 
@@ -808,7 +808,7 @@ body:has(.about-hero) .greeting {
     transform: translate3d(0px, 0px, 30px);
 }
 
-.home-projects-grid .project-card:hover .project-description {
+.home-projects-grid .project-card:hover:not(.flipped) .project-description {
     transform: translate3d(0px, 0px, 60px);
 }
 
@@ -817,7 +817,7 @@ body:has(.about-hero) .greeting {
     transform: translate3d(0px, 0px, 25px);
 }
 
-.home-projects-grid .project-card:hover .project-tools-text {
+.home-projects-grid .project-card:hover:not(.flipped) .project-tools-text {
     transform: translate3d(0px, 0px, 50px);
 }
 
@@ -826,7 +826,7 @@ body:has(.about-hero) .greeting {
     transform: translate3d(0px, 0px, 20px);
 }
 
-.home-projects-grid .project-card:hover .project-actions {
+.home-projects-grid .project-card:hover:not(.flipped) .project-actions {
     transform: translate3d(0px, 0px, 50px);
 }
 
@@ -835,8 +835,8 @@ body:has(.about-hero) .greeting {
     transition: all 0.5s ease-in-out;
 }
 
-.home-projects-grid .project-card:hover .project-actions .project-btn-outline,
-.home-projects-grid .project-card:hover .project-actions .project-btn-filled {
+.home-projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-outline,
+.home-projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-filled {
     transform: translate3d(0px, 0px, 10px);
 }
 
@@ -868,6 +868,78 @@ body:has(.about-hero) .greeting {
     gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
+}
+
+/* ================================
+   3D CARD EFFECT FOR PROJECTS GRID
+   ================================ */
+.projects-grid .project-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.projects-grid .project-card-front {
+    transform-style: preserve-3d;
+    background: white;
+    box-shadow: rgba(142, 142, 142, 0.3) 0px 30px 30px -10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-card-front {
+    transform: rotate3d(0.5, 1, 0, 30deg);
+}
+
+.projects-grid .project-content {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+}
+
+.projects-grid .project-name {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 50px);
+    display: inline-block;
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-name {
+    transform: translate3d(0px, 0px, 60px);
+}
+
+.projects-grid .project-description {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 30px);
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-description {
+    transform: translate3d(0px, 0px, 60px);
+}
+
+.projects-grid .project-tools-text {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 25px);
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-tools-text {
+    transform: translate3d(0px, 0px, 50px);
+}
+
+.projects-grid .project-actions {
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 20px);
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-actions {
+    transform: translate3d(0px, 0px, 50px);
+}
+
+.projects-grid .project-actions .project-btn-outline,
+.projects-grid .project-actions .project-btn-filled {
+    transition: all 0.5s ease-in-out;
+}
+
+.projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-outline,
+.projects-grid .project-card:hover:not(.flipped) .project-actions .project-btn-filled {
+    transform: translate3d(0px, 0px, 10px);
 }
 
 /* ================================
