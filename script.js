@@ -447,3 +447,32 @@ document.addEventListener('DOMContentLoaded', function() {
         footerCredit.textContent = `Made with Coffee + overthinking. © ${new Date().getFullYear()} HeiyoJun`;
     }
 });
+
+/* ================================
+   BUG REPORT BUTTON FUNCTIONALITY
+   ================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    const bugReportBtn = document.getElementById('bugReportBtn');
+    
+    if (bugReportBtn) {
+        bugReportBtn.addEventListener('click', function() {
+            // Option 1: Open email client
+            const subject = encodeURIComponent('Bug Report - Portfolio Website');
+            const body = encodeURIComponent(
+                `Bug Report\n\n` +
+                `Page: ${window.location.href}\n` +
+                `Browser: ${navigator.userAgent}\n` +
+                `Date: ${new Date().toLocaleString()}\n\n` +
+                `Description:\n` +
+                `[Please describe the bug here]`
+            );
+            window.location.href = `mailto:aerryasmani@protonmail.com?subject=${subject}&body=${body}`;
+            
+            // Option 2: Open a form in a new window (uncomment if you prefer this)
+            // window.open('https://forms.gle/your-google-form-id', '_blank');
+            
+            // Option 3: Show a modal (you'd need to create the modal HTML)
+            // showBugReportModal();
+        });
+    }
+});

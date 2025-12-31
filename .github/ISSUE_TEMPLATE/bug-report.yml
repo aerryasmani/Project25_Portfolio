@@ -1,0 +1,55 @@
+name: "Bug report"
+description: "Create a report to help improve the portfolio"
+title: "[BUG] "
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe the bug"
+      description: "A clear and concise description of what the bug is."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected behavior"
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: "Device"
+      placeholder: "e.g. Desktop / iPhone 12"
+
+  - type: input
+    id: os
+    attributes:
+      label: "OS"
+      placeholder: "e.g. Windows 11 / iOS 17"
+
+  - type: input
+    id: browser
+    attributes:
+      label: "Browser"
+      placeholder: "e.g. Chrome, Safari"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional context"
