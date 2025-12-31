@@ -24,20 +24,18 @@
 
     <!-- NAVBAR -->
     <header class="navbar">
-        <a href="index.html" class="logo">heiyojun.</a>
+        <a href="/" class="logo">heiyojun.</a>
+            <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
+                <span class="burger-line burger-line-1"></span>
+                <span class="burger-line burger-line-2"></span>
+                <span class="burger-line burger-line-3"></span>
+            </button>
 
-        <button class="burger-menu" id="burgerBtn" aria-label="Toggle navigation">
-            <span class="burger-line burger-line-1"></span>
-            <span class="burger-line burger-line-2"></span>
-            <span class="burger-line burger-line-3"></span>
-        </button>
-
-        <nav class="nav-links" id="navLinks">
-
-            <a href="/about">About</a>
-            <a href="https://medium.com/@BukanJun">Blog</a>
-            <a href="/projects">Work</a>
-        </nav>
+            <nav class="nav-links" id="navLinks">
+                <a href="/about">About</a>
+                <a href="https://medium.com/@BukanJun" target="_blank">Blog</a>
+                <a href="/projects">Work</a>
+            </nav>
     </header>
 
     <section class="projects-hero">
@@ -519,6 +517,14 @@
             </div>
         </div>
     </footer>
+    <a href="https://github.com/aerryasmani/Project25_Portfolio/issues/new?template=bug-report.yml"
+        class="bug-report-button"
+        target="_blank"
+        rel="noopener noreferrer">
+        <span class="button-text-full">Report Bug</span>
+        <span class="button-text-short">Report</span>
+        <span class="bug-icon">🐛</span>
+    </a>
     <script src="spa-router.js"></script>  
     <script src="script.js"></script>
 </body>
