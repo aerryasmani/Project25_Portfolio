@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <!--
+        Trivia Raya Haji
+        Hari Raya Aidiladha Interactive Quiz
+        Version 2.0 — Minimal / Editorial redesign
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Raya Haji | HeiyoJun</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/13801/13801114.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Castoro&family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold:         #C9A84C;
+            --gold-light:   #E2C46A;
+            --gold-dim:     rgba(201,168,76,0.12);
+            --gold-border:  rgba(201,168,76,0.28);
+            --green:        #3A9A63;
+            --green-dim:    rgba(58,154,99,0.12);
+            --green-border: rgba(58,154,99,0.28);
+            --bg:           #0C0C0B;
+            --surface:      #131311;
+            --border:       #1F1E1B;
+            --border-mid:   #2A2824;
+            --text:         #E8E3D8;
+            --text-muted:   #5C574F;
+            --text-soft:    #8C8680;
+            --danger:       #C0392B;
+            --success:      #27AE60;
+            --warning:      #D4A017;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── TIMER BAR (top of quiz) ──────────── */
+        #timer-bar-wrap {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--border);
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #timer-bar-wrap.visible { opacity: 1; }
+        #timer-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.9s linear, background 0.4s;
+            transform-origin: left;
+        }
+
+        /* ─── NAVBAR ───────────────────────────── */
+        .navbar {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 100;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            background: rgba(12,12,11,0.88);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-family: 'Castoro', serif;
+            font-size: 1.1rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .raya-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+        }
+
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-soft); }
+
+        /* ─── SCREENS ──────────────────────────── */
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        /* ─── SHARED LAYOUT ─────────────────────── */
+        .page {
+            min-height: 100vh;
+            padding-top: 54px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 520px;
+            padding: 4rem 1.5rem 5rem;
+            flex: 1;
+        }
+
+        /* ─── LANDING ──────────────────────────── */
+        .landing-icon {
+            font-size: 2.6rem;
+            display: block;
+            margin-bottom: 2rem;
+            line-height: 1;
+        }
+
+        .landing-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.65rem, 4vw, 2.2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .landing-intro {
+            font-size: 0.97rem;
+            color: var(--text-soft);
+            line-height: 1.75;
+            margin-bottom: 2.75rem;
+        }
+
+        .landing-intro strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Form */
+        .field-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .field-input {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-mid);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            padding: 0.6rem 0;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 0.4rem;
+        }
+        .field-input:focus { border-bottom-color: var(--gold); }
+        .field-input::placeholder { color: var(--text-muted); }
+
+        .field-error {
+            font-size: 0.78rem;
+            color: var(--danger);
+            display: none;
+            margin-bottom: 1.5rem;
+        }
+        .field-error.show { display: block; }
+
+        .rules-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 0.75rem;
+            margin-bottom: 2.5rem;
+            padding-left: 0;
+        }
+
+        .rules-note li {
+            list-style: none;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .rules-note li::before {
+            content: '–';
+            color: var(--gold);
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+
+        /* CTA button — Neumorphism raised */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(145deg, #d4b356, #be9d42);
+            color: #0d0b06;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.93rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            border: none;
+            border-radius: 8px;
+            padding: 0.78rem 1.55rem;
+            cursor: pointer;
+            box-shadow:
+                5px 5px 12px rgba(0,0,0,0.55),
+                -3px -3px 8px rgba(232,199,106,0.12);
+            transition: box-shadow 0.15s, background 0.15s;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(145deg, #dbbe62, #c5a448);
+            box-shadow:
+                3px 3px 8px rgba(0,0,0,0.5),
+                -2px -2px 6px rgba(232,199,106,0.14);
+        }
+        .cta-btn:active {
+            background: linear-gradient(145deg, #be9d42, #d4b356);
+            box-shadow:
+                inset 3px 3px 8px rgba(0,0,0,0.4),
+                inset -2px -2px 6px rgba(232,199,106,0.08);
+        }
+
+        .ghost-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            border: none;
+            padding: 0.65rem 0;
+            cursor: pointer;
+            transition: color 0.18s;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .ghost-btn:hover { color: var(--text-soft); }
+
+        .danger-btn {
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            border: none;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.18s;
+        }
+        .danger-btn:hover { color: var(--danger); }
+
+        /* ─── QUIZ ─────────────────────────────── */
+        .quiz-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .quiz-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .quiz-label strong { color: var(--text-soft); }
+
+        .quiz-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s;
+        }
+
+        .quiz-timer.warn { color: var(--warning); }
+        .quiz-timer.danger { color: var(--danger); }
+
+        .quiz-timer .t-num {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .question-text {
+            font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Answer list — minimal horizontal lines */
+        .answers-list {
+            list-style: none;
+            border-top: 1px solid var(--border);
+        }
+
+        .answer-item { border-bottom: 1px solid var(--border); }
+
+        .answer-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-soft);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.97rem;
+            line-height: 1.5;
+            padding: 1rem 0;
+            text-align: left;
+            cursor: pointer;
+            transition: color 0.15s, padding-left 0.15s;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            color: var(--text);
+            padding-left: 0.35rem;
+        }
+
+        .answer-btn:disabled { cursor: default; }
+
+        .answer-btn.correct { color: var(--success) !important; }
+        .answer-btn.wrong   { color: var(--danger) !important; }
+
+        .opt-char {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            width: 14px;
+            flex-shrink: 0;
+            transition: color 0.15s;
+        }
+
+        .answer-btn.correct .opt-char { color: var(--success); }
+        .answer-btn.wrong   .opt-char { color: var(--danger); }
+
+        .answer-btn:hover:not(:disabled) .opt-char { color: var(--gold); }
+
+        /* Player chip in quiz */
+        .quiz-player-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-player-chip span {
+            color: var(--text-soft);
+            font-weight: 500;
+        }
+
+        /* ─── RESULTS ──────────────────────────── */
+        .results-icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .results-headline {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .results-player {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .results-player strong { color: var(--text-soft); }
+
+        .results-score-line {
+            font-size: 1rem;
+            color: var(--text-soft);
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+        }
+
+        .results-score-line .score-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .results-score-line .time-val {
+            color: var(--text-soft);
+        }
+
+        .tier-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.35rem 0.85rem;
+            border-radius: 3px;
+            margin-bottom: 2rem;
+        }
+        .tier-label.a {
+            background: var(--gold-dim);
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+        }
+        .tier-label.b {
+            background: var(--green-dim);
+            border: 1px solid var(--green-border);
+            color: var(--green);
+        }
+
+        /* QR area */
+        .qr-section {
+            border-top: 1px solid var(--border);
+            padding-top: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .qr-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .qr-img-wrap {
+            width: 180px;
+            height: 180px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .qr-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Placeholder */
+        .qr-ph {
+            width: 180px;
+            height: 180px;
+            border: 1px dashed var(--border-mid);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+        }
+        .qr-ph.a { border-color: var(--gold-border); }
+        .qr-ph.b { border-color: var(--green-border); }
+        .qr-ph-icon { font-size: 2rem; opacity: 0.4; }
+        .qr-ph-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .qr-note {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .results-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* ─── LEADERBOARD ──────────────────────── */
+        .lb-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.65rem;
+        }
+
+        .lb-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.4rem;
+        }
+
+        .lb-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        /* Tier section */
+        .lb-tier { margin-bottom: 2.75rem; }
+
+        .lb-tier-head {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .lb-tier-name {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .lb-tier-name.gold { color: var(--gold); }
+        .lb-tier-name.green { color: var(--green); }
+
+        .lb-tier-rule { flex: 1; height: 1px; background: var(--border); }
+
+        /* Player rows */
+        .lb-rows { list-style: none; }
+
+        .lb-row {
+            display: grid;
+            grid-template-columns: 36px 1fr auto auto auto;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .lb-row:first-child { border-top: 1px solid var(--border); }
+
+        .lb-rank {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .lb-rank.r1 { color: #C9A84C; font-size: 1rem; }
+        .lb-rank.r2 { color: #8A8A8A; font-size: 1rem; }
+        .lb-rank.r3 { color: #8B6337; font-size: 1rem; }
+
+        .lb-name {
+            font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lb-score {
+            font-weight: 700;
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .lb-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .lb-empty {
+            padding: 1.5rem 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-top: 1px solid var(--border);
+        }
+
+        /* QR pair on leaderboard */
+        .lb-qr-section {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .lb-qr-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.25rem;
+        }
+
+        .lb-qr-item { text-align: left; }
+
+        .lb-qr-item-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+        .lb-qr-item-label.gold { color: var(--gold); }
+        .lb-qr-item-label.green { color: var(--green); }
+
+        .lb-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* ─── FOOTER ────────────────────────────── */
+        .page-footer {
+            width: 100%;
+            max-width: 520px;
+            padding: 1.5rem;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+        .page-footer a { color: var(--text-muted); text-decoration: none; }
+        .page-footer a:hover { color: var(--text-soft); }
+
+        /* ─── TRANSITIONS ──────────────────────── */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .screen.active .content {
+            animation: fadeIn 0.35s ease both;
+        }
+
+        /* ─── TIME CLASSIFICATION ──────────────── */
+        .results-time-line {
+            font-size: 0.97rem;
+            color: var(--text-soft);
+            margin-bottom: 0.85rem;
+        }
+        .results-time-line .time-val {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .tc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.75rem;
+        }
+        .tc-lightning { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.35); color: var(--gold); }
+        .tc-fast      { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);  color: #B89A44; }
+        .tc-ontrack   { background: rgba(58,154,99,0.1);  border: 1px solid rgba(58,154,99,0.25);  color: var(--green); }
+        .tc-justintime{ background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.25); color: var(--warning); }
+
+        /* ─── RESULTS RANK ──────────────────────── */
+        .results-rank-line {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        .results-rank-line .rank-num {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-soft);
+        }
+
+        /* ─── LEADERBOARD BETUL COLUMN ──────────── */
+        .lb-row {
+            grid-template-columns: 36px 1fr auto auto auto;
+        }
+        .lb-correct {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        /* ─── RESPONSIVE ────────────────────────── */
+        @media (max-width: 480px) {
+            .content { padding: 2.5rem 1.25rem 4rem; }
+            .navbar { padding: 0 1.25rem; }
+            .nav-links { display: none; }
+            .lb-qr-pair { grid-template-columns: 1fr; gap: 1.5rem; }
+            .lb-row { grid-template-columns: 30px 1fr auto auto auto; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Timer bar -->
+    <div id="timer-bar-wrap">
+        <div id="timer-bar-fill"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════════ -->
+    <header class="navbar">
+        <a href="/" class="nav-brand">
+            <span class="logo">heiyojun.</span>
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/13801/13801114.png"
+                alt="Raya Haji"
+                class="raya-icon"
+            >
+        </a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/project.html">Projects</a>
+        </nav>
+    </header>
+
+
+    <!-- ═══════════════════════════════════════
+         SCREEN 1 — LANDING
+    ═══════════════════════════════════════ -->
+    <div id="screen-landing" class="screen active">
+        <div class="page">
+            <div class="content">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/13801/13801114.png"
+                    alt="Kaabah"
+                    class="landing-icon"
+                    style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;"
+                >
+
+                <h1 class="landing-title">
+                    Perjalanan Ilmu<br>Raya Haji
+                </h1>
+
+                <p class="landing-intro">
+                    Jawab 10 soalan berkaitan Hari Raya Aidiladha.<br>
+                    Setiap soalan diberi masa <strong>30 saat</strong> — jawab
+                    seberapa yang anda tahu, setiap penyertaan tetap bermakna.
+                </p>
+
+                <label class="field-label" for="player-name">Nama anda</label>
+                <input
+                    type="text"
+                    id="player-name"
+                    class="field-input"
+                    placeholder="Masukkan nama..."
+                    maxlength="35"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+                <p class="field-error" id="name-error">Nama diperlukan sebelum memulakan.</p>
+
+                <ul class="rules-note">
+                    <li>10 soalan disusun secara rawak bagi setiap peserta</li>
+                    <li>Masa dihitung dari saat pertama soalan dipaparkan</li>
+                    <li>Top 5 dengan 8/10+ betul — akan dipaparkan di leaderboard</li>
+                </ul>
+
+                <button class="cta-btn" onclick="startGame()">
+                    Mulakan perjalanan
+                </button>
+
+            </div>
+            <div class="page-footer">
+                Made with Coffee + overthinking. © 2026 HeiyoJun
+                &nbsp;·&nbsp; Icon by <a href="https://www.flaticon.com/authors/good-ware" target="_blank" rel="noopener">Good Ware</a> / <a href="https://www.flaticon.com/" target="_blank" rel="noopener">Flaticon</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         SCREEN 2 — QUIZ
+    ═══════════════════════════════════════ -->
+    <div id="screen-quiz" class="screen">
+        <div class="page">
+            <div class="content">
+
+                <div class="quiz-player-chip">
+                    Pemain: <span id="quiz-player-name">—</span>
+                </div>
+
+                <div class="quiz-meta">
+                    <div class="quiz-label">
+                        Soal <strong id="quiz-num">1</strong> daripada 10
+                    </div>
+                    <div class="quiz-timer" id="quiz-timer">
+                        <span class="t-num" id="timer-num">30</span>
+                        <span>saat</span>
+                    </div>
+                </div>
+
+                <p class="question-text" id="question-text"></p>
+
+                <ul class="answers-list" id="answers-list"></ul>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         SCREEN 3 — RESULTS + LEADERBOARD
+    ═══════════════════════════════════════ -->
+    <div id="screen-results" class="screen">
+        <div class="page">
+            <div class="content">
+
+                <!-- ── Player result ── -->
+                <span class="results-icon" id="results-icon">🎉</span>
+
+                <h1 class="results-headline" id="results-headline">Tahniah!</h1>
+                <p class="results-player">
+                    Pemain: <strong id="results-name">—</strong>
+                </p>
+
+                <!-- Step 1: Score -->
+                <div class="results-score-line" id="results-score-line"></div>
+
+                <!-- Step 2 + 3: Time + Classification -->
+                <div id="results-time-class"></div>
+
+                <!-- Step 4: QR -->
+                <div class="qr-section">
+                    <p class="qr-eyebrow">Hadiah anda</p>
+                    <div id="results-qr-zone"></div>
+                    <p class="qr-note" id="results-qr-note">
+                        — Gantikan dengan imej QR TNG sebenar —
+                    </p>
+                </div>
+
+                <!-- Step 5: Rank -->
+                <div id="results-rank"></div>
+
+                <!-- ── Divider ── -->
+                <div style="border-top:1px solid var(--border);margin:2.5rem 0"></div>
+
+                <!-- ── Leaderboard ── -->
+                <p class="lb-eyebrow">Kedudukan semasa</p>
+                <h2 class="lb-title" style="font-size:clamp(1.2rem,3vw,1.6rem);margin-bottom:0.35rem;">Papan Markah</h2>
+                <p class="lb-desc">Disusun mengikut skor tertinggi — formula: (betul × 100) − masa (saat).</p>
+
+                <div class="lb-tier">
+                    <div class="lb-tier-head">
+                        <span class="lb-tier-name gold">Tier A · Juara Pantas</span>
+                        <div class="lb-tier-rule"></div>
+                    </div>
+                    <ul class="lb-rows" id="lb-tier-a"></ul>
+                </div>
+
+                <div class="lb-tier">
+                    <div class="lb-tier-head">
+                        <span class="lb-tier-name green">Tier B · Peserta Aktif</span>
+                        <div class="lb-tier-rule"></div>
+                    </div>
+                    <ul class="lb-rows" id="lb-tier-b"></ul>
+                </div>
+
+                <!-- ── Actions ── -->
+                <div class="results-actions">
+                    <button class="cta-btn" onclick="nextPlayer()">
+                        Pemain seterusnya &nbsp;→
+                    </button>
+                    <button class="danger-btn" onclick="confirmReset()">
+                        Reset semua data
+                    </button>
+                </div>
+
+            </div>
+            <div class="page-footer">
+                Made with Coffee + overthinking. © 2026 HeiyoJun
+                &nbsp;·&nbsp; Icon by <a href="https://www.flaticon.com/authors/good-ware" target="_blank" rel="noopener">Good Ware</a> / <a href="https://www.flaticon.com/" target="_blank" rel="noopener">Flaticon</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         JAVASCRIPT
+    ═══════════════════════════════════════ -->
+    <script>
+        'use strict';
+
+        /* ── CONFIG ─────────────────────────────── */
+        const TIMER_SECS  = 30;
+        const STORAGE_KEY = 'raya-haji-trivia-2026-v2';
+
+        /* ── QUESTION BANK ───────────────────────── */
+        const QUESTIONS = [
+            {
+                q: 'Hari Raya Aidiladha disambut pada tarikh berapa dalam bulan Zulhijjah?',
+                opts: ['1 Zulhijjah', '10 Zulhijjah', '14 Zulhijjah', '27 Zulhijjah'],
+                ans: 1
+            },
+            {
+                q: 'Siapakah anak Nabi Ibrahim a.s. yang hampir disembelih atas perintah Allah S.W.T.?',
+                opts: ['Nabi Ishak a.s.', 'Nabi Yusuf a.s.', 'Nabi Ismail a.s.', 'Nabi Yaakub a.s.'],
+                ans: 2
+            },
+            {
+                q: 'Di manakah ibadah Wukuf dilakukan semasa menunaikan Haji?',
+                opts: ['Mina', 'Muzdalifah', 'Padang Arafah', 'Masjidil Haram'],
+                ans: 2
+            },
+            {
+                q: 'Berapakah bilangan pusingan Tawaf mengelilingi Kaabah?',
+                opts: ['5 pusingan', '3 pusingan', '10 pusingan', '7 pusingan'],
+                ans: 3
+            },
+            {
+                q: 'Haiwan manakah yang TIDAK boleh dijadikan haiwan Korban?',
+                opts: ['Kambing', 'Lembu', 'Unta', 'Ayam'],
+                ans: 3
+            },
+            {
+                q: 'Apakah nama ibadah melempar batu yang dilakukan di Mina semasa Haji?',
+                opts: ['Saie', 'Tawaf', 'Wukuf', 'Jamrah'],
+                ans: 3
+            },
+            {
+                q: 'Berapa harikah Hari Tasyrik yang dirayakan selepas Hari Raya Aidiladha?',
+                opts: ['2 hari', '5 hari', '3 hari', '7 hari'],
+                ans: 2
+            },
+            {
+                q: 'Apakah nama telaga yang berkaitan dengan kisah Siti Hajar dan Nabi Ismail di Makkah?',
+                opts: ['Telaga Bir Ali', 'Telaga Zamzam', 'Telaga Salsabila', 'Telaga Kauthar'],
+                ans: 1
+            },
+            {
+                q: 'Berapa kali minima seseorang Muslim yang mampu wajib menunaikan Haji dalam hidupnya?',
+                opts: ['2 kali', '5 kali', 'Setiap tahun', '1 kali'],
+                ans: 3
+            },
+            {
+                q: 'Apakah nama rukun Haji yang dilakukan antara Bukit Safa dan Marwah?',
+                opts: ['Tawaf', 'Wukuf', 'Saie', 'Tahallul'],
+                ans: 2
+            }
+        ];
+
+        /* ── GAME STATE ──────────────────────────── */
+        let player     = null;
+        let questions  = [];
+        let qIndex     = 0;
+        let score      = 0;
+        let totalMs    = 0;
+        let qStartTime = 0;
+        let timerId    = null;
+        let secsLeft   = TIMER_SECS;
+        let didAnswer  = false;
+
+        /* ── UTILS ───────────────────────────────── */
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Show timer bar only during quiz
+            const wrap = document.getElementById('timer-bar-wrap');
+            wrap.classList.toggle('visible', id === 'screen-quiz');
+        }
+
+        function fmtTime(ms) {
+            const s = ms / 1000;
+            if (s < 60) return s.toFixed(1) + 's';
+            const m = Math.floor(s / 60);
+            return `${m}m ${(s % 60).toFixed(1)}s`;
+        }
+
+        function esc(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function loadScores() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+            catch { return []; }
+        }
+
+        function saveScores(arr) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+
+        function ranked(arr) {
+            // Sort by calculatedScore desc; tiebreak: earlier submission (lower id) wins
+            return [...arr].sort((a, b) => b.calculatedScore - a.calculatedScore || a.id - b.id);
+        }
+
+        /* ── TIME CLASSIFICATION ─────────────────── */
+        function timeClass(ms) {
+            const s = ms / 1000;
+            if (s < 90)  return { label: 'Lightning Fast', cls: 'tc-lightning' };
+            if (s < 150) return { label: 'Fast',           cls: 'tc-fast'      };
+            if (s < 240) return { label: 'On Track',       cls: 'tc-ontrack'   };
+            return               { label: 'Just In Time',  cls: 'tc-justintime'};
+        }
+
+        /* ── TIMER ───────────────────────────────── */
+        function setTimerUI(secs) {
+            // Bar
+            const fill = document.getElementById('timer-bar-fill');
+            fill.style.width = `${(secs / TIMER_SECS) * 100}%`;
+
+            // Colour
+            if (secs <= 5) {
+                fill.style.background = '#C0392B';
+            } else if (secs <= 10) {
+                fill.style.background = '#D4A017';
+            } else {
+                fill.style.background = 'var(--gold)';
+            }
+
+            // Countdown text + colour class
+            const timerEl = document.getElementById('quiz-timer');
+            const numEl   = document.getElementById('timer-num');
+            numEl.textContent = secs;
+            timerEl.className = 'quiz-timer' +
+                (secs <= 5 ? ' danger' : secs <= 10 ? ' warn' : '');
+        }
+
+        /* ── LANDING ─────────────────────────────── */
+        function startGame() {
+            const name  = document.getElementById('player-name').value.trim();
+            const errEl = document.getElementById('name-error');
+
+            if (!name) {
+                errEl.classList.add('show');
+                document.getElementById('player-name').focus();
+                return;
+            }
+            errEl.classList.remove('show');
+
+            player    = { id: Date.now(), name, correctCount: 0, timeMs: 0, calculatedScore: 0 };
+            questions = [...QUESTIONS].sort(() => Math.random() - 0.5);
+            qIndex    = 0;
+            score     = 0;
+            totalMs   = 0;
+
+            document.getElementById('quiz-player-name').textContent = name;
+            showScreen('screen-quiz');
+            loadQuestion();
+        }
+
+        document.getElementById('player-name').addEventListener('keydown', e => {
+            if (e.key === 'Enter') startGame();
+        });
+
+        /* ── QUIZ ────────────────────────────────── */
+        function loadQuestion() {
+            didAnswer = false;
+            const q    = questions[qIndex];
+            const num  = qIndex + 1;
+            const OPTS = ['A', 'B', 'C', 'D'];
+
+            document.getElementById('quiz-num').textContent = num;
+            document.getElementById('question-text').textContent = q.q;
+
+            // Build answer list
+            const list = document.getElementById('answers-list');
+            list.innerHTML = '';
+            q.opts.forEach((opt, i) => {
+                const li  = document.createElement('li');
+                li.className = 'answer-item';
+
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.innerHTML = `<span class="opt-char">${OPTS[i]}</span>${esc(opt)}`;
+                btn.addEventListener('click', () => pickAnswer(i));
+
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+
+            // Timer
+            secsLeft   = TIMER_SECS;
+            qStartTime = Date.now();
+            setTimerUI(TIMER_SECS);
+            clearInterval(timerId);
+
+            timerId = setInterval(() => {
+                secsLeft--;
+                setTimerUI(Math.max(secsLeft, 0));
+
+                if (secsLeft <= 0) {
+                    clearInterval(timerId);
+                    if (!didAnswer) {
+                        didAnswer = true;
+                        totalMs += TIMER_SECS * 1000;
+                        revealCorrect(q.ans);
+                        setTimeout(advance, 1200);
+                    }
+                }
+            }, 1000);
+        }
+
+        function revealCorrect(correctIdx) {
+            document.querySelectorAll('#answers-list .answer-btn').forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === correctIdx) btn.classList.add('correct');
+            });
+        }
+
+        function pickAnswer(idx) {
+            if (didAnswer) return;
+            didAnswer = true;
+            clearInterval(timerId);
+
+            const elapsed = Math.min(Date.now() - qStartTime, TIMER_SECS * 1000);
+            totalMs += elapsed;
+
+            const q    = questions[qIndex];
+            const btns = document.querySelectorAll('#answers-list .answer-btn');
+            btns.forEach(b => { b.disabled = true; });
+
+            if (idx === q.ans) {
+                score++;
+                btns[idx].classList.add('correct');
+            } else {
+                btns[idx].classList.add('wrong');
+                btns[q.ans].classList.add('correct');
+            }
+
+            setTimeout(advance, 950);
+        }
+
+        function advance() {
+            qIndex++;
+            if (qIndex >= questions.length) {
+                finishQuiz();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        /* ── RESULTS ─────────────────────────────── */
+        function finishQuiz() {
+            clearInterval(timerId);
+
+            // Compute formula score: (correct × 100) − time_seconds
+            player.correctCount    = score;
+            player.timeMs          = totalMs;
+            player.calculatedScore = (score * 100) - (totalMs / 1000);
+
+            const all = loadScores();
+            all.push(player);
+            saveScores(all);
+
+            // Rank by calculatedScore; tiebreak by submission time
+            const sorted     = ranked(all);
+            const playerRank = sorted.findIndex(p => p.id === player.id) + 1;
+
+            // QR A: 8+ correct AND top-5 rank; everyone else gets QR B
+            const isTierA = player.correctCount >= 8 && playerRank <= 5;
+
+            renderResults(isTierA, playerRank);
+        }
+
+        function renderResults(isTierA, playerRank) {
+            showScreen('screen-results');
+
+            // Headline
+            const perfect = score === 10;
+            const good    = score >= 7;
+            document.getElementById('results-icon').textContent =
+                perfect ? '🌟' : good ? '🎉' : '👍';
+            document.getElementById('results-headline').textContent =
+                perfect ? 'Sempurna!' : good ? 'Tahniah!' : 'Syabas mencuba!';
+            document.getElementById('results-name').textContent = player.name;
+
+            // Step 1: Score
+            document.getElementById('results-score-line').innerHTML = `
+                Anda menjawab
+                <span class="score-num">${player.correctCount}/10</span>
+                soalan dengan betul.`;
+
+            // Step 2 + 3: Time + Classification
+            const tc = timeClass(totalMs);
+            document.getElementById('results-time-class').innerHTML = `
+                <div class="results-time-line">
+                    Diselesaikan dalam
+                    <span class="time-val">${fmtTime(totalMs)}</span>
+                </div>
+                <div class="tc-badge ${tc.cls}">${tc.label}</div>`;
+
+            // Step 4: QR
+            const qrZone = document.getElementById('results-qr-zone');
+            const qrNote = document.getElementById('results-qr-note');
+
+            if (isTierA) {
+                /*
+                 * To use a real image, replace the div below with:
+                 * qrZone.innerHTML = '<div class="qr-img-wrap"><img src="qr-tier-a.png" alt="QR Tier A"></div>';
+                 */
+                qrZone.innerHTML = `
+                    <div class="qr-ph a">
+                        <span class="qr-ph-icon">📱</span>
+                        <div class="qr-ph-label">QR Tier A<br>
+                            <span style="color:var(--gold);font-size:0.65rem">TNG eWallet · Juara Pantas</span>
+                        </div>
+                    </div>`;
+                qrNote.textContent = '— Gantikan dengan imej QR TNG Tier A sebenar —';
+            } else {
+                /*
+                 * To use a real image, replace the div below with:
+                 * qrZone.innerHTML = '<div class="qr-img-wrap"><img src="qr-tier-b.png" alt="QR Tier B"></div>';
+                 */
+                qrZone.innerHTML = `
+                    <div class="qr-ph b">
+                        <span class="qr-ph-icon">📱</span>
+                        <div class="qr-ph-label">QR Tier B<br>
+                            <span style="color:var(--green);font-size:0.65rem">TNG eWallet · Peserta Aktif</span>
+                        </div>
+                    </div>`;
+                qrNote.textContent = '— Gantikan dengan imej QR TNG Tier B sebenar —';
+            }
+
+            // Step 5: Rank
+            document.getElementById('results-rank').innerHTML = `
+                <div class="results-rank-line">
+                    Kedudukan anda: <span class="rank-num">#${playerRank}</span>
+                </div>`;
+
+            // Render leaderboard inline below the results
+            renderLeaderboard();
+        }
+
+        /* ── LEADERBOARD ──────────────────────────── */
+        function renderLeaderboard() {
+            const all    = loadScores();
+            const sorted = ranked(all);
+
+            // Tier A: correctCount >= 8 AND rank <= 5
+            const tierA    = sorted.filter((p, i) => p.correctCount >= 8 && (i + 1) <= 5);
+            const tierAIds = new Set(tierA.map(p => p.id));
+            const tierB    = sorted.filter(p => !tierAIds.has(p.id));
+
+            const MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' };
+
+            function buildRows(players, startRank) {
+                if (!players.length) {
+                    return '<li class="lb-empty">Belum ada peserta.</li>';
+                }
+                return players.map((p, i) => {
+                    const rank   = startRank + i;
+                    const rClass = rank <= 3 ? `r${rank}` : '';
+                    const medal  = MEDALS[rank] || rank;
+                    return `
+                        <li class="lb-row">
+                            <span class="lb-rank ${rClass}">${medal}</span>
+                            <span class="lb-name">${esc(p.name)}</span>
+                            <span class="lb-score">${Math.round(p.calculatedScore)}</span>
+                            <span class="lb-correct">${p.correctCount}/10</span>
+                            <span class="lb-time">${fmtTime(p.timeMs)}</span>
+                        </li>`;
+                }).join('');
+            }
+
+            document.getElementById('lb-tier-a').innerHTML = buildRows(tierA, 1);
+            document.getElementById('lb-tier-b').innerHTML = buildRows(tierB, tierA.length + 1);
+        }
+
+        /* ── FLOW ────────────────────────────────── */
+        function nextPlayer() {
+            clearInterval(timerId);
+            document.getElementById('player-name').value = '';
+            player  = null;
+            score   = 0;
+            totalMs = 0;
+            qIndex  = 0;
+            showScreen('screen-landing');
+        }
+
+        function confirmReset() {
+            if (window.confirm('Padam semua data papan markah? Tindakan ini tidak boleh dibatalkan.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                renderLeaderboard();
+            }
+        }
+    </script>
+
+</body>
+</html>
