@@ -417,8 +417,7 @@ body:has(.about-hero) .burger-line {
     align-items: stretch;
     max-width: 820px;
     margin: 0 auto;
-    background: linear-gradient(135deg, rgba(26, 37, 197, 0.05), rgba(255, 215, 0, 0.08));
-    border: 1px solid rgba(26, 37, 197, 0.12);
+    background: rgba(26, 37, 197, 0.08);
     border-radius: 20px;
     padding: 36px 20px;
 }
