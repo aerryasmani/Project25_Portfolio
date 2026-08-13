@@ -406,8 +406,8 @@ body:has(.about-hero) .burger-line {
 
 /* Impact Metrics Strip */
 .impact-strip {
-    background: #FFFFFF;
-    padding: 0 50px 70px;
+    background: #1A25C5;
+    padding: 50px;
     width: 100%;
 }
 
@@ -417,9 +417,6 @@ body:has(.about-hero) .burger-line {
     align-items: stretch;
     max-width: 820px;
     margin: 0 auto;
-    background: rgba(26, 37, 197, 0.08);
-    border-radius: 20px;
-    padding: 36px 20px;
 }
 
 .impact-strip .stat {
@@ -433,7 +430,7 @@ body:has(.about-hero) .burger-line {
 }
 
 .impact-strip .stat + .stat {
-    border-left: 1px solid rgba(26, 37, 197, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .impact-strip .stat-number {
@@ -441,13 +438,13 @@ body:has(.about-hero) .burger-line {
     font-size: 2.5rem;
     font-weight: 600;
     line-height: 1;
-    color: #1A25C5;
+    color: #FFD700;
 }
 
 .impact-strip .stat-label {
     font-family: 'Outfit', sans-serif;
     font-size: 0.85rem;
-    color: rgba(0, 0, 0, 0.55);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 /* About Hero */
@@ -2171,13 +2168,12 @@ body:has(.about-hero) .burger-line {
     }
 
     .impact-strip {
-        padding: 0 24px 48px;
+        padding: 36px 24px;
     }
 
     .impact-strip-inner {
         flex-direction: column;
         gap: 20px;
-        padding: 28px 24px;
     }
 
     .impact-strip .stat {
@@ -2186,7 +2182,7 @@ body:has(.about-hero) .burger-line {
 
     .impact-strip .stat + .stat {
         border-left: none;
-        border-top: 1px solid rgba(26, 37, 197, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
         padding-top: 16px;
     }
 
